@@ -130,7 +130,7 @@ estilos base → verificación.
     archivos de fuente servidos desde el propio sitio y ninguna referencia a
     `fonts.googleapis.com` ni `fonts.gstatic.com`.
 
-### [ ] T05 — Estilos base globales
+### [x] T05 — Estilos base globales
 
 - **Criterios**: CA-4.1, CA-4.2, CA-4.3, CA-4.4, CA-4.5
 - **Diseño**: secciones "Estilos base" y "Fondo de página" de `design.md`; artboards
@@ -197,3 +197,6 @@ estilos base → verificación.
 | 2026-09-13 | Implementación (T02) | `vitest.config.ts` modificado (archivo no listado, autorizado por el usuario): `test.css.include` para `src/styles/*.css` | Vitest vacía los CSS importados con `?raw` por defecto; T05 también lo necesita para `base.css` |
 | 2026-09-13 | Implementación (T04) | Opciones de fuente escritas en línea en cada familia (sin objeto compartido) | `astro check` exige tuplas no vacías en `styles`/`subsets`; un objeto compartido las ampliaba a arrays |
 | 2026-09-13 | Implementación (T04) | Google sirve Geist y Geist Mono como fuentes variables: un woff2 por familia para todos los pesos | Verificado en `dist/` (2 archivos, `@font-face` por peso con `swap`) |
+| 2026-09-13 | Implementación (T05) | Halo pintado una vez y anclado al viewport (`background-repeat: no-repeat, repeat, repeat`; `background-attachment: fixed, scroll, scroll`); documentado en `design.md` ("Fondo de página", archivo no listado, autorizado por el usuario) | En la revisión visual el halo se repetía en franjas: el diseño no definía repetición ni anclaje de las capas |
+| 2026-09-13 | Implementación (T05) | Revisión móvil hecha con un iframe de 390px en Chrome | Reducir la ventana a 390px desvinculaba la pestaña de la automatización |
+| 2026-09-13 | Verificación (T05) | Valores computados en Chrome: `h1` 48px / 30px y body 17px / 16px (clamp fluido correcto), grid 48px / 32px, control 44px / 48px, Geist cargada | Confirma la validez de los `calc()` pendiente desde T03; revisión visual confirmada por el usuario |

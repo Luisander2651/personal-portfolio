@@ -217,6 +217,10 @@ carga las fuentes desde Google Fonts solo para previsualizar.
 El fondo de página combina, de arriba abajo: `--page-halo`, líneas horizontales y verticales
 de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 
+- **Halo**: se pinta una sola vez (`no-repeat`), anclado al viewport (`fixed`): permanece en la
+  parte superior de la pantalla al hacer scroll.
+- **Grid**: se repite en toda la página y se desplaza con el contenido (`repeat`, `scroll`).
+
 ### Controles y componentes
 
 | Token | Modo | Móvil | Escritorio | Uso |
@@ -472,3 +476,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-13 | Valores sueltos de componentes y patrones convertidos en tokens (fondos de estados, controles, cards, código, iconos, distancias y desenfoques de movimiento, spotlight, tilt, halo, grid), con los mismos valores de los artboards de la dirección A | Regla "solo tokens" y comparación exacta de la spec 002 | canvas |
 | 2026-09-13 | Sección "Estilos base" añadida | Alcance de estilos base decidido en la spec 002 | specs/002-design-tokens |
 | 2026-09-13 | `--font-sans` y `--font-mono` referencian las variables generadas `--font-geist` y `--font-geist-mono`; pesos, `font-display` y fallbacks documentados en "Carga de fuentes" | La API de fuentes de Astro registra cada familia con nombre único (con hash), por lo que un nombre literal "Geist" no existiría (detectado en `/plan-spec 002`) | usuario, código de Astro 7 |
+| 2026-09-13 | Halo del fondo pintado una sola vez y anclado al viewport; grid repetido y desplazable | En la revisión visual de la spec 002 el halo se repetía en franjas porque la repetición y el anclaje de las capas no estaban definidos | usuario |
