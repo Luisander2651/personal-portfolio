@@ -47,7 +47,7 @@ estilos base → verificación.
 
 ## Tareas
 
-### [ ] T01 — Utilidades de test para tokens y contraste
+### [x] T01 — Utilidades de test para tokens y contraste
 
 - **Criterios**: — (soporte de CA-1.1 a CA-2.1)
 - **Diseño**: — (formato de "Convenciones de tokens" de `designs/000-design-system/design.md`)
