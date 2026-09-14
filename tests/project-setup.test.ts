@@ -32,6 +32,11 @@ describe('project setup', () => {
     });
   });
 
+  it('keeps exactly the dependencies of the foundation spec', () => {
+    expect(Object.keys(packageJson.dependencies).sort()).toEqual(['astro']);
+    expect(Object.keys(packageJson.devDependencies).sort()).toEqual(['@astrojs/check', 'typescript', 'vitest']);
+  });
+
   describe('package manager', () => {
     it('uses a Bun lockfile', () => {
       expect(lockfiles).toContain('/bun.lock');

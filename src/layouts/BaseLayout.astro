@@ -1,4 +1,6 @@
 ---
+import { Font } from 'astro:assets';
+
 interface Props {
   title: string;
   description: string;
@@ -14,6 +16,8 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <Font cssVariable="--font-geist" preload={[{ weight: 400 }]} />
+    <Font cssVariable="--font-geist-mono" />
   </head>
   <body>
     <slot />
