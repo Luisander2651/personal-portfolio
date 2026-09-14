@@ -44,7 +44,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Incorporar al sistema los tokens del hero y el reinicio de margen
+### [x] T01 — Incorporar al sistema los tokens del hero y el reinicio de margen
 
 - **Criterios**: — (soporte de CA-2.2 y CA-4.2)
 - **Diseño**: sección "Tokens a incorporar al sistema" de `designs/003-home-hero/design.md`

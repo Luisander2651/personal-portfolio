@@ -42,6 +42,10 @@ describe('base styles', () => {
     });
   });
 
+  it('removes the default body margin', () => {
+    expect(rules['body']).toMatchObject({ margin: '0' });
+  });
+
   it('sets body text color and typography', () => {
     expect(rules['body']).toMatchObject({
       color: 'var(--color-text)',

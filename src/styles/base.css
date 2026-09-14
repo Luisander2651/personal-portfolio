@@ -8,6 +8,7 @@
 }
 
 body {
+  margin: 0;
   /* Page background, top to bottom: halo (painted once, fixed to the viewport), grid lines, base color. */
   background-color: var(--color-bg);
   background-image:

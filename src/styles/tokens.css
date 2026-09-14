@@ -127,6 +127,12 @@
   --spotlight-size: 360px;
   --tilt-max: 4deg;
 
+  /* Hero */
+  --hero-min-height: 100svh;
+  --hero-card-max-width: 560px;
+  --hero-caret-width: 8px;
+  --hero-caret-height: 16px;
+
   /* Fluid (390px to 1440px) */
   --text-display-size: clamp(40px, calc(40px + (72 - 40) * ((100vw - 390px) / 1050)), 72px);
   --text-h1-size: clamp(30px, calc(30px + (48 - 30) * ((100vw - 390px) / 1050)), 48px);
@@ -149,7 +155,9 @@
   --card-padding: 20px;
   --card-gap: 14px;
   --code-padding: 14px 16px;
-  --icon-frame-size: 36px;
+  --icon-frame-size: 48px;
+  --hero-card-padding: 24px;
+  --hero-card-gap: 18px;
 }
 
 @media (min-width: 768px) {
@@ -165,6 +173,8 @@
     --card-gap: 18px;
     --code-padding: 18px 22px;
     --icon-frame-size: 52px;
+    --hero-card-padding: 40px;
+    --hero-card-gap: 24px;
   }
 }
 

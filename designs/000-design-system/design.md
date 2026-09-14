@@ -239,7 +239,18 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 | `--icon-size-sm` | fijo | `18px` | — | Iconos en botones y tarjeta del hero |
 | `--icon-size-md` | fijo | `22px` | — | Iconos enmarcados |
 | `--icon-stroke` | fijo | `1.75` | — | Grosor de trazo de iconos |
-| `--icon-frame-size` | 768 | `36px` | `52px` | Marco de icono |
+| `--icon-frame-size` | 768 | `48px` | `52px` | Marco de icono (objetivo táctil ≥ 44px) |
+
+### Hero
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--hero-min-height` | fijo | `100svh` | — | Alto mínimo del hero (pantalla completa) |
+| `--hero-card-max-width` | fijo | `560px` | — | Ancho máximo de la tarjeta del hero y del hueco del código |
+| `--hero-card-padding` | 768 | `24px` | `40px` | Padding de la tarjeta del hero |
+| `--hero-card-gap` | 768 | `18px` | `24px` | Separación entre bloques de la tarjeta del hero |
+| `--hero-caret-width` | fijo | `8px` | — | Ancho del caret de escritura |
+| `--hero-caret-height` | fijo | `16px` | — | Alto del caret de escritura |
 
 ## Componentes base
 
@@ -435,7 +446,7 @@ Artboard: `A · Luz en la oscuridad — Hero código → tarjeta` (F1, F2, F3, R
 Estilos globales que aplican a todas las páginas:
 
 - Documento con `color-scheme: dark`.
-- `body`: fondo de página (ver [Fondo de página](#fondo-de-página)), color `--color-text`,
+- `body`: `margin: 0`; fondo de página (ver [Fondo de página](#fondo-de-página)), color `--color-text`,
   `--font-sans`, `--text-body-size`, `--text-body-line-height`, `--text-body-weight`.
 - `h1`, `h2`, `h3`: sus tokens `--text-h1-*`, `--text-h2-*`, `--text-h3-*`.
 - `p`: `--text-body-*`. `small`: `--text-small-*`. `code`: `--font-mono` y `--text-code-*`.
@@ -477,3 +488,6 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-13 | Sección "Estilos base" añadida | Alcance de estilos base decidido en la spec 002 | specs/002-design-tokens |
 | 2026-09-13 | `--font-sans` y `--font-mono` referencian las variables generadas `--font-geist` y `--font-geist-mono`; pesos, `font-display` y fallbacks documentados en "Carga de fuentes" | La API de fuentes de Astro registra cada familia con nombre único (con hash), por lo que un nombre literal "Geist" no existiría (detectado en `/plan-spec 002`) | usuario, código de Astro 7 |
 | 2026-09-13 | Halo del fondo pintado una sola vez y anclado al viewport; grid repetido y desplazable | En la revisión visual de la spec 002 el halo se repetía en franjas porque la repetición y el anclaje de las capas no estaban definidos | usuario |
+| 2026-09-13 | `--icon-frame-size` pasa a `48px` en móvil (antes `36px`) | Los iconos enmarcados son interactivos y deben cumplir el objetivo táctil ≥ 44px (diseño de la spec 003) | usuario, designs/003-home-hero |
+| 2026-09-13 | Sección de tokens "Hero": `--hero-min-height`, `--hero-card-max-width`, `--hero-card-padding`, `--hero-card-gap`, `--hero-caret-width`, `--hero-caret-height` | Medidas de la composición A del hero, incorporadas al sistema en la tarea T01 del plan 003 | designs/003-home-hero |
+| 2026-09-13 | `body` con `margin: 0` en Estilos base | El hero de `--hero-min-height` desbordaba por el margen por defecto del navegador | usuario, designs/003-home-hero |
