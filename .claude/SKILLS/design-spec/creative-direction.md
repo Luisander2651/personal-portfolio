@@ -30,8 +30,10 @@ Decisiones fijadas con el usuario. Cambiarlas requiere petición explícita.
 
 ## Tecnología de animación
 - Prioridad: CSS (incl. scroll-driven animations) → View Transitions de Astro → Web
-  Animations API → **Motion** (`motion`, motion.dev) solo para secuencias que lo
-  justifiquen (p. ej. hero código → UI, scramble de texto).
+  Animations API → **Motion** (`motion`, motion.dev) solo si una spec demuestra que lo
+  anterior no basta (constitución §3).
+- El sistema de diseño resuelve el hero código → UI con Web Animations API y el scramble,
+  el spotlight y el tilt con scripts nativos mínimos (ver `designs/000-design-system/design.md`).
 
 ## Prioridades ante conflicto
 - **Rendimiento y accesibilidad ganan** sobre cualquier efecto. Lighthouse ≥ 90 se
