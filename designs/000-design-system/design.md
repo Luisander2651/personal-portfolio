@@ -118,12 +118,23 @@ Solo para estados de proyectos/formación. **Siempre acompañados de texto**, nu
 
 | Token | Modo | Móvil | Escritorio | Uso |
 |-------|------|-------|------------|-----|
-| `--font-sans` | fijo | `"Geist", ui-sans-serif, system-ui, sans-serif` | — | Contenido y titulares |
-| `--font-mono` | fijo | `"Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace` | — | Código, etiquetas, metadatos |
+| `--font-sans` | fijo | `var(--font-geist)` | — | Contenido y titulares |
+| `--font-mono` | fijo | `var(--font-geist-mono)` | — | Código, etiquetas, metadatos |
 
-Pesos cargados: Geist 400, 500 y 600; Geist Mono 400 y 500. Fuentes con licencia OFL,
-**autoalojadas** con `font-display: swap` (constitución §7). El canvas las carga desde
-Google Fonts solo para previsualizar.
+### Carga de fuentes
+
+Las familias se sirven **autoalojadas** (constitución §7). La carga de fuentes registra una
+variable CSS por familia cuyo valor es la familia autoalojada seguida de sus fallbacks; esas
+variables las genera la carga de fuentes y **no se declaran en los estilos globales**.
+
+| Familia | Variable generada | Pesos | `font-display` | Fallbacks (en orden) |
+|---------|-------------------|-------|----------------|----------------------|
+| Geist | `--font-geist` | `400`, `500`, `600` | `swap` | `ui-sans-serif`, `system-ui`, `sans-serif` |
+| Geist Mono | `--font-geist-mono` | `400`, `500` | `swap` | `ui-monospace`, `SFMono-Regular`, `Menlo`, `monospace` |
+
+Licencia OFL. La carga de fuentes puede anteponer a los fallbacks una familia de fallback
+con métricas ajustadas; los fallbacks de la tabla deben aparecer en ese orden. El canvas
+carga las fuentes desde Google Fonts solo para previsualizar.
 
 ### Escala
 
@@ -460,3 +471,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-13 | Token de selección: `--color-selection-bg` = accent al 35 %, `--color-selection-text` = `--color-text` | Spec 002 | usuario |
 | 2026-09-13 | Valores sueltos de componentes y patrones convertidos en tokens (fondos de estados, controles, cards, código, iconos, distancias y desenfoques de movimiento, spotlight, tilt, halo, grid), con los mismos valores de los artboards de la dirección A | Regla "solo tokens" y comparación exacta de la spec 002 | canvas |
 | 2026-09-13 | Sección "Estilos base" añadida | Alcance de estilos base decidido en la spec 002 | specs/002-design-tokens |
+| 2026-09-13 | `--font-sans` y `--font-mono` referencian las variables generadas `--font-geist` y `--font-geist-mono`; pesos, `font-display` y fallbacks documentados en "Carga de fuentes" | La API de fuentes de Astro registra cada familia con nombre único (con hash), por lo que un nombre literal "Geist" no existiría (detectado en `/plan-spec 002`) | usuario, código de Astro 7 |

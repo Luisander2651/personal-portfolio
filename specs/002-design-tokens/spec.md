@@ -71,7 +71,9 @@ de diseño y el código no puedan divergir.
   - **Dado** los estilos generados por el build
   - **Cuando** inspecciono las declaraciones de fuentes
   - **Entonces** existen Geist (400, 500, 600) y Geist Mono (400, 500) con
-    `font-display: swap`, y `--font-sans` y `--font-mono` incluyen los fallbacks de `design.md`
+    `font-display: swap`, registradas en las variables `--font-geist` y `--font-geist-mono`
+    con los fallbacks de la sección "Carga de fuentes" de `design.md` en su orden, y
+    `--font-sans` y `--font-mono` referencian esas variables
 - **CA-3.2**
   - **Dado** el sitio generado en `dist/`
   - **Cuando** inspecciono el HTML y el CSS
@@ -103,9 +105,10 @@ de diseño y el código no puedan divergir.
 - **CA-4.4**
   - **Dado** los estilos base
   - **Cuando** se ejecutan los tests
-  - **Entonces** `h1`, `h2`, `h3`, `p`, `small` y `code` usan respectivamente
-    `--text-h1`, `--text-h2`, `--text-h3`, `--text-body`, `--text-small` y `--text-code`
-    (este último con `--font-mono`)
+  - **Entonces** `h1`, `h2`, `h3`, `p`, `small` y `code` usan respectivamente todos los
+    tokens de su nivel (`--text-h1-*`, `--text-h2-*`, `--text-h3-*`, `--text-body-*`,
+    `--text-small-*` y `--text-code-*`, este último con `--font-mono`), según la sección
+    "Estilos base" de `design.md`
 - **CA-4.5**
   - **Dado** `BaseLayout` y el sitio generado
   - **Cuando** ejecuto `bun run build` e inspecciono `dist/index.html`
@@ -159,3 +162,5 @@ para que:
 | 2026-09-13 | Brecha | Color de selección no documentado | Fondo `--color-accent` al 35 % y texto `--color-text`, documentado en design.md | usuario |
 | 2026-09-13 | Contradicción | "Tokens = design.md" vs. valores en prosa en design.md | Normalizar design.md con `/design-spec system` antes de planificar | usuario |
 | 2026-09-13 | Brecha | Tipografía por defecto de elementos | `h1`–`h3`, `p`, `small` y `code` usan sus tokens de texto | usuario |
+| 2026-09-13 | Contradicción | Token de fuente literal vs. nombre con hash de la API de fuentes de Astro (detectado en `/plan-spec 002`) | CA-3.1: fuentes registradas en `--font-geist` / `--font-geist-mono`; `--font-sans` / `--font-mono` las referencian (design.md refinado) | usuario |
+| 2026-09-13 | Brecha | CA-4.4 nombraba tokens tipográficos anteriores a la normalización | CA-4.4 usa los grupos `--text-*-*` de cada nivel | usuario |
