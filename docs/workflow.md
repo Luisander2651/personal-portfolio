@@ -38,9 +38,9 @@ Todas las etapas comparten el mismo nombre de carpeta:
 ```
 docs/cv.md                              ← fuente única de datos profesionales
 designs/000-design-system/design.md     ← global, se crea una sola vez
-specs/002-home-hero/spec.md
-designs/002-home-hero/design.md
-plans/002-home-hero/plan.md
+specs/003-home-hero/spec.md
+designs/003-home-hero/design.md
+plans/003-home-hero/plan.md
 src/…  tests/…                          ← /implement
 ```
 
@@ -57,12 +57,13 @@ src/…  tests/…                          ← /implement
 
 Cada sección del sitio es una spec que recorre el ciclo completo:
 
-| # | Spec | Notas |
-|---|------|-------|
-| — | `/design-spec system` | Sistema de diseño global, antes de cualquier spec visual |
-| 001 | `foundation` | Proyecto Astro + Bun + Vitest, `tokens.css` desde el sistema de diseño, esquemas de contenido desde `cv.md`. Sustituye a una skill de bootstrap. Spec **sin interfaz**: su sección Diseño dice "No aplica" y salta `/design-spec` |
-| 002 | `home-hero` | Primera pantalla |
-| 003+ | proyectos, experiencia, contacto… | Una spec por sección |
+| # | Spec | Estado | Notas |
+|---|------|--------|-------|
+| 001 | `foundation` | ✅ done | Proyecto Astro + Bun + Vitest, esquemas de contenido desde `cv.md`. Sustituye a una skill de bootstrap. Spec **sin interfaz**: su sección Diseño dice "No aplica" y salta `/design-spec` |
+| — | `/design-spec system` | ✅ approved | Sistema de diseño global (`designs/000-design-system/design.md`), antes de cualquier spec visual |
+| 002 | `design-tokens` | pendiente | `tokens.css` y fuentes autoalojadas desde el sistema de diseño. Spec **sin interfaz** propia: implementa tokens, no pantallas |
+| 003 | `home-hero` | pendiente | Primera pantalla |
+| 004+ | proyectos, experiencia, contacto… | pendiente | Una spec por sección |
 
 ---
 
@@ -85,7 +86,7 @@ Cada sección del sitio es una spec que recorre el ciclo completo:
 
 ```
 /spec hero de la home con presentación profesional
-/spec 002          ← refina una spec existente
+/spec 003          ← refina una spec existente
 ```
 
 ### Qué ocurre
@@ -114,16 +115,16 @@ Cada sección del sitio es una spec que recorre el ciclo completo:
 
 ### Archivo resultante (abreviado)
 
-`specs/002-home-hero/spec.md`
+`specs/003-home-hero/spec.md`
 
 ```markdown
 ---
-id: 002
+id: 003
 title: Hero de la home
 status: active
 created: 2026-09-14
 updated: 2026-09-14
-depends_on: [001]
+depends_on: [001, 002]
 ---
 
 # Hero de la home
@@ -165,7 +166,7 @@ Nombre, rol y especialidad: sección "Perfil" de `docs/cv.md`.
 
 ## Diseño
 
-Pendiente: ejecutar `/design-spec 002`.
+Pendiente: ejecutar `/design-spec 003`.
 
 ## Fuera de alcance
 
@@ -184,13 +185,13 @@ Pendiente: ejecutar `/design-spec 002`.
 ### Paso a la siguiente etapa
 
 ✅ La spec está aprobada y en `active` (o `draft` si quieres diseñar antes de cerrarla).
-➡️ Siguiente: `/design-spec 002`.
+➡️ Siguiente: `/design-spec 003`.
 
 ---
 
 ## Etapa 2a — `/design-spec system`: sistema de diseño (una sola vez)
 
-Se ejecuta **antes del primer diseño de spec**. Si lanzas `/design-spec 002` y aún no
+Se ejecuta **antes del primer diseño de spec**. Si lanzas `/design-spec 003` y aún no
 existe `designs/000-design-system/design.md`, la skill te lo explica y crea primero el sistema.
 
 ### Qué ocurre
@@ -267,7 +268,7 @@ se incorpora el bloque de código de la dirección A.
 ### Uso
 
 ```
-/design-spec 002
+/design-spec 003
 ```
 
 ### Qué ocurre
@@ -286,13 +287,13 @@ se incorpora el bloque de código de la dirección A.
 
 ### Archivo resultante (abreviado)
 
-`designs/002-home-hero/design.md`
+`designs/003-home-hero/design.md`
 
 ```markdown
 ---
-id: 002
+id: 003
 title: Hero de la home
-spec: specs/002-home-hero/spec.md
+spec: specs/003-home-hero/spec.md
 status: approved
 canvas: https://claude.ai/…
 created: 2026-09-15
@@ -341,13 +342,13 @@ Dirección A: el bloque de código ocupa el centro y se "compila" en la tarjeta.
 
 ### Cambio que se aplica a la spec
 
-`specs/002-home-hero/spec.md`
+`specs/003-home-hero/spec.md`
 
 ```diff
  ## Diseño
 
--Pendiente: ejecutar `/design-spec 002`.
-+Diseño aprobado: [designs/002-home-hero/design.md](../../designs/002-home-hero/design.md)
+-Pendiente: ejecutar `/design-spec 003`.
++Diseño aprobado: [designs/003-home-hero/design.md](../../designs/003-home-hero/design.md)
 +· [canvas](https://claude.ai/…)
 ```
 
@@ -358,8 +359,8 @@ Dirección A: el bloque de código ocupa el centro y se "compila" en la tarjeta.
 
 ### Paso a la siguiente etapa
 
-✅ `designs/002-home-hero/design.md` en `approved` y enlazado en la spec.
-➡️ Siguiente: `/plan-spec 002`.
+✅ `designs/003-home-hero/design.md` en `approved` y enlazado en la spec.
+➡️ Siguiente: `/plan-spec 003`.
 
 ---
 
@@ -371,7 +372,7 @@ No genera código, ni diseño, ni modifica la spec.
 ### Uso
 
 ```
-/plan-spec 002          ← crea el plan, o lo actualiza si ya existe
+/plan-spec 003          ← crea el plan, o lo actualiza si ya existe
 ```
 
 ### Qué ocurre
@@ -388,14 +389,14 @@ No genera código, ni diseño, ni modifica la spec.
 
 ### Archivo resultante (abreviado)
 
-`plans/002-home-hero/plan.md`
+`plans/003-home-hero/plan.md`
 
 ```markdown
 ---
-id: 002
+id: 003
 title: Hero de la home
-spec: specs/002-home-hero/spec.md
-design: designs/002-home-hero/design.md
+spec: specs/003-home-hero/spec.md
+design: designs/003-home-hero/design.md
 status: approved
 created: 2026-09-16
 updated: 2026-09-16
@@ -461,11 +462,11 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta
 
 ### Replanificar
 
-Si la spec o el diseño cambian, `/plan-spec 002` **actualiza** el plan: conserva las
+Si la spec o el diseño cambian, `/plan-spec 003` **actualiza** el plan: conserva las
 tareas `[x]`, marca `[-]` las que ya no aplican, añade nuevas con numeración correlativa
 y registra el motivo.
 
-➡️ Siguiente: `/implement 002`.
+➡️ Siguiente: `/implement 003`.
 
 ---
 
@@ -476,8 +477,8 @@ Ejecuta **una sola tarea** del plan y se detiene. Repites el comando hasta compl
 ### Uso
 
 ```
-/implement 002          ← primera tarea [ ] del plan
-/implement 002 T04      ← una tarea concreta (avisa si se salta tareas anteriores)
+/implement 003          ← primera tarea [ ] del plan
+/implement 003 T04      ← una tarea concreta (avisa si se salta tareas anteriores)
 ```
 
 ### Qué ocurre
@@ -503,10 +504,10 @@ Ejecuta **una sola tarea** del plan y se detiene. Repites el comando hasta compl
 ### Ejemplo de commit
 
 ```
-feat(002): T02 add static hero markup
+feat(003): T02 add static hero markup
 
 Covers CA-1.1, CA-2.1
-Plan: plans/002-home-hero/plan.md
+Plan: plans/003-home-hero/plan.md
 ```
 
 ### Ejemplo de informe
@@ -516,8 +517,8 @@ Plan: plans/002-home-hero/plan.md
    Archivos: src/components/Hero.astro (nuevo), src/pages/index.astro
    Test: tests/components/hero.test.ts → CA-1.1, CA-2.1
    bun run test ✔ 8 passed · bun run build ✔
-   Commit: feat(002): T02 add static hero markup
-   Siguiente: /implement 002  → T03 Estilos del hero con tokens
+   Commit: feat(003): T02 add static hero markup
+   Siguiente: /implement 003  → T03 Estilos del hero con tokens
 ```
 
 ### Ejemplo de tarea bloqueada
@@ -526,7 +527,7 @@ Plan: plans/002-home-hero/plan.md
 ### [ ] T03 — Estilos del hero con tokens
 
 - **Bloqueo**: 2026-09-17 — design.md no define el espaciado vertical del hero en móvil —
-  ejecutar `/design-spec 002`
+  ejecutar `/design-spec 003`
 ```
 
 ### Última tarea
@@ -555,8 +556,8 @@ confirmación y sugiere `git push` y la siguiente spec.
 
 | Situación | Qué hacer |
 |-----------|-----------|
-| Cambia un requisito | `/spec 002` → refina y registra la decisión |
-| La spec cambió y afecta al diseño | `/design-spec 002` → pregunta si regenerar el canvas o solo actualizar la documentación |
+| Cambia un requisito | `/spec 003` → refina y registra la decisión |
+| La spec cambió y afecta al diseño | `/design-spec 003` → pregunta si regenerar el canvas o solo actualizar la documentación |
 | Retoques visuales finos | Edita directamente el canvas publicado (enlace en `design.md`) |
 | Cambiar la identidad visual de todo el sitio | `/design-spec system` |
 | Cambiar la dirección creativa o los clichés | Pídelo explícitamente; se editan `creative-direction.md` / `anti-cliches.md` |
