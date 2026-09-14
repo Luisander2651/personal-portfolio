@@ -80,7 +80,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T03 — Líneas del código decorativo desde `profile`
+### [x] T03 — Líneas del código decorativo desde `profile`
 
 - **Criterios**: CA-3.2, CA-3.1 (soporte)
 - **Diseño**: bloque de código de M-1 (`A · Escenario — Secuencia y enlaces`, F1–F2)
@@ -244,3 +244,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-13 | Planificación | Estilos scoped en `HomeHero.astro`, leídos en tests con `?raw` | CSS nativo scoped (constitución §6); si Vitest no lo permite, `/implement` bloquea la tarea |
 | 2026-09-13 | Planificación | JS medido con gzip de Bun | Sin dependencias nuevas |
 | 2026-09-13 | Planificación | Código decorativo con `pre-wrap` y recortado al hueco de la tarjeta | Como en los fotogramas del canvas; sin salto de layout |
+| 2026-09-14 | Implementación (T03) | Los valores del código decorativo se escriben como cadenas JavaScript escapadas (acentos intactos, comillas escapadas) | Un valor con comillas no rompe el código mostrado |
