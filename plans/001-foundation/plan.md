@@ -87,7 +87,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
   - Comprobación manual: un error de tipos temporal en `src/` hace fallar `bun run build`;
     el error se revierte y no se incluye en el commit.
 
-### [ ] T03 — Traducción de `docs/cv.md`
+### [x] T03 — Traducción de `docs/cv.md`
 
 - **Criterios**: CA-3.1
 - **Diseño**: —
@@ -240,3 +240,5 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
 | 2026-09-13 | Cambio | `status` obligatorio en `education` (TSU `completed`, Ingeniería `in-progress`) | Petición del usuario; spec 001 actualizada con el dato |
 | 2026-09-13 | Implementación (T02) | `typescript` fijado en `^6.0.3` | `@astrojs/check` 0.9.10 solo admite TypeScript `^5 \|\| ^6`; la 7.x instalada por defecto era incompatible |
 | 2026-09-13 | Implementación (T02) | Los tests leen archivos del proyecto con importaciones de Vite (`?raw`, JSON, `import.meta.glob`) en vez de `node:fs` | `astro check` revisa también `tests/`; evita añadir `@types/node`, que no está en la spec |
+| 2026-09-13 | Implementación (T03) | Traducción de `docs/cv.md` aprobada por el usuario (CA-3.1) | Incluye corrección del usuario en CI/CD: despliegue en Azure App Service |
+| 2026-09-13 | Pendiente (T03) | Categoría de habilidades "Desarrollo nativo — Android (Java/Kotlin)" propuesta por el usuario se pospone | Cambiaría a 10 categorías (CA-3.2 espera 9); se añadirá en una spec posterior vía `/spec` |
