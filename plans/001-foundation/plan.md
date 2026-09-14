@@ -71,7 +71,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
   - `bun install`, `bun run test` y `bun run build` en verde.
   - `git status` funciona en el directorio del proyecto.
 
-### [ ] T02 — Verificación de tipos en el build
+### [x] T02 — Verificación de tipos en el build
 
 - **Criterios**: CA-1.2, CA-1.3, CA-1.4
 - **Diseño**: —
@@ -238,3 +238,5 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
 | 2026-09-13 | Planificación | `profile.summary` en frontmatter | Se usa como meta description |
 | 2026-09-13 | Planificación | Tests de contenido sin `astro:content` | Independencia de los tests respecto al build |
 | 2026-09-13 | Cambio | `status` obligatorio en `education` (TSU `completed`, Ingeniería `in-progress`) | Petición del usuario; spec 001 actualizada con el dato |
+| 2026-09-13 | Implementación (T02) | `typescript` fijado en `^6.0.3` | `@astrojs/check` 0.9.10 solo admite TypeScript `^5 \|\| ^6`; la 7.x instalada por defecto era incompatible |
+| 2026-09-13 | Implementación (T02) | Los tests leen archivos del proyecto con importaciones de Vite (`?raw`, JSON, `import.meta.glob`) en vez de `node:fs` | `astro check` revisa también `tests/`; evita añadir `@types/node`, que no está en la spec |
