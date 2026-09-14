@@ -1,7 +1,7 @@
 ---
 id: 002
 title: Tokens de diseño y estilos base
-status: active
+status: done
 created: 2026-09-13
 updated: 2026-09-13
 depends_on: [001]
@@ -164,3 +164,4 @@ para que:
 | 2026-09-13 | Brecha | Tipografía por defecto de elementos | `h1`–`h3`, `p`, `small` y `code` usan sus tokens de texto | usuario |
 | 2026-09-13 | Contradicción | Token de fuente literal vs. nombre con hash de la API de fuentes de Astro (detectado en `/plan-spec 002`) | CA-3.1: fuentes registradas en `--font-geist` / `--font-geist-mono`; `--font-sans` / `--font-mono` las referencian (design.md refinado) | usuario |
 | 2026-09-13 | Brecha | CA-4.4 nombraba tokens tipográficos anteriores a la normalización | CA-4.4 usa los grupos `--text-*-*` de cada nivel | usuario |
+| 2026-09-13 | Cierre | Spec implementada y verificada (plan `plans/002-design-tokens/plan.md`, T01–T06) | Spec marcada como `done` | usuario |

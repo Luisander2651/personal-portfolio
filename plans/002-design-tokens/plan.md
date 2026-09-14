@@ -3,7 +3,7 @@ id: 002
 title: Tokens de diseño y estilos base
 spec: specs/002-design-tokens/spec.md
 design: no aplica (fuente de valores designs/000-design-system/design.md)
-status: approved
+status: done
 created: 2026-09-13
 updated: 2026-09-13
 ---
@@ -156,7 +156,7 @@ estilos base → verificación.
     con color `--color-text`, coherente con el fondo y la tipografía de los artboards de
     la dirección A.
 
-### [ ] T06 — Verificación final
+### [x] T06 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: fondo y tipografía de los artboards de la dirección A
@@ -200,3 +200,6 @@ estilos base → verificación.
 | 2026-09-13 | Implementación (T05) | Halo pintado una vez y anclado al viewport (`background-repeat: no-repeat, repeat, repeat`; `background-attachment: fixed, scroll, scroll`); documentado en `design.md` ("Fondo de página", archivo no listado, autorizado por el usuario) | En la revisión visual el halo se repetía en franjas: el diseño no definía repetición ni anclaje de las capas |
 | 2026-09-13 | Implementación (T05) | Revisión móvil hecha con un iframe de 390px en Chrome | Reducir la ventana a 390px desvinculaba la pestaña de la automatización |
 | 2026-09-13 | Verificación (T05) | Valores computados en Chrome: `h1` 48px / 30px y body 17px / 16px (clamp fluido correcto), grid 48px / 32px, control 44px / 48px, Geist cargada | Confirma la validez de los `calc()` pendiente desde T03; revisión visual confirmada por el usuario |
+| 2026-09-13 | Verificación (T06) | 278 tests y build en verde; `dist/` con hoja global de 120 tokens, estilos base, `@font-face` con `swap`, fuentes servidas desde el sitio, sin dominios externos ni JavaScript; revisión visual 390/1440px sobre `bun run preview` | Verificado por comandos y en Chrome |
+| 2026-09-13 | Verificación (T06) | Reduced motion (`--duration-fast` = `0s` con emulación en DevTools), foco visible (anillo cian con `:focus-visible` forzado en DevTools) y Lighthouse ≥ 90 en las 4 categorías | Comprobado por el usuario; el CSS minificado expresa `150ms` como `.15s` y `0ms` como `0s` (equivalentes) |
+| 2026-09-13 | Cierre | Plan marcado como `done` | Todas las tareas completadas; confirmado por el usuario |
