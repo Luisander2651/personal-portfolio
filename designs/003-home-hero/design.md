@@ -90,6 +90,12 @@ tokens de la spec 002 no quede en rojo entre el diseño y la implementación.
 | `--hero-caret-width` | fijo | `8px` | — | Ancho del caret de escritura |
 | `--hero-caret-height` | fijo | `16px` | — | Alto del caret de escritura |
 
+Cambio a incorporar en la sección **"Estilos base"** del sistema (y en `base.css`), en la
+misma tarea:
+
+- `body`: `margin: 0`, para que el hero de `--hero-min-height` ocupe exactamente la pantalla
+  sin desbordar por el margen por defecto del navegador.
+
 ## Especificación de movimiento
 
 ### M-1 — Hero código → tarjeta (patrón P-5)
@@ -180,5 +186,6 @@ tokens de la spec 002 no quede en rojo entre el diseño y la implementación.
 | 2026-09-13 | Diseño | Composición del hero | A · Escenario, sin combinar | usuario |
 | 2026-09-13 | Contradicción | `--icon-frame-size` 36px en móvil vs. objetivo táctil ≥ 44px (constitución §7) | Token del sistema a 48px en móvil / 52px en escritorio | usuario |
 | 2026-09-13 | Contradicción | Documentar tokens nuevos en el sistema 000 dejaría en rojo el test de tokens de la spec 002 | Se documentan aquí y se incorporan a 000 y `tokens.css` en la primera tarea del plan 003, en el mismo commit | usuario, constitution.md §5 |
+| 2026-09-13 | Contradicción | Hero de `100svh` vs. margen por defecto de 8px del `body` (desborda 16px); detectado en `/plan-spec 003` | Reinicio `margin: 0` del `body` en Estilos base, a incorporar al sistema junto a los tokens | usuario |
 | 2026-09-13 | Implícita | Indicador `render(profile)` | Solo desde 768px, como en los artboards; decorativo | canvas |
 | 2026-09-13 | Implícita | Técnica de animación | Web Animations API y script nativo; CSS para M-3; sin Motion | designs/000-design-system, constitution.md §3 |
