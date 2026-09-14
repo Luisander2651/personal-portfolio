@@ -151,7 +151,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
   - `bun run test` y `bun run build` en verde.
   - Revisión manual: cada dato de las entradas existe en `docs/cv.md`.
 
-### [ ] T06 — Funciones de `src/lib/`
+### [x] T06 — Funciones de `src/lib/`
 
 - **Criterios**: CA-3.4, CA-4.1
 - **Diseño**: —
