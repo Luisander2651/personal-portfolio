@@ -88,7 +88,7 @@ estilos base → verificación.
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T03 — Tokens fluidos, de breakpoint y reduced motion
+### [x] T03 — Tokens fluidos, de breakpoint y reduced motion
 
 - **Criterios**: CA-1.1 (completo), CA-1.2, CA-1.3, CA-1.4
 - **Diseño**: — (tablas de `design.md`, modos `fluido` y `768`; "Convenciones de tokens")
