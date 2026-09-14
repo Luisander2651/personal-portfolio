@@ -33,6 +33,7 @@ const validProfile = {
   linkedin: 'https://www.linkedin.com/in/example',
   summary: 'Test summary.',
   languages: [{ language: 'Español', level: 'Nativo' }],
+  featuredStack: ['Tech'],
 };
 
 const validSkill = { category: 'Test category', order: 1, items: ['Item'] };
@@ -58,7 +59,7 @@ const cases = [
 ];
 
 const requiredFields: Record<string, string[]> = {
-  profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages'],
+  profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages', 'featuredStack'],
   skills: ['category', 'order', 'items'],
   projects: ['name', 'order', 'status', 'stack'],
   experience: ['company', 'position', 'duration'],
@@ -87,6 +88,10 @@ describe('content schemas', () => {
 
     it('rejects an empty language list', () => {
       expect(failingPaths(profileSchema, { ...validProfile, languages: [] })).toContain('languages');
+    });
+
+    it('rejects an empty featured stack', () => {
+      expect(failingPaths(profileSchema, { ...validProfile, featuredStack: [] })).toContain('featuredStack');
     });
 
     it('rejects a language without level', () => {

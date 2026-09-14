@@ -102,6 +102,13 @@ describe('content entries', () => {
         expect(section).toContain(`- **${language}:** ${level}\n`);
       }
     });
+
+    it('features exactly the stack highlighted in cv.md, in order', () => {
+      expect(profile.featuredStack).toEqual(['TypeScript', 'Node.js', 'Laravel 12', 'Spring Boot']);
+      for (const technology of profile.featuredStack ?? []) {
+        expect(cv, technology).toContain(technology);
+      }
+    });
   });
 
   describe('skills', () => {

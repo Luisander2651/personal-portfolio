@@ -65,7 +65,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Stack destacado en `profile`
+### [x] T02 — Stack destacado en `profile`
 
 - **Criterios**: CA-1.3
 - **Diseño**: —

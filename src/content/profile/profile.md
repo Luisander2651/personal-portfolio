@@ -11,4 +11,9 @@ languages:
     level: "Nativo"
   - language: "Inglés"
     level: "Competencia profesional (B2)"
+featuredStack:
+  - "TypeScript"
+  - "Node.js"
+  - "Laravel 12"
+  - "Spring Boot"
 ---

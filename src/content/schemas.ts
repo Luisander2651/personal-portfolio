@@ -14,6 +14,7 @@ export const profileSchema = z.object({
   linkedin: z.url(),
   summary: text,
   languages: nonEmptyList(z.object({ language: text, level: text })),
+  featuredStack: nonEmptyList(text),
 });
 
 export const skillSchema = z.object({
