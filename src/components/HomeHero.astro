@@ -23,8 +23,24 @@ const links = [
 ---
 
 <section class="hero" aria-labelledby="hero-name">
+  <script is:inline>
+    // M-1 pre-paint mark: hides the card before it is painted, only when the animation will run.
+    (() => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const root = document.documentElement;
+      const styles = getComputedStyle(root);
+      const total = ['--duration-hero-type', '--duration-hero-compile', '--duration-reveal', '--duration-scramble']
+        .map((token) => styles.getPropertyValue(token).trim())
+        .reduce((sum, value) => sum + parseFloat(value) * (value.endsWith('ms') ? 1 : 1000), 0);
+      root.dataset.heroMotion = 'pending';
+      // Fallback: if the animation has not started in time, show the static card.
+      setTimeout(() => {
+        if (root.dataset.heroMotion === 'pending') delete root.dataset.heroMotion;
+      }, total);
+    })();
+  </script>
   <div class="hero-slot">
-    <pre class="hero-code" aria-hidden="true" hidden><code>{codeLines.map((line) => <span class="code-line">{line.map(({ text, kind }) => <span class={`code-${kind}`}>{text}</span>)}</span>)}</code></pre>
+    <pre class="hero-code" aria-hidden="true" hidden><code><span class="hero-caret"></span>{codeLines.map((line) => <span class="code-line">{line.map(({ text, kind }) => <span class={`code-${kind}`}>{text}</span>)}</span>)}</code></pre>
 
     <article class="hero-card">
       <div class="hero-meta">
@@ -125,6 +141,15 @@ const links = [
 
   .code-line {
     display: block;
+  }
+
+  .hero-caret {
+    display: inline-block;
+    width: var(--hero-caret-width);
+    height: var(--hero-caret-height);
+    margin-inline-start: var(--space-1);
+    vertical-align: middle;
+    background-color: var(--color-glow);
   }
 
   .code-keyword {
@@ -315,4 +340,109 @@ const links = [
       display: inline;
     }
   }
+
+  /* M-1 initial state, only while the inline script marks the document. Without JavaScript or
+     with reduced motion the mark never exists and the card is shown directly. */
+  :global(html[data-hero-motion]) .hero-code[hidden] {
+    display: block;
+  }
+
+  :global(html[data-hero-motion]) .code-line {
+    opacity: 0;
+  }
+
+  :global(html[data-hero-motion]) .hero-card {
+    opacity: 0;
+    transform: translateY(var(--hero-card-distance));
+  }
 </style>
+
+<script>
+  import { parseCssDuration, scrambleText } from '../lib/hero-motion';
+
+  const SCRAMBLE_GLYPHS = '<>/{}[]=+*_#$01';
+
+  const root = document.documentElement;
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const heading = hero?.querySelector<HTMLElement>('h1');
+
+  if (hero && heading && root.dataset.heroMotion === 'pending') {
+    root.dataset.heroMotion = 'running';
+    const name = heading.textContent ?? '';
+
+    playHeroMotion(hero, heading, name)
+      // Any failure falls back to the static card below.
+      .catch(() => {})
+      .finally(() => {
+        delete root.dataset.heroMotion;
+        heading.textContent = name;
+        heading.removeAttribute('aria-label');
+        heading.style.removeProperty('height');
+        for (const animation of hero.getAnimations({ subtree: true })) animation.cancel();
+      });
+  }
+
+  async function playHeroMotion(hero: HTMLElement, heading: HTMLElement, name: string): Promise<void> {
+    const code = hero.querySelector<HTMLElement>('.hero-code');
+    const card = hero.querySelector<HTMLElement>('.hero-card');
+    const caret = hero.querySelector<HTMLElement>('.hero-caret');
+    if (!code || !card || !caret) throw new Error('Hero motion elements not found');
+
+    const styles = getComputedStyle(root);
+    const token = (property: string) => styles.getPropertyValue(property).trim();
+    const duration = (property: string) => parseCssDuration(token(property));
+
+    // F1 · typing: each line gets an equal share of the typing time and fades in over the stagger.
+    const lines = [...code.querySelectorAll<HTMLElement>('.code-line')];
+    const lineTime = duration('--duration-hero-type') / lines.length;
+    const fadeOffset = Math.min(duration('--stagger') / lineTime, 1);
+    for (const line of lines) {
+      line.append(caret);
+      await line.animate([{ opacity: 0 }, { opacity: 1, offset: fadeOffset }, { opacity: 1 }], {
+        duration: lineTime,
+        fill: 'forwards',
+      }).finished;
+    }
+
+    // F2 · compiling.
+    await code.animate(
+      [
+        {
+          filter: `blur(${token('--hero-compile-blur')}) brightness(${token('--hero-compile-brightness')})`,
+          borderColor: token('--color-glow'),
+          boxShadow: token('--shadow-glow-hero'),
+        },
+      ],
+      { duration: duration('--duration-hero-compile'), easing: token('--ease-in-out'), fill: 'forwards' },
+    ).finished;
+
+    // F3 · the card replaces the code.
+    const reveal: KeyframeAnimationOptions = {
+      duration: duration('--duration-reveal'),
+      easing: token('--ease-out'),
+      fill: 'forwards',
+    };
+    code.animate([{ opacity: 0 }], reveal);
+    await card.animate(
+      [{ opacity: 0, transform: `translateY(${token('--hero-card-distance')})` }, { opacity: 1, transform: 'none' }],
+      reveal,
+    ).finished;
+
+    // M-2 · name decode; assistive technology keeps reading the real name. The heading keeps its
+    // measured height so glyphs wider or narrower than the name never shift the layout.
+    heading.setAttribute('aria-label', name);
+    heading.style.height = `${heading.getBoundingClientRect().height}px`;
+    const scrambleTime = duration('--duration-scramble');
+    const randomGlyph = () => SCRAMBLE_GLYPHS[Math.floor(Math.random() * SCRAMBLE_GLYPHS.length)] ?? '';
+    await new Promise<void>((resolve) => {
+      const start = performance.now();
+      const frame = (now: number) => {
+        const progress = scrambleTime > 0 ? (now - start) / scrambleTime : 1;
+        heading.textContent = scrambleText(name, progress, randomGlyph);
+        if (progress < 1) requestAnimationFrame(frame);
+        else resolve();
+      };
+      requestAnimationFrame(frame);
+    });
+  }
+</script>

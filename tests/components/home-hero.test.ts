@@ -99,8 +99,4 @@ describe('HomeHero', () => {
       expect(indicator[0]?.[2]).toMatch(/aria-hidden="true"/);
     });
   });
-
-  it('does not include client-side scripts yet', () => {
-    expect(html).not.toMatch(/<script/i);
-  });
 });

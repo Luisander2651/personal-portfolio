@@ -5,7 +5,7 @@ spec: specs/003-home-hero/spec.md
 design: designs/003-home-hero/design.md
 status: approved
 created: 2026-09-13
-updated: 2026-09-13
+updated: 2026-09-14
 ---
 
 # Plan — Hero de la home
@@ -172,7 +172,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T07 — Animación del hero (M-1 y M-2)
+### [x] T07 — Animación del hero (M-1 y M-2)
 
 - **Criterios**: CA-3.1, CA-3.3, CA-3.4, CA-4.1
 - **Diseño**: M-1 y M-2; fotogramas F1, F2, F3 y Reduced motion de
@@ -252,3 +252,9 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-14 | Implementación (T05) | Relleno vertical del hero `--space-gutter` | Evitar que una tarjeta más alta que la pantalla toque los bordes; token existente |
 | 2026-09-14 | Implementación (T05) | M-3 con capa `::before` (gradiente, `opacity` 0 → 1) y relleno interior `::after` | Los gradientes no se transicionan; con `isolation` la capa negativa se pinta sobre el fondo, así que `::after` limita el gradiente al anillo (defecto visto en la revisión y corregido) |
 | 2026-09-14 | Verificación (T05) | Chrome 1440px y 390px: tarjeta 560px / 342px, `h1` 48px / 30px, indicador solo desde 768px, enlaces 52px / 48px, sin scroll vertical; hover y foco confirmados por el usuario | Coincide con la composición A |
+| 2026-09-14 | Archivo extra (T07) | Se elimina el test «does not include client-side scripts yet» de `tests/components/home-hero.test.ts` | Contradecía la animación permitida por la spec 003; los scripts los cubre `home-hero-motion.test.ts`; confirmado por el usuario |
+| 2026-09-14 | Implementación (T07) | Marca `data-hero-motion` en `<html>` (`pending` → `running`) desde un script en línea antes del hueco; el respaldo del script en línea suma las cuatro duraciones con un parseo mínimo propio | Un script `is:inline` no puede importar `parseCssDuration`; el script del componente sí lo usa |
+| 2026-09-14 | Implementación (T07) | F1: cada línea ocupa `--duration-hero-type / nº de líneas` y aparece con un fundido de `--stagger`; el caret es un `span` que se mueve al final de la línea en curso | Respeta «en total» y «por línea» del diseño a la vez |
+| 2026-09-14 | Implementación (T07) | F3 funde el código (`opacity` → 0) a la vez que entra la tarjeta, con `--duration-reveal` / `--ease-out` | Transición sin corte entre el código compilado y la tarjeta |
+| 2026-09-14 | Implementación (T07) | M-2 usa glifos de código (`<>/{}[]=+*_#$01`) con la fuente del `h1`, `aria-label` con el nombre real durante el descifrado y altura del `h1` fija mientras dura | Pasar el `h1` a `--font-mono` cambiaría su ancho; medido en Chrome: los glifos cambiaban la altura del `h1` en el 15 % de los fotogramas (o en más con glifos estrechos) y movían la tarjeta; con la altura fija la tarjeta no se mueve |
+| 2026-09-14 | Verificación (T07) | Secuencia F1 → F2 → F3 → M-2 revisada a cámara lenta en Chrome; reduced motion simulado, sin JavaScript y respaldo sin script del componente: tarjeta final visible y código oculto; JavaScript de la home 1,34 kB con gzip; confirmado por el usuario | CA-3.1, CA-3.3, CA-3.4, CA-4.1 |
