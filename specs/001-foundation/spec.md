@@ -1,7 +1,7 @@
 ---
 id: 001
 title: Base del proyecto
-status: active
+status: done
 created: 2026-09-13
 updated: 2026-09-13
 depends_on: []
@@ -164,3 +164,4 @@ que será sustituida por la spec de la home.
 | 2026-09-13 | Implícita | Duración de experiencia sin fechas | Se guarda como texto, sin inventar fechas | constitution.md §8 |
 | 2026-09-13 | Implícita | Verificación de CA-3.1 | Traducción verificada por revisión del usuario (no automatizable) | usuario |
 | 2026-09-13 | Brecha | Estado de la formación no indicado en cv.md (detectado en `/plan-spec 001`) | Campo `status` en `education`: TSU `completed`, Ingeniería `in-progress`; se añade a cv.md en la traducción | usuario |
+| 2026-09-13 | Cierre | Spec implementada y verificada (plan `plans/001-foundation/plan.md`, T01–T09) | Spec marcada como `done` | usuario |

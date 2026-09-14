@@ -3,7 +3,7 @@ id: 001
 title: Base del proyecto
 spec: specs/001-foundation/spec.md
 design: no aplica
-status: approved
+status: done
 created: 2026-09-13
 updated: 2026-09-13
 ---
@@ -200,7 +200,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
   - `bun run test` y `bun run build` en verde.
   - `dist/index.html` muestra el nombre y rol reales de `profile`.
 
-### [ ] T09 — Verificación final
+### [x] T09 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: no aplica
@@ -244,3 +244,5 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
 | 2026-09-13 | Pendiente (T03) | Categoría de habilidades "Desarrollo nativo — Android (Java/Kotlin)" propuesta por el usuario se pospone | Cambiaría a 10 categorías (CA-3.2 espera 9); se añadirá en una spec posterior vía `/spec` |
 | 2026-09-13 | Implementación (T05) | `items` de skills separados por comas; las categorías descritas con una frase (IA, CI/CD, Contenedores) quedan como un único elemento y "OAuth 2.0 (GitHub, Google)" se conserva entero | Representación fiel al texto de `docs/cv.md`, verificada por el test contra la fuente |
 | 2026-09-13 | Implementación (T08) | `<h1>` con formato "Nombre — Rol" dentro de `<main>`; la página falla en build si falta la entrada `profile` | Mismo formato que el título elegido por el usuario; HTML semántico (constitución §7) |
+| 2026-09-13 | Verificación (T09) | Todas las CA verificadas: instalación limpia, 97 tests y build en verde, error de tipos rompe el build, `dist/index.html` conforme y sin JS, Lighthouse ≥ 90 en las 4 categorías | Lighthouse medido por el usuario en DevTools sobre `bun run preview` (puerto 4322) |
+| 2026-09-13 | Cierre | Plan marcado como `done` | Todas las tareas completadas; confirmado por el usuario |
