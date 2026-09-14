@@ -31,8 +31,10 @@ const links = [
         <span class="hero-location">{location}</span>
         <span class="hero-indicator" aria-hidden="true">render(profile)</span>
       </div>
-      <h1 id="hero-name">{name}</h1>
-      <p class="hero-role">{role}</p>
+      <div class="hero-identity">
+        <h1 id="hero-name">{name}</h1>
+        <p class="hero-role">{role}</p>
+      </div>
       <ul class="hero-stack">
         {featuredStack.map((technology) => <li>{technology}</li>)}
       </ul>
@@ -77,3 +79,240 @@ const links = [
     </article>
   </div>
 </section>
+
+<style>
+  /* Composition A · "Escenario" (designs/003-home-hero/design.md). Tokens only. */
+  .hero {
+    box-sizing: border-box;
+    min-height: var(--hero-min-height);
+    display: grid;
+    place-items: center;
+    padding-block: var(--space-gutter);
+    padding-inline: var(--space-gutter);
+  }
+
+  /* The card defines the slot size; the decorative code overlays the same slot. */
+  .hero-slot {
+    position: relative;
+    width: 100%;
+    max-width: var(--hero-card-max-width);
+  }
+
+  .hero-code {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    margin: 0;
+    overflow: hidden;
+    padding: var(--code-padding);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-sunken);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--text-code-size);
+    line-height: var(--text-code-line-height);
+    white-space: pre-wrap;
+  }
+
+  .hero-code[hidden] {
+    display: none;
+  }
+
+  .hero-code code {
+    font: inherit;
+  }
+
+  .code-line {
+    display: block;
+  }
+
+  .code-keyword {
+    color: var(--color-code-keyword);
+  }
+
+  .code-string {
+    color: var(--color-code-string);
+  }
+
+  .code-function {
+    color: var(--color-code-function);
+  }
+
+  .hero-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--hero-card-gap);
+    padding: var(--hero-card-padding);
+    border: var(--border-width) solid transparent;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+      var(--border-glow) border-box;
+    box-shadow: var(--shadow-glow-hero);
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hero-location {
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    text-transform: var(--text-mono-label-transform);
+    color: var(--color-text-muted);
+  }
+
+  .hero-indicator {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    color: var(--color-code-function);
+  }
+
+  .hero-identity {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .hero-identity h1 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .hero-role {
+    margin: 0;
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-line-height);
+    font-weight: var(--text-body-weight);
+    color: var(--color-text-secondary);
+  }
+
+  .hero-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-stack li {
+    display: inline-flex;
+    align-items: center;
+    height: var(--tag-height);
+    padding-inline: var(--tag-padding-x);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    line-height: 1;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: var(--space-3);
+    padding-top: var(--hero-card-gap);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  /* M-3: the luminous border is a gradient layer that fades in (gradients cannot transition);
+     an inner fill (::after) keeps it visible only as a ring. */
+  .hero-link {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-frame-size);
+    height: var(--icon-frame-size);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    background-clip: padding-box;
+    color: var(--color-text-secondary);
+    transition:
+      color var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .hero-link::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--border-width));
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--border-glow);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+
+  /* Inner fill above the glow layer, so the gradient only shows as a border ring. */
+  .hero-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: calc(var(--radius-md) - var(--border-width));
+    background-color: var(--color-surface);
+  }
+
+  .hero-link svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    stroke-width: var(--icon-stroke);
+  }
+
+  .hero-link:focus-visible {
+    color: var(--color-text);
+    border-color: transparent;
+    box-shadow: var(--shadow-glow-soft);
+  }
+
+  .hero-link:focus-visible::before {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-link:hover {
+      color: var(--color-text);
+      border-color: transparent;
+      box-shadow: var(--shadow-glow-soft);
+    }
+
+    .hero-link:hover::before {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: none) {
+    .hero-link:active {
+      color: var(--color-text);
+      border-color: transparent;
+      box-shadow: var(--shadow-glow-soft);
+    }
+
+    .hero-link:active::before {
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-indicator {
+      display: inline;
+    }
+  }
+</style>

@@ -126,7 +126,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `dist/index.html` contiene nombre, rol, ubicación, stack y enlaces reales sin ejecutar JS.
 
-### [ ] T05 — Estilos del hero y estado de los enlaces
+### [x] T05 — Estilos del hero y estado de los enlaces
 
 - **Criterios**: CA-4.2, CA-2.2
 - **Diseño**: `A · Escenario — Escritorio 1440`, `A · Escenario — Móvil 390`; M-3 en
@@ -248,3 +248,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-14 | Implementación (T04) | Las líneas del código son `<span class="code-line">` sin saltos de línea explícitos; en T05 se muestran como bloque | `astro check` no admite expresiones con `'\n'` dentro de `<pre>` (el compilador sí); evita el error sin cambiar el resultado |
 | 2026-09-14 | Implementación (T04) | El grosor de trazo de los iconos (`--icon-stroke`) se aplica por CSS en T05 | T04 no incluye estilos |
 | 2026-09-14 | Incidencia (T04) | En `astro dev` la home fallaba con `featuredStack` indefinido (build y tests correctos); se resolvió borrando las cachés de contenido (`.astro/` y `node_modules/.astro/data-store.json`) y reiniciando el servidor de desarrollo | Caché de contenido de desarrollo desfasada tras cambiar el esquema en T02; no requiere cambios de código |
+| 2026-09-14 | Implementación (T05) | `h1` y rol agrupados en `.hero-identity` con separación `--space-3` | El artboard separa nombre y rol menos que el resto de bloques y no hay token propio; se usa el existente más cercano |
+| 2026-09-14 | Implementación (T05) | Relleno vertical del hero `--space-gutter` | Evitar que una tarjeta más alta que la pantalla toque los bordes; token existente |
+| 2026-09-14 | Implementación (T05) | M-3 con capa `::before` (gradiente, `opacity` 0 → 1) y relleno interior `::after` | Los gradientes no se transicionan; con `isolation` la capa negativa se pinta sobre el fondo, así que `::after` limita el gradiente al anillo (defecto visto en la revisión y corregido) |
+| 2026-09-14 | Verificación (T05) | Chrome 1440px y 390px: tarjeta 560px / 342px, `h1` 48px / 30px, indicador solo desde 768px, enlaces 52px / 48px, sin scroll vertical; hover y foco confirmados por el usuario | Coincide con la composición A |
