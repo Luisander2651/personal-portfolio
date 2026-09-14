@@ -168,7 +168,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T07 — Layout base
+### [x] T07 — Layout base
 
 - **Criterios**: CA-2.2
 - **Diseño**: —
