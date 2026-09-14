@@ -104,7 +104,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
   - El usuario aprueba explícitamente la traducción.
   - `bun run test` y `bun run build` siguen en verde.
 
-### [ ] T04 — Esquemas de las colecciones de contenido
+### [x] T04 — Esquemas de las colecciones de contenido
 
 - **Criterios**: CA-3.3
 - **Diseño**: —
