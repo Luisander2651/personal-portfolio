@@ -70,7 +70,7 @@ estilos base → verificación.
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Tokens fijos y contraste
+### [x] T02 — Tokens fijos y contraste
 
 - **Criterios**: CA-1.1 (tokens `fijo`), CA-2.1, CA-3.1 (referencias de `--font-sans` / `--font-mono`)
 - **Diseño**: — (tablas de `design.md`, modo `fijo`)
@@ -194,3 +194,4 @@ estilos base → verificación.
 | 2026-09-13 | Planificación | Estilos en `src/styles/tokens.css` y `src/styles/base.css`, importados desde `BaseLayout` | Separar tokens de reglas base |
 | 2026-09-13 | Planificación | CA-3.2 se verifica revisando `dist/` en T04 y T06 | Los tests no dependen del build (mismo criterio que la spec 001) |
 | 2026-09-13 | Planificación | Contraste probado en T02 junto a los colores | Un test solo de contraste pasaría sin implementación (TDD) |
+| 2026-09-13 | Implementación (T02) | `vitest.config.ts` modificado (archivo no listado, autorizado por el usuario): `test.css.include` para `src/styles/*.css` | Vitest vacía los CSS importados con `?raw` por defecto; T05 también lo necesita para `base.css` |
