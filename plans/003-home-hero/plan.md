@@ -3,7 +3,7 @@ id: 003
 title: Hero de la home
 spec: specs/003-home-hero/spec.md
 design: designs/003-home-hero/design.md
-status: approved
+status: done
 created: 2026-09-13
 updated: 2026-09-14
 ---
@@ -204,7 +204,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     sola vez; con reduced motion emulado, tarjeta directa; con JavaScript desactivado, tarjeta
     completa y sin código visible.
 
-### [ ] T08 — Verificación final
+### [x] T08 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todos los artboards de la composición A
@@ -258,3 +258,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-14 | Implementación (T07) | F3 funde el código (`opacity` → 0) a la vez que entra la tarjeta, con `--duration-reveal` / `--ease-out` | Transición sin corte entre el código compilado y la tarjeta |
 | 2026-09-14 | Implementación (T07) | M-2 usa glifos de código (`<>/{}[]=+*_#$01`) con la fuente del `h1`, `aria-label` con el nombre real durante el descifrado y altura del `h1` fija mientras dura | Pasar el `h1` a `--font-mono` cambiaría su ancho; medido en Chrome: los glifos cambiaban la altura del `h1` en el 15 % de los fotogramas (o en más con glifos estrechos) y movían la tarjeta; con la altura fija la tarjeta no se mueve |
 | 2026-09-14 | Verificación (T07) | Secuencia F1 → F2 → F3 → M-2 revisada a cámara lenta en Chrome; reduced motion simulado, sin JavaScript y respaldo sin script del componente: tarjeta final visible y código oculto; JavaScript de la home 1,34 kB con gzip; confirmado por el usuario | CA-3.1, CA-3.3, CA-3.4, CA-4.1 |
+| 2026-09-14 | Verificación (T08) | 357 tests y build en verde; `dist/index.html` con nombre, rol, ubicación, stack y 3 enlaces sin JS; JS de la home 1,34 kB con gzip (0 scripts externos); contraste de las parejas del hero ≥ 6,49:1; 1536px: tarjeta 560px, `h1` 48px, enlaces 52px; 390px: tarjeta 342px, `h1` 30px, enlaces 48px, sin desbordes; orden de Tab GitHub → LinkedIn → Correo; teclado, revisión visual y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |

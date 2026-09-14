@@ -62,7 +62,7 @@ Cada sección del sitio es una spec que recorre el ciclo completo:
 | 001 | `foundation` | ✅ done | Proyecto Astro + Bun + Vitest, esquemas de contenido desde `cv.md`. Sustituye a una skill de bootstrap. Spec **sin interfaz**: su sección Diseño dice "No aplica" y salta `/design-spec` |
 | — | `/design-spec system` | ✅ approved | Sistema de diseño global (`designs/000-design-system/design.md`), antes de cualquier spec visual |
 | 002 | `design-tokens` | ✅ done | `tokens.css`, estilos base y fuentes autoalojadas desde el sistema de diseño. Spec **sin interfaz** propia: implementa tokens, no pantallas |
-| 003 | `home-hero` | pendiente | Primera pantalla |
+| 003 | `home-hero` | ✅ done | Primera pantalla: tarjeta con código que se compila, descifrado del nombre y enlaces |
 | 004+ | proyectos, experiencia, contacto… | pendiente | Una spec por sección |
 
 ---

@@ -1,9 +1,9 @@
 ---
 id: 003
 title: Hero de la home
-status: active
+status: done
 created: 2026-09-13
-updated: 2026-09-13
+updated: 2026-09-14
 depends_on: [001, 002]
 ---
 
@@ -162,3 +162,4 @@ nombre) y P-3 (borde luminoso) en `designs/000-design-system/design.md`.
 | 2026-09-13 | Brecha | Presupuesto de JavaScript | ≤ 3 kB con gzip | usuario |
 | 2026-09-13 | Implícita | Control de pausa de la animación | No necesario: la secuencia dura menos de 5 s (WCAG 2.2.2) | constitution.md §7 |
 | 2026-09-13 | Diseño | Composición del hero | A · Escenario (tarjeta centrada, iconos enmarcados); tokens nuevos del hero y `--icon-frame-size` a 48px en móvil, a incorporar al sistema en la primera tarea del plan | /design-spec |
+| 2026-09-14 | Cierre | Spec completada: las 8 tareas de `plans/003-home-hero/plan.md` verificadas (tests, `dist/`, teclado, reduced motion, sin JS, contraste, revisión visual y Lighthouse móvil ≥ 90) | Estado `done` | /implement |
