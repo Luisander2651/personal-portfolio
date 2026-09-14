@@ -124,10 +124,12 @@ PHP (Laravel 12) y Java / Spring Boot") con los nombres de framework tal como ap
 
 ## Diseño
 
-Pendiente: ejecutar `/design-spec 003`.
+Diseño aprobado: [designs/003-home-hero/design.md](../../designs/003-home-hero/design.md)
+· [canvas](https://claude.ai/code/artifact/1fd35525-0141-41e5-8257-a47f545f0423)
+(composición A · Escenario).
 
-Referencias del sistema de diseño ya aprobadas: patrones P-5 (hero código → tarjeta) y P-4
-(scramble del nombre) en `designs/000-design-system/design.md`.
+Referencias del sistema de diseño: patrones P-5 (hero código → tarjeta), P-4 (scramble del
+nombre) y P-3 (borde luminoso) en `designs/000-design-system/design.md`.
 
 ## Fuera de alcance
 
@@ -159,3 +161,4 @@ Referencias del sistema de diseño ya aprobadas: patrones P-5 (hero código → 
 | 2026-09-13 | Contradicción | 001 CA-4.2 y 002 CA-4.5 exigen index sin JavaScript vs. hero con script de animación | Se permite un script mínimo solo para la animación; esos criterios quedan superados por esta spec (describían la index técnica) | usuario, constitution.md §3 |
 | 2026-09-13 | Brecha | Presupuesto de JavaScript | ≤ 3 kB con gzip | usuario |
 | 2026-09-13 | Implícita | Control de pausa de la animación | No necesario: la secuencia dura menos de 5 s (WCAG 2.2.2) | constitution.md §7 |
+| 2026-09-13 | Diseño | Composición del hero | A · Escenario (tarjeta centrada, iconos enmarcados); tokens nuevos del hero y `--icon-frame-size` a 48px en móvil, a incorporar al sistema en la primera tarea del plan | /design-spec |
