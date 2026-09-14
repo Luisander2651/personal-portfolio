@@ -1,12 +1,19 @@
 ---
-// Provisional page so the build has an entry point. Replaced in plan 001, task T08.
+import { getEntry } from 'astro:content';
+import ProfileHeading from '../components/ProfileHeading.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPageMeta } from '../lib/page-meta';
+
+const profile = await getEntry('profile', 'profile');
+if (!profile) {
+  throw new Error('Missing profile entry: src/content/profile/profile.md');
+}
+
+const { title, description } = getPageMeta(profile.data);
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>personal-website</title>
-  </head>
-  <body></body>
-</html>
+<BaseLayout title={title} description={description}>
+  <main>
+    <ProfileHeading name={profile.data.name} role={profile.data.role} />
+  </main>
+</BaseLayout>

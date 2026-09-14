@@ -184,7 +184,7 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T08 — Página index mínima
+### [x] T08 — Página index mínima
 
 - **Criterios**: CA-4.1, CA-4.2
 - **Diseño**: —
@@ -243,3 +243,4 @@ Spec sin interfaz: las capas se adaptan a configuración → datos → estructur
 | 2026-09-13 | Implementación (T03) | Traducción de `docs/cv.md` aprobada por el usuario (CA-3.1) | Incluye corrección del usuario en CI/CD: despliegue en Azure App Service |
 | 2026-09-13 | Pendiente (T03) | Categoría de habilidades "Desarrollo nativo — Android (Java/Kotlin)" propuesta por el usuario se pospone | Cambiaría a 10 categorías (CA-3.2 espera 9); se añadirá en una spec posterior vía `/spec` |
 | 2026-09-13 | Implementación (T05) | `items` de skills separados por comas; las categorías descritas con una frase (IA, CI/CD, Contenedores) quedan como un único elemento y "OAuth 2.0 (GitHub, Google)" se conserva entero | Representación fiel al texto de `docs/cv.md`, verificada por el test contra la fuente |
+| 2026-09-13 | Implementación (T08) | `<h1>` con formato "Nombre — Rol" dentro de `<main>`; la página falla en build si falta la entrada `profile` | Mismo formato que el título elegido por el usuario; HTML semántico (constitución §7) |
