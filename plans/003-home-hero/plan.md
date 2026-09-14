@@ -154,7 +154,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     `A · Escenario — Escritorio 1440`; estados de enlace reposo, hover y foco contra la
     lámina de enlaces; sin scroll vertical en el hero.
 
-### [ ] T06 — Utilidades de movimiento
+### [x] T06 — Utilidades de movimiento
 
 - **Criterios**: CA-3.1 (soporte), CA-3.3 (soporte)
 - **Diseño**: M-1 y M-2 de `designs/003-home-hero/design.md`
