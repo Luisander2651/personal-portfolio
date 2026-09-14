@@ -97,7 +97,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T04 — `HomeHero` estático
+### [x] T04 — `HomeHero` estático
 
 - **Criterios**: CA-1.1, CA-1.2, CA-2.1, CA-3.2, CA-3.4
 - **Diseño**: `A · Escenario — Escritorio 1440`, `A · Escenario — Móvil 390` (estado final)
@@ -245,3 +245,6 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-13 | Planificación | JS medido con gzip de Bun | Sin dependencias nuevas |
 | 2026-09-13 | Planificación | Código decorativo con `pre-wrap` y recortado al hueco de la tarjeta | Como en los fotogramas del canvas; sin salto de layout |
 | 2026-09-14 | Implementación (T03) | Los valores del código decorativo se escriben como cadenas JavaScript escapadas (acentos intactos, comillas escapadas) | Un valor con comillas no rompe el código mostrado |
+| 2026-09-14 | Implementación (T04) | Las líneas del código son `<span class="code-line">` sin saltos de línea explícitos; en T05 se muestran como bloque | `astro check` no admite expresiones con `'\n'` dentro de `<pre>` (el compilador sí); evita el error sin cambiar el resultado |
+| 2026-09-14 | Implementación (T04) | El grosor de trazo de los iconos (`--icon-stroke`) se aplica por CSS en T05 | T04 no incluye estilos |
+| 2026-09-14 | Incidencia (T04) | En `astro dev` la home fallaba con `featuredStack` indefinido (build y tests correctos); se resolvió borrando las cachés de contenido (`.astro/` y `node_modules/.astro/data-store.json`) y reiniciando el servidor de desarrollo | Caché de contenido de desarrollo desfasada tras cambiar el esquema en T02; no requiere cambios de código |
