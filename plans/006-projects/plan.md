@@ -3,7 +3,7 @@ id: 006
 title: Proyectos
 spec: specs/006-projects/spec.md
 design: designs/006-projects/design.md
-status: approved
+status: done
 created: 2026-09-15
 updated: 2026-09-15
 ---
@@ -236,7 +236,7 @@ Va antes de las cards de proyecto para que "Tecnologías" y "Proyectos" comparta
       trackpad.
     - Con reduced motion y con JavaScript desactivado (recargando), todo visible y sin animación.
 
-### [ ] T07 — Verificación final
+### [x] T07 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/006-projects/design.md`
@@ -282,3 +282,4 @@ Va antes de las cards de proyecto para que "Tecnologías" y "Proyectos" comparta
 | 2026-09-15 | Planificación | Spotlight extraído a `CardSpotlight` (script y capas globales, marca `data-spotlight` y estado `data-spotlight-active`) antes de las cards de proyecto | Un único script para "Tecnologías" y "Proyectos" (CA-3.3); cada sección conserva solo sus cambios de color |
 | 2026-09-15 | Planificación | La revisión visual de `ProjectCard` se hace en T06, con la sección en la home | La card aislada no se muestra en ninguna página |
 | 2026-09-15 | Implementación (T05) | El halo del punto "En curso" (`0 0 8px` de `--color-warning` en el sistema) se expresa con `--space-2` (8px) | No existe token para el halo y los estilos no admiten literales; mismo valor con un token existente. Aprobado por el usuario |
+| 2026-09-15 | Verificación (T07) | 650 tests y build en verde; cada CA con su test; `dist/index.html` con `section#proyectos` única tras `#tecnologias`, `h2` "Proyectos" con `aria-labelledby`, un único `h1`, los 5 proyectos en orden sin JS (logros 2/3/2/1/1, stack 4/8/4/3/3, estados Finalizado/En curso), 2 cards en el panel destacado con el conector oculto y sin elementos enfocables; JS de la home 1,97 kB con gzip (hero, revelado común y spotlight común) sin scripts externos; revisión visual a 390px, 900px y 1440px, spotlight y revelado en "Tecnologías" y "Proyectos", Performance sin tareas largas, reduced motion, JavaScript desactivado y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |

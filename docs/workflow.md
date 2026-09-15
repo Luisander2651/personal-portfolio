@@ -67,7 +67,7 @@ están fijados: al terminar una spec, la siguiente es la primera `pendiente` de 
 | 003 | `home-hero` | ✅ done | Primera pantalla: tarjeta con código que se compila, descifrado del nombre y enlaces |
 | 004 | `about` | ✅ done | Sobre mí · ancla `#sobre-mi` · "Resumen profesional" de `cv.md` (`profile.summary`) |
 | 005 | `tech-stack` | ✅ done | Tecnologías con iconos · ancla `#tecnologias` · "Habilidades técnicas" agrupadas por las categorías de `cv.md` con icono + nombre; las categorías en prosa (Seguridad, IA, Arquitectura, CI/CD, Contenedores) como texto con contexto, nunca una fila de logos suelta. Añade a `cv.md` la categoría **Desarrollo móvil**: Android nativo (Java/Kotlin) e Ionic. El origen de los iconos (SVG propios o dependencia justificada) se decide en `/spec` |
-| 006 | `projects` | pendiente | Proyectos · ancla `#proyectos` · los 5 "Proyectos destacados" de `cv.md`; proyecto destacado + variaciones de tamaño (sin grid de cards idénticas); sin páginas de detalle |
+| 006 | `projects` | ✅ done | Proyectos · ancla `#proyectos` · los 5 "Proyectos destacados" de `cv.md`; proyecto destacado + variaciones de tamaño (sin grid de cards idénticas); sin páginas de detalle |
 | 007 | `experience` | pendiente | Experiencia profesional · ancla `#experiencia` · "Experiencia" de `cv.md` con stack e impacto (sin timeline genérico) |
 | 008 | `education` | pendiente | Formación · ancla `#formacion` · "Formación" de `cv.md` con estado (en curso / finalizado) |
 | 009 | `languages` | pendiente | Idiomas · ancla `#idiomas` · "Idiomas" de `cv.md` (`profile.languages`) |

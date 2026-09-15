@@ -1,7 +1,7 @@
 ---
 id: 006
 title: Proyectos
-status: active
+status: done
 created: 2026-09-15
 updated: 2026-09-15
 depends_on: [001, 002, 003, 004, 005]
@@ -180,3 +180,4 @@ técnica, los tiempos y la disposición se definen en `/design-spec`.
 | 2026-09-15 | Implícita | Revelado | Encabezado y cada proyecto con el revelado común al entrar en pantalla, cada vez que entran, uniforme con 004 y 005 | specs/004-about, specs/005-tech-stack |
 | 2026-09-15 | Implícita | Orden | El del campo `order` (el de `docs/cv.md`) | cv.md, src/content |
 | 2026-09-15 | Diseño | Composición de la sección | A · Sistema: DentissaApp como panel diagrama (plataforma y Auth Microservice unidos por un conector decorativo, en fila 7:5 desde 1024px y apilados por debajo) y los otros tres como cards del sistema (3 columnas desde 1024px); índice decorativo 01–05; spotlight común con "Tecnologías"; revelado común de encabezado y cards; constante "breakpoint ancho 1024px" a incorporar al sistema en la primera tarea del plan | /design-spec |
+| 2026-09-15 | Cierre | Spec completada: las tareas T01 a T07 de `plans/006-projects/plan.md` verificadas (tests, `dist/`, revisión visual a 390px, 900px y 1440px, spotlight y revelado, rendimiento, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |
