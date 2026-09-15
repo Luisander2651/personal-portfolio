@@ -33,6 +33,7 @@ como etiquetas y las tres categorías descriptivas como notas.
 | Tecnologías · reposo y spotlight en una card | `A · Bento — Móvil 390` | `A · Bento — Escritorio 1440` (Backend y web con spotlight) | CA-1.1, CA-1.3, CA-1.4, CA-1.5, CA-2.1, CA-2.2, CA-4.1, CA-4.2 |
 | Spotlight · reposo → puntero dentro → se mueve → sale | — | `A · Bento — Movimiento` (1 a 4) | CA-3.1 |
 | Spotlight · táctil y reduced motion | — | `A · Bento — Movimiento` (Táctil, Reduced motion) | CA-3.2 |
+| Revelado al entrar en pantalla · fuera → entra → completo; sin JS y reduced motion | — | `A · Bento — Movimiento` (fila de revelado) | CA-3.2, CA-4.4 |
 
 Página del canvas: "A · Bento (elegida)".
 
@@ -144,6 +145,18 @@ En **"Iconografía"**:
 - Iconos genéricos de línea añadidos al set: taza, tabla, llaves, flechas bidireccionales,
   enlace con flecha saliente y llave.
 
+Refinado del revelado (2026-09-15), a incorporar al sistema y al código en una tarea nueva del
+plan 005:
+
+- **P-1**: pasa a ser un revelado **por tiempo al entrar en pantalla** (ver M-2): `opacity` y
+  `transform` en `--duration-reveal` / `--ease-out`, escalonado `--stagger`, repetido cada vez
+  que el bloque vuelve a entrar; sin revelados ligados al scroll.
+- **Constante nueva** (tabla "Constantes"): umbral de revelado del 10 % del bloque visible.
+- **Tokens eliminados**: `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` (sin uso).
+- **Componentes existentes**: `SectionHeader` y el panel `about.md` de la spec 004 pasan del
+  revelado ligado al scroll a este revelado (sustituye su M-1); los bloques de "Tecnologías"
+  usan el mismo.
+
 ## Especificación de movimiento
 
 ### M-1 — Spotlight en las cards de categoría (patrón P-2)
@@ -173,26 +186,37 @@ En **"Iconografía"**:
 - **Fotogramas en canvas**: `A · Bento — Movimiento` (1 · Reposo, 2 · Puntero dentro,
   3 · Puntero se mueve, 4 · Sale, Táctil, Reduced motion).
 
-### M-2 — Revelado de la sección (patrón P-1)
+### M-2 — Revelado al entrar en pantalla (patrón P-1 refinado)
 
-- **Disparador**: scroll; cada elemento avanza cuando ya ha entrado `--reveal-range-start` en
-  pantalla.
-- **Elementos**: encabezado de sección (su revelado común), cada card del mosaico, el bloque
-  "Arquitectura y prácticas" y el bloque de notas.
-- **Propiedades**: encabezado con `opacity`, `transform` y `filter` (común); cards y bloques con
-  `opacity` y `transform`, sin `filter`, en su propia capa de composición durante el revelado.
-- **Duración / easing**: rango desde `--reveal-range-start` hasta `--reveal-range-start` +
-  `--reveal-range-length`, curva `--ease-in-out`; sin duración temporal.
+- **Disparador**: el bloque asoma al menos un 10 % en pantalla (al hacer scroll o al cargar);
+  se repite cada vez que vuelve a entrar tras haber salido del todo.
+- **Elementos**: el encabezado de sección, cada card del mosaico, el bloque "Arquitectura y
+  prácticas" y el bloque de notas. En la sección "Sobre mí" (spec 004): el encabezado y la caja
+  `about.md`.
+- **Propiedades**: `opacity` y `transform` (sin `filter`).
+- **Duración / easing**: `--duration-reveal` / `--ease-out`.
 - **Estado inicial → final**: `opacity: 0` y `translateY(var(--reveal-distance))` →
   `opacity: 1` y `translateY(0)`.
-- **Secuencia / stagger**: implícito por posición (cada card con su propia línea de tiempo).
-- **Implementación**: CSS (scroll-driven animations), solo con soporte y sin reduced motion.
-  Sin JavaScript.
-- **Reduced motion / sin soporte**: contenido visible desde el inicio. **Sin JavaScript**: el
-  revelado no depende de JS.
-- **Compatibilidad con M-1**: el revelado anima la card y el spotlight solo su fondo, borde,
-  sombra e iconos; no comparten propiedades.
-- **Fotogramas en canvas**: los de P-1 en el canvas de la spec 004 (`B · about.md — Movimiento`).
+- **Secuencia / stagger**: los bloques que entran a la vez se escalonan `--stagger` en orden de
+  lectura.
+- **Salida**: al quedar completamente fuera de la pantalla, el bloque vuelve al estado oculto sin
+  animación (no es visible), listo para revelarse al volver a entrar.
+- **Implementación**: CSS (transición con tokens entre el estado oculto y el revelado) + script
+  común mínimo, sin dependencias, que observa la visibilidad de los bloques y marca el estado de
+  cada uno. Los estilos del estado oculto solo aplican cuando el script se ha activado; los
+  bloques ya visibles al activarse se muestran sin parpadeo. JavaScript total de la home ≤ 3 kB
+  con gzip (spec 005, CA-3.3).
+- **Justificación de Motion**: no aplica (sin Motion).
+- **Reduced motion**: el script no oculta ningún bloque; todo visible desde el inicio, sin
+  animación.
+- **Sin JavaScript**: todo visible; ningún estilo oculta contenido.
+- **Rendimiento**: sin trabajo por fotograma de scroll; en la prueba del usuario con todos los
+  bloques de "Sobre mí" y "Tecnologías" el scroll con trackpad fue fluido.
+- **Compatibilidad con M-1**: el revelado anima `opacity` y `transform` de la card; el
+  spotlight actúa sobre su fondo, borde, sombra e iconos; no comparten propiedades.
+- **Fotogramas en canvas**: `A · Bento — Movimiento`, fila "Revelado al entrar en pantalla ·
+  por tiempo" (1 · Fuera de pantalla, 2 · Entra, 3 · t = 250 ms, 4 · t ≥ 680 ms,
+  Sin JS · reduced motion).
 
 ## Accesibilidad
 
@@ -233,3 +257,5 @@ En **"Iconografía"**:
 | 2026-09-15 | Contradicción | P-2 añade borde luminoso al tocar, pero estas cards no son interactivas | Táctil sin efecto en esta sección | usuario, specs/005-tech-stack (CA-3.2) |
 | 2026-09-15 | Implícita | Revelado de las cards | P-1 sin `filter` y con capa propia durante el revelado, como el panel de 004 (evita tirones con trackpad) | plans/004-about (incidencia T03) |
 | 2026-09-15 | Implícita | Iconografía de logos | Excepción "logos de tecnología" (Simple Icons, CC0, un color) y 6 iconos genéricos a incorporar al sistema en la primera tarea del plan | specs/005-tech-stack, designs/000-design-system |
+| 2026-09-15 | Refinado | Scroll con trackpad trabado con revelados ligados al scroll en encabezados, panel de "Sobre mí" y bloques de "Tecnologías" (bloqueo de T05); pruebas del usuario: fluido con solo los encabezados y también con revelado por tiempo con script | Solo se revelan los encabezados de sección, con rango `entry` (desde que asoma hasta que entra completo) y `--ease-out`; paneles, cards y bloques estáticos; se eliminan `--reveal-range-start` y `--reveal-range-length`; sin JavaScript nuevo. Sustituye el revelado de cards de la primera versión de M-2 y el del panel de 004 | usuario, constitution.md §7 |
+| 2026-09-15 | Refinado | Tras el cambio de specs 004 y 005 (revelado disparado al entrar, cada vez que entra, con script común) | M-2 por tiempo: umbral 10 %, `--duration-reveal` / `--ease-out`, sin desenfoque, escalonado `--stagger`, oculto sin animación al salir del todo; aplica a encabezado, cards, arquitectura y notas (y a encabezado y caja de 004). Sustituye la versión "solo encabezados"; se eliminan `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` | usuario, specs/004-about, specs/005-tech-stack |

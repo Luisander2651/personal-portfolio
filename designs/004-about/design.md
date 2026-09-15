@@ -138,6 +138,13 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
 
 ### M-1 — Revelado de la sección (patrón P-1)
 
+> **Sustituido el 2026-09-15** por el P-1 refinado de `designs/005-tech-stack/design.md` (M-2):
+> el encabezado "Sobre mí" y la caja `about.md` se revelan **por tiempo al entrar en pantalla**
+> (umbral 10 %, `--duration-reveal` / `--ease-out`, sin desenfoque, escalonados `--stagger`) y
+> vuelven a revelarse cada vez que entran; sin JavaScript o con reduced motion, todo visible.
+> Sustituye también a la nota anterior que dejaba la caja fija. La descripción de abajo se
+> conserva como historial.
+
 - **Disparador**: scroll; cada elemento avanza cuando ya ha entrado `--reveal-range-start` en
   pantalla por la parte inferior (no en el borde), para que el cambio ocurra a la vista.
 - **Elementos**: encabezado de sección y panel `about.md` (el contenido del panel se revela con él).
@@ -208,3 +215,5 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
 | 2026-09-15 | Contradicción | M-1 decía "sin JavaScript: contenido visible desde el inicio", pero el revelado CSS también se ejecuta sin JS (detectado en `/plan-spec 004`) | Se separan los casos: sin soporte, visible desde el inicio; sin JS, el revelado no depende de JS y nada espera a un script | usuario, specs/004-about |
 | 2026-09-15 | Refinado | En la revisión manual de T03 el revelado del panel no se percibía: empezaba en el borde inferior y con `--ease-out` terminaba a los ~60px | Encabezado y panel empiezan tras `--reveal-range-start` (80px / 120px) y duran `--reveal-range-length` (240px / 360px) con `--ease-in-out`; artboard de Movimiento actualizado | usuario |
 | 2026-09-15 | Refinado | Desenfoque del encabezado: el filtro animado con el scroll no va acelerado por GPU y es sospechoso de tirones intermitentes (no reproducibles) | Se mantiene por decisión del usuario; si la verificación final confirma tirones, se quita (constitución §7: rendimiento sobre efectos) | usuario, constitution.md §7 |
+| 2026-09-15 | Refinado | Revelado uniforme en todo el sitio tras los tirones de scroll detectados en la spec 005 | M-1 sustituido por el P-1 refinado de `designs/005-tech-stack`: el encabezado "Sobre mí" se revela desde que asoma hasta que entra completo y el panel `about.md` queda fijo; se aplica en el plan 005 | usuario, designs/005-tech-stack |
+| 2026-09-15 | Refinado | Revelado por tiempo al entrar (specs 004 y 005 refinadas) | El encabezado y la caja `about.md` usan el M-2 de `designs/005-tech-stack`, en lugar de la versión con la caja fija | usuario, designs/005-tech-stack |

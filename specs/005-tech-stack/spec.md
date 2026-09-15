@@ -100,12 +100,14 @@ sección expone el ancla `#tecnologias` que enlazará la navegación (spec 010).
     JavaScript
   - **Cuando** carga la home y llega a la sección
   - **Entonces** no hay luz que siga al puntero, todo el contenido de la sección está en el HTML
-    y ningún estilo lo oculta a la espera de un script
+    y es visible, y ningún estilo lo oculta salvo cuando el script de revelado se ha ejecutado y
+    no hay reduced motion
 - **CA-3.3**
   - **Dado** el sitio generado
   - **Cuando** mido el JavaScript de cliente de la home en `dist/`
   - **Entonces** su tamaño total comprimido con gzip es ≤ 3 kB, no depende de ningún paquete y
-    solo implementa la animación del hero y el spotlight de esta sección
+    solo implementa la animación del hero, el spotlight de esta sección y el script común de
+    revelado de las secciones
 
 ### HU-4
 
@@ -123,6 +125,13 @@ sección expone el ancla `#tecnologias` que enlazará la navegación (spec 010).
   - **Dado** la home servida con `bun run preview`
   - **Cuando** se ejecuta Lighthouse (móvil)
   - **Entonces** obtiene ≥ 90 en Performance, Accessibility, Best Practices y SEO
+- **CA-4.4**
+  - **Dado** un visitante con JavaScript activo y sin `prefers-reduced-motion: reduce`
+  - **Cuando** el encabezado, cada una de las 6 cards, el bloque "Arquitectura y prácticas" y el
+    bloque de notas entran en pantalla al hacer scroll
+  - **Entonces** se revelan con una animación, y vuelven a revelarse cada vez que entran de nuevo
+    tras haber salido de pantalla (verificación: estructura por test y revisión manual, con
+    scroll fluido con trackpad)
 
 ## Contenido
 
@@ -164,8 +173,9 @@ Diseño aprobado: [designs/005-tech-stack/design.md](../../designs/005-tech-stac
 · [canvas](https://claude.ai/artifact/LmYFpxT1xKVunFxSWTRz7T) (composición A · Bento).
 
 Qué debe sentirse: una sección técnica y ordenada, con los logos como detalle reconocible y
-no como fila decorativa; las categorías con iconos responden al puntero con una luz sutil
-(patrón P-2 del sistema) y el resto de la sección es sobrio. No compite con el hero.
+no como fila decorativa; los bloques se revelan al entrar en pantalla, cada vez que entran, y
+las categorías con iconos responden al puntero con una luz sutil (patrón P-2 del sistema). No
+compite con el hero. La técnica y los tiempos se definen en `/design-spec`.
 
 ## Fuera de alcance
 
@@ -201,3 +211,7 @@ no como fila decorativa; las categorías con iconos responden al puntero con una
 | 2026-09-15 | Implícita | Glow en elementos no interactivos | Las 6 categorías son cards del sistema (P-2 aplica a cards); no son enfocables ni enlazan | designs/000-design-system |
 | 2026-09-15 | Implícita | Comportamiento sin puntero fino, con reduced motion o sin JS | Sin seguimiento del puntero; contenido completo en el HTML (P-2) | designs/000-design-system, constitution.md §7 |
 | 2026-09-15 | Diseño | Composición de la sección | A · Bento: mosaico de cards de tamaños distintos (5:7 y fila de cuatro), etiquetas de arquitectura y notas; 21 logos de Simple Icons y 6 iconos genéricos; spotlight P-2 (táctil sin efecto); tokens `--tech-card-min-width` y `--tech-item-min-width` e iconografía a incorporar al sistema en la primera tarea del plan | /design-spec |
+| 2026-09-15 | Diseño | Revelado refinado tras el bloqueo de T05 por tirones de scroll | Solo los encabezados de sección se revelan (rango `entry`, desde que asoman hasta que entran completos, `--ease-out`); cards, etiquetas, notas y panel de "Sobre mí" estáticos; sin JavaScript nuevo | /design-spec |
+| 2026-09-15 | Contradicción | El revelado ligado al scroll (CSS scroll-driven) trababa el scroll con trackpad al sumar secciones; CA-3.3 limitaba el JS de la home al hero y al spotlight | Revelado disparado al entrar en pantalla con un script común de la home; CA-3.2 y CA-3.3 reescritos (visible sin JS o con reduced motion; JS total de la home ≤ 3 kB con gzip: hero, spotlight y revelado) | usuario, constitution.md §3 y §7, specs/004-about |
+| 2026-09-15 | Brecha | Repetición y elementos del revelado | Cada vez que entran en pantalla, como en 004 (CA-4.4); se revelan el encabezado, cada card, el bloque de arquitectura y el de notas | usuario, specs/004-about |
+| 2026-09-15 | Diseño | Revelado por tiempo al entrar en pantalla | Umbral 10 %, `--duration-reveal` / `--ease-out`, sin desenfoque, escalonado `--stagger`, oculto sin animación al salir y revelado de nuevo al entrar; CSS con script común mínimo; sin JS o con reduced motion todo visible | /design-spec |

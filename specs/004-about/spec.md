@@ -82,24 +82,28 @@ navegación (spec 010).
 ### HU-4
 
 - **CA-4.1**
-  - **Dado** un visitante con `prefers-reduced-motion: reduce`, sin JavaScript o con un
-    navegador sin soporte del revelado
+  - **Dado** un visitante con `prefers-reduced-motion: reduce`, sin JavaScript o cuyo navegador
+    no ejecuta el script de revelado
   - **Cuando** carga la home y llega a la sección
-  - **Entonces** todo el contenido de "Sobre mí" está en el HTML y ningún estilo lo oculta por
-    defecto ni a la espera de un script; con reduced motion o sin soporte del revelado se ve
-    directamente, sin animación, y sin JavaScript el revelado (si el navegador lo soporta)
-    solo avanza con el scroll
+  - **Entonces** todo el contenido de "Sobre mí" está en el HTML y es visible; ningún estilo lo
+    oculta salvo cuando el script de revelado se ha ejecutado y no hay reduced motion
 - **CA-4.2**
   - **Dado** el sitio generado
   - **Cuando** mido el JavaScript de cliente de la home en `dist/`
-  - **Entonces** la sección no añade scripts: el JavaScript de la home sigue siendo solo el de
-    la animación del hero y cumple CA-4.1 de la spec 003 (≤ 3 kB con gzip)
+  - **Entonces** la sección no añade scripts propios (su revelado usa el script común de
+    revelado de la home) y el JavaScript total de la home es ≤ 3 kB con gzip, sin dependencias
 - **CA-4.3**
   - **Dado** los estilos de la sección y la home servida con `bun run preview`
   - **Cuando** se ejecutan los tests y Lighthouse (móvil)
   - **Entonces** los estilos solo usan tokens del sistema de diseño (ningún color, tamaño,
     espaciado o duración literal) y la home obtiene ≥ 90 en Performance, Accessibility,
     Best Practices y SEO
+- **CA-4.4**
+  - **Dado** un visitante con JavaScript activo y sin `prefers-reduced-motion: reduce`
+  - **Cuando** el encabezado de la sección y la caja `about.md` entran en pantalla al hacer scroll
+  - **Entonces** se revelan con una animación, y vuelven a revelarse cada vez que entran de nuevo
+    tras haber salido de pantalla (verificación: estructura por test y revisión manual, con
+    scroll fluido con trackpad)
 
 ## Contenido
 
@@ -130,8 +134,9 @@ Diseño aprobado: [designs/004-about/design.md](../../designs/004-about/design.m
 · [canvas](https://claude.ai/artifact/SjN7VKYTSwaC63f61kDDaq) (composición B · about.md).
 
 Qué debe sentirse: una sección sobria después del momento protagonista del hero; se revela de
-forma sutil al entrar en pantalla (patrón P-1 del sistema de diseño, ligado al scroll), sin
-competir con el hero y con su versión reduced motion.
+forma sutil al entrar en pantalla, cada vez que entra, sin competir con el hero y con su
+versión reduced motion. La técnica y los tiempos se definen en `/design-spec` (refinado en la
+spec 005).
 
 ## Fuera de alcance
 
@@ -164,3 +169,6 @@ competir con el hero y con su versión reduced motion.
 | 2026-09-15 | Contradicción | CA-4.1 exigía contenido visible sin animación también sin JavaScript, pero el revelado aprobado es CSS y no depende de JS (detectado en `/plan-spec 004`) | CA-4.1 refinado: con reduced motion o sin soporte, visible sin animación; sin JS, contenido en el HTML y nunca oculto a la espera de un script | usuario, designs/004-about |
 | 2026-09-15 | Diseño | Revelado M-1 refinado tras la revisión de T03 | Inicio del rango tras `--reveal-range-start`, recorrido `--reveal-range-length` (240px / 360px) y curva `--ease-in-out` para encabezado y panel; desenfoque del encabezado se mantiene y se vigila en la verificación final | /design-spec |
 | 2026-09-15 | Cierre | Spec completada: las tareas T01, T02, T05, T03 y T04 de `plans/004-about/plan.md` verificadas (tests, `dist/`, revisión visual, rendimiento del revelado, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |
+| 2026-09-15 | Contradicción | El revelado ligado al scroll (CSS scroll-driven) trababa el scroll con trackpad en el portátil del usuario al sumar secciones; CA-4.2 prohibía scripts en la sección | Revelado disparado al entrar en pantalla con un script común de la home: CA-4.1 y CA-4.2 reescritos (visible sin JS o con reduced motion; JS total de la home ≤ 3 kB con gzip) | usuario, constitution.md §3 y §7, specs/005-tech-stack |
+| 2026-09-15 | Brecha | ¿Revelado una vez o cada vez que entra? | Cada vez que la sección vuelve a entrar en pantalla (CA-4.4) | usuario |
+| 2026-09-15 | Implícita | Estado de la spec | Se mantiene `done`; el refinado se implementa en el plan 005 | usuario |
