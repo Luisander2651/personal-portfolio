@@ -2,6 +2,7 @@
 name: "Real-Time Movement & Telemetry Tracking System"
 order: 4
 status: "completed"
+featured: false
 stack:
   - "Node.js"
   - "WebSockets"

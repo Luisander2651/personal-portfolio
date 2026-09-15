@@ -2,6 +2,7 @@
 name: "DentissaApp — Dental Practice Management Platform"
 order: 1
 status: "completed"
+featured: true
 stack:
   - "Laravel 12"
   - "PostgreSQL"

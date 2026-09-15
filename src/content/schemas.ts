@@ -33,6 +33,8 @@ export const projectSchema = z.object({
   name: text,
   order: position,
   status,
+  /** Part of the featured block of the projects section. */
+  featured: z.boolean(),
   stack: nonEmptyList(text),
 });
 

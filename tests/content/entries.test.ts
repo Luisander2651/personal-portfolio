@@ -198,6 +198,12 @@ describe('content entries', () => {
       expect(positions).toEqual([...positions].sort((a, b) => a - b));
     });
 
+    it('marks only the two DentissaApp projects as featured', () => {
+      const featured = projects.filter(({ data }) => data.featured).map(({ data }) => data.name);
+
+      expect(featured).toEqual(['DentissaApp — Dental Practice Management Platform', 'DentissaApp — Auth Microservice']);
+    });
+
     it('marks only the Auth Microservice as in progress', () => {
       const statuses = Object.fromEntries(projects.map(({ data }) => [data.name, data.status]));
 

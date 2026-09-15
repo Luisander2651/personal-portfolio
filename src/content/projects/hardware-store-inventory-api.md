@@ -2,6 +2,7 @@
 name: "Hardware Store Inventory Management API"
 order: 3
 status: "completed"
+featured: false
 stack:
   - "Node.js"
   - "Express.js"

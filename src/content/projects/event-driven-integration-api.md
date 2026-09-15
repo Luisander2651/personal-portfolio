@@ -2,6 +2,7 @@
 name: "Automated Event-Driven Integration API"
 order: 5
 status: "completed"
+featured: false
 stack:
   - "Node.js"
   - "Python"

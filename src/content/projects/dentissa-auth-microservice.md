@@ -2,6 +2,7 @@
 name: "DentissaApp — Auth Microservice"
 order: 2
 status: "in-progress"
+featured: true
 stack:
   - "Java"
   - "Spring Boot"

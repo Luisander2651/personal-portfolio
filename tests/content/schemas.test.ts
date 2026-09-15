@@ -40,7 +40,7 @@ const validProfile = {
 
 const validSkill = { category: 'Test category', order: 1, presentation: 'icons', items: ['Item'] };
 
-const validProject = { name: 'Test project', order: 1, status: 'completed', stack: ['Tech'] };
+const validProject = { name: 'Test project', order: 1, status: 'completed', featured: false, stack: ['Tech'] };
 
 const validExperience = { company: 'Test company', position: 'Test position', duration: '4 meses' };
 
@@ -63,7 +63,7 @@ const cases = [
 const requiredFields: Record<string, string[]> = {
   profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages', 'featuredStack', 'practicalExperience', 'focusAreas'],
   skills: ['category', 'order', 'presentation', 'items'],
-  projects: ['name', 'order', 'status', 'stack'],
+  projects: ['name', 'order', 'status', 'featured', 'stack'],
   experience: ['company', 'position', 'duration'],
   education: ['degree', 'specialization', 'institution', 'status'],
 };
@@ -135,6 +135,14 @@ describe('content schemas', () => {
 
     it('rejects an empty stack', () => {
       expect(failingPaths(projectSchema, { ...validProject, stack: [] })).toContain('stack');
+    });
+
+    it.each([true, false])('accepts featured %s', (featured) => {
+      expect(failingPaths(projectSchema, { ...validProject, featured })).toEqual([]);
+    });
+
+    it.each(['true', 1, null])('rejects a non-boolean featured (%s)', (featured) => {
+      expect(failingPaths(projectSchema, { ...validProject, featured })).toContain('featured');
     });
 
     it.each([0, -1, 1.5])('rejects order %s', (order) => {

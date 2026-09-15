@@ -60,7 +60,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - El sistema documenta la constante y la nota, con su entrada en el registro.
 
-### [ ] T02 — Campo de bloque destacado en los proyectos
+### [x] T02 — Campo de bloque destacado en los proyectos
 
 - **Criterios**: CA-2.1
 - **Diseño**: —
