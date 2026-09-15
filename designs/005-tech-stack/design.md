@@ -151,7 +151,9 @@ plan 005:
 - **P-1**: pasa a ser un revelado **por tiempo al entrar en pantalla** (ver M-2): `opacity` y
   `transform` en `--duration-reveal` / `--ease-out`, escalonado `--stagger`, repetido cada vez
   que el bloque vuelve a entrar; sin revelados ligados al scroll.
-- **Constante nueva** (tabla "Constantes"): umbral de revelado del 10 % del bloque visible.
+- **Token nuevo** (tokens de movimiento): `--reveal-start-distance` (768: `80px` / `120px`),
+  distancia que el borde superior del bloque ha entrado en pantalla cuando empieza el revelado.
+  Sustituye a la constante "umbral de revelado 10 %".
 - **Tokens eliminados**: `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` (sin uso).
 - **Componentes existentes**: `SectionHeader` y el panel `about.md` de la spec 004 pasan del
   revelado ligado al scroll a este revelado (sustituye su M-1); los bloques de "Tecnologías"
@@ -188,8 +190,10 @@ plan 005:
 
 ### M-2 — Revelado al entrar en pantalla (patrón P-1 refinado)
 
-- **Disparador**: el bloque asoma al menos un 10 % en pantalla (al hacer scroll o al cargar);
-  se repite cada vez que vuelve a entrar tras haber salido del todo.
+- **Disparador**: el borde superior del bloque ha entrado `--reveal-start-distance` en pantalla
+  (medido desde el borde inferior), o el bloque ya se ve completo aunque no llegue a esa
+  distancia (bloques bajos al final de la página); al hacer scroll o al cargar. Se repite cada vez
+  que vuelve a entrar tras haber salido del todo.
 - **Elementos**: el encabezado de sección, cada card del mosaico, el bloque "Arquitectura y
   prácticas" y el bloque de notas. En la sección "Sobre mí" (spec 004): el encabezado y la caja
   `about.md`.
@@ -215,7 +219,7 @@ plan 005:
 - **Compatibilidad con M-1**: el revelado anima `opacity` y `transform` de la card; el
   spotlight actúa sobre su fondo, borde, sombra e iconos; no comparten propiedades.
 - **Fotogramas en canvas**: `A · Bento — Movimiento`, fila "Revelado al entrar en pantalla ·
-  por tiempo" (1 · Fuera de pantalla, 2 · Entra, 3 · t = 250 ms, 4 · t ≥ 680 ms,
+  por tiempo" (1 · Fuera de pantalla, 2 · Entra (120px dentro), 3 · t = 250 ms, 4 · t ≥ 680 ms,
   Sin JS · reduced motion).
 
 ## Accesibilidad
@@ -259,3 +263,4 @@ plan 005:
 | 2026-09-15 | Implícita | Iconografía de logos | Excepción "logos de tecnología" (Simple Icons, CC0, un color) y 6 iconos genéricos a incorporar al sistema en la primera tarea del plan | specs/005-tech-stack, designs/000-design-system |
 | 2026-09-15 | Refinado | Scroll con trackpad trabado con revelados ligados al scroll en encabezados, panel de "Sobre mí" y bloques de "Tecnologías" (bloqueo de T05); pruebas del usuario: fluido con solo los encabezados y también con revelado por tiempo con script | Solo se revelan los encabezados de sección, con rango `entry` (desde que asoma hasta que entra completo) y `--ease-out`; paneles, cards y bloques estáticos; se eliminan `--reveal-range-start` y `--reveal-range-length`; sin JavaScript nuevo. Sustituye el revelado de cards de la primera versión de M-2 y el del panel de 004 | usuario, constitution.md §7 |
 | 2026-09-15 | Refinado | Tras el cambio de specs 004 y 005 (revelado disparado al entrar, cada vez que entra, con script común) | M-2 por tiempo: umbral 10 %, `--duration-reveal` / `--ease-out`, sin desenfoque, escalonado `--stagger`, oculto sin animación al salir del todo; aplica a encabezado, cards, arquitectura y notas (y a encabezado y caja de 004). Sustituye la versión "solo encabezados"; se eliminan `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` | usuario, specs/004-about, specs/005-tech-stack |
+| 2026-09-15 | Refinado | En la revisión de T09 el revelado empezaba con el 10 % del alto del bloque (casi pegado al borde en el encabezado); al cambiar de técnica solo debía cambiar la ejecución, no el momento de inicio | El revelado empieza cuando el borde superior ha entrado `--reveal-start-distance` (80px / 120px, los valores aprobados antes) o cuando el bloque ya se ve completo; se sustituye la constante del 10 % por ese token | usuario |

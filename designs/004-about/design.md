@@ -140,7 +140,8 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
 
 > **Sustituido el 2026-09-15** por el P-1 refinado de `designs/005-tech-stack/design.md` (M-2):
 > el encabezado "Sobre mí" y la caja `about.md` se revelan **por tiempo al entrar en pantalla**
-> (umbral 10 %, `--duration-reveal` / `--ease-out`, sin desenfoque, escalonados `--stagger`) y
+> (desde que su borde superior ha entrado `--reveal-start-distance`, 80px / 120px, o se ven
+> completos; `--duration-reveal` / `--ease-out`, sin desenfoque, escalonados `--stagger`) y
 > vuelven a revelarse cada vez que entran; sin JavaScript o con reduced motion, todo visible.
 > Sustituye también a la nota anterior que dejaba la caja fija. La descripción de abajo se
 > conserva como historial.

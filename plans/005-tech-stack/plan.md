@@ -10,7 +10,7 @@ updated: 2026-09-15
 
 # Plan — Tecnologías
 
-Orden de ejecución: T01 → T02 → T03 → T04 → T08 → T09 → T05 → T06 → T07.
+Orden de ejecución: T01 → T02 → T03 → T04 → T08 → T10 → T09 → T05 → T06 → T07.
 
 Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con línea
 **Bloqueo** está detenida por `/implement` hasta resolver una brecha.
@@ -19,7 +19,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 | Capa | Tareas |
 |------|--------|
-| Sistema (tokens, iconografía y P-1) | T01, T08 |
+| Sistema (tokens, iconografía y P-1) | T01, T08, T10 |
 | Datos | T02, T03, T04 |
 | Estructura estática y estilos (componente) | T05 |
 | Movimiento e interacción (revelado común, "Sobre mí" y spotlight) | T08, T09, T06 |
@@ -44,7 +44,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | CA-4.1 | T01, T05, T06 |
 | CA-4.2 | T05 |
 | CA-4.3 | T07 |
-| CA-4.4 | T08, T05, T07 |
+| CA-4.4 | T08, T10, T05, T07 |
 | Spec 004 · CA-4.1, CA-4.2, CA-4.4 (refinados) | T09 |
 
 ## Tareas
@@ -176,7 +176,42 @@ Va antes de T05 y T09 porque ambas usan este revelado (añadida al replanificar;
   - `bun run test` y `bun run build` en verde.
   - JavaScript de cliente de la home en `dist/` ≤ 3 kB con gzip, sin dependencias (hero + revelado).
 
+### [ ] T10 — Inicio del revelado por distancia de entrada
+
+Va antes de T09 porque ajusta el revelado común que usan "Sobre mí" y "Tecnologías" (añadida al
+replanificar; ver registro).
+
+- **Criterios**: CA-4.4
+- **Diseño**: `designs/005-tech-stack/design.md` → M-2 (disparador) y "Refinado del revelado";
+  `A · Bento — Movimiento` (fila de revelado, "2 · Entra (120px dentro)")
+- **Archivos**: `designs/000-design-system/design.md` (modificar), `src/styles/tokens.css`
+  (modificar), `src/lib/section-reveal.ts` (modificar), `tests/lib/section-reveal.test.ts`
+  (modificar), `src/components/SectionReveal.astro` (modificar),
+  `tests/components/section-reveal.test.ts` (modificar)
+- **Qué hacer**:
+  - **Sistema**: token `--reveal-start-distance` (768: `80px` / `120px`) en "Tokens de
+    movimiento"; quitar la constante "umbral de revelado 10 %"; P-1 con el disparador por
+    distancia de entrada y la salvaguarda de bloque completo; entrada en el registro del sistema.
+  - **`tokens.css`**: declarar `--reveal-start-distance` en móvil y desde 768px.
+  - **`src/lib/section-reveal.ts`**: la decisión de revelar pasa a "el borde superior del bloque
+    ha entrado al menos la distancia de inicio, o el bloque se ve completo"; ocultar sigue siendo
+    "fuera del todo"; los bloques en medio no cambian; orden de lectura igual.
+  - **`SectionReveal`**: leer la distancia del token al activarse y observar la entrada con un
+    margen inferior igual a esa distancia; la visibilidad completa y la salida, sin margen; sin
+    trabajo por fotograma de scroll.
+- **Test**:
+  - Tokens: rojo al documentar `--reveal-start-distance`, verde al declararlo.
+  - Lib: revela cuando el borde superior ha entrado la distancia de inicio; no revela antes salvo
+    que el bloque se vea completo; oculta solo fuera del todo; orden de lectura; sin mutar la entrada.
+  - Componente: el script lee `--reveal-start-distance` y usa un margen inferior negativo con esa
+    distancia en la observación de entrada; ya no usa el umbral del 10 %; el resto de
+    comprobaciones (reduced motion, estilos solo con tokens y bajo el atributo activo) se mantiene.
+- **Terminado cuando**:
+  - `bun run test` y `bun run build` en verde.
+  - JavaScript de cliente de la home en `dist/` ≤ 3 kB con gzip, sin dependencias.
+
 ### [ ] T09 — "Sobre mí" con el revelado común
+
 
 Aplica los criterios refinados de la spec 004 (CA-4.1, CA-4.2 y CA-4.4) con el revelado de T08.
 
@@ -199,8 +234,8 @@ Aplica los criterios refinados de la spec 004 (CA-4.1, CA-4.2 y CA-4.4) con el r
   - `bun run test` y `bun run build` en verde.
   - JavaScript de la home sin scripts nuevos respecto a T08.
   - Comprobación manual en Chrome:
-    - "Sobre mí": encabezado y caja se revelan al entrar (10 %), en cascada, y otra vez al volver
-      a entrar tras salir del todo.
+    - "Sobre mí": encabezado y caja se revelan cuando han entrado 80px (móvil) / 120px
+      (escritorio), en cascada, y otra vez al volver a entrar tras salir del todo.
     - Scroll fluido con trackpad.
     - Con reduced motion emulado y con JavaScript desactivado, todo visible sin animación.
 
@@ -322,7 +357,7 @@ retomarla se sustituye el revelado ligado al scroll por las marcas del revelado 
       sus ítems e iconos sin JavaScript.
     - Un único `h1`.
     - JavaScript de la home ≤ 3 kB con gzip (hero + revelado común + spotlight).
-  - Revelado al entrar y al volver a entrar en "Sobre mí" y "Tecnologías"; reduced motion y
+  - Revelado al entrar (tras 80px / 120px) y al volver a entrar en "Sobre mí" y "Tecnologías"; reduced motion y
     JavaScript desactivado revisados.
   - Rendimiento: pestaña Performance con scroll y puntero por "Sobre mí" y "Tecnologías"
     (trackpad), sin fotogramas largos.
@@ -347,3 +382,5 @@ retomarla se sustituye el revelado ligado al scroll por las marcas del revelado 
 | 2026-09-15 | Replanificación | T05 sustituye su revelado ligado al scroll por las marcas del revelado común y reutiliza el trabajo sin commit; T06 y T07 cuentan el revelado en el presupuesto de JS y en las comprobaciones | Refinado de specs y diseño |
 | 2026-09-15 | Planificación | Revelado común como funciones puras en `src/lib/section-reveal.ts` + componente `SectionReveal` renderizado una vez en la home | Lógica testeable en `src/lib` (constitución §4 y §5) y un solo script para todas las secciones |
 | 2026-09-15 | Archivo extra (T08) | `tests/components/about-section.test.ts` comprueba solo que `HomeHero` y `AboutSection` son los dos primeros componentes de `main` (commit aparte tras el de T08) | Al añadir `SectionReveal` a la home, la aserción exacta de 004 fallaba; ajuste ya aprobado por el usuario en T05 |
+| 2026-09-15 | Bloqueo resuelto | T09 se detuvo porque el revelado empezaba con el 10 % del alto del bloque; `/design-spec 005` recuperó el inicio por distancia de entrada (`--reveal-start-distance`, 80px / 120px) con salvaguarda de bloque completo | Revisión manual del usuario en T09 |
+| 2026-09-15 | Replanificación | Nueva T10 (token, funciones puras y `SectionReveal` con inicio por distancia) antes de T09; T09 sin bloqueo y con la comprobación de la distancia; T07 incluye el inicio por distancia | T08 (hecha) queda invalidada en el disparador |
