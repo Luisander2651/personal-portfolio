@@ -109,6 +109,35 @@ describe('content entries', () => {
         expect(cv, technology).toContain(technology);
       }
     });
+
+    it('has the professional summary aligned with the official degree', () => {
+      expect(profile.summary).toBe(
+        'Estudiante de Ingeniería en Tecnologías de la Información, especializado en Desarrollo de Software Multiplataforma, con experiencia práctica en el diseño de APIs REST modulares, arquitecturas en tiempo real orientadas a eventos y sistemas de bases de datos relacionales. Dominio de TypeScript, Node.js, PHP (Laravel 12) y Java / Spring Boot, con un fuerte enfoque en Clean Architecture, microservicios, escalabilidad de sistemas y trabajo en equipo ágil.',
+      );
+    });
+
+    describe.each([
+      [
+        'practicalExperience',
+        [
+          'Diseño de APIs REST modulares',
+          'Arquitecturas en tiempo real orientadas a eventos',
+          'Sistemas de bases de datos relacionales',
+        ],
+      ],
+      ['focusAreas', ['Clean Architecture', 'Microservicios', 'Escalabilidad de sistemas', 'Trabajo en equipo ágil']],
+    ])('%s', (field, expected) => {
+      it('lists exactly the key points of the summary, in order', () => {
+        expect(profile[field]).toEqual(expected);
+      });
+
+      it('takes every key point from the summary of cv.md', () => {
+        const summary = cvSection('Resumen profesional').toLowerCase();
+        for (const point of profile[field] ?? []) {
+          expect(summary, point).toContain(point.toLowerCase());
+        }
+      });
+    });
   });
 
   describe('skills', () => {

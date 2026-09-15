@@ -64,7 +64,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - Los 7 tokens están documentados y declarados con los valores del diseño 004, en un solo commit.
 
-### [ ] T02 — Resumen corregido y puntos clave en el perfil
+### [x] T02 — Resumen corregido y puntos clave en el perfil
 
 - **Criterios**: CA-1.2, CA-1.3, CA-2.1
 - **Diseño**: —

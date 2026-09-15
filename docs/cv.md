@@ -10,7 +10,7 @@
 
 ## Resumen profesional
 
-Estudiante de Ingeniería de Software especializado en Desarrollo Multiplataforma, con experiencia práctica en el diseño de APIs REST modulares, arquitecturas en tiempo real orientadas a eventos y sistemas de bases de datos relacionales. Dominio de TypeScript, Node.js, PHP (Laravel 12) y Java / Spring Boot, con un fuerte enfoque en Clean Architecture, microservicios, escalabilidad de sistemas y trabajo en equipo ágil.
+Estudiante de Ingeniería en Tecnologías de la Información, especializado en Desarrollo de Software Multiplataforma, con experiencia práctica en el diseño de APIs REST modulares, arquitecturas en tiempo real orientadas a eventos y sistemas de bases de datos relacionales. Dominio de TypeScript, Node.js, PHP (Laravel 12) y Java / Spring Boot, con un fuerte enfoque en Clean Architecture, microservicios, escalabilidad de sistemas y trabajo en equipo ágil.
 
 ---
 

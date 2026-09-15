@@ -34,6 +34,8 @@ const validProfile = {
   summary: 'Test summary.',
   languages: [{ language: 'Español', level: 'Nativo' }],
   featuredStack: ['Tech'],
+  practicalExperience: ['Practice'],
+  focusAreas: ['Focus'],
 };
 
 const validSkill = { category: 'Test category', order: 1, items: ['Item'] };
@@ -59,7 +61,7 @@ const cases = [
 ];
 
 const requiredFields: Record<string, string[]> = {
-  profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages', 'featuredStack'],
+  profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages', 'featuredStack', 'practicalExperience', 'focusAreas'],
   skills: ['category', 'order', 'items'],
   projects: ['name', 'order', 'status', 'stack'],
   experience: ['company', 'position', 'duration'],
@@ -88,6 +90,10 @@ describe('content schemas', () => {
 
     it('rejects an empty language list', () => {
       expect(failingPaths(profileSchema, { ...validProfile, languages: [] })).toContain('languages');
+    });
+
+    it.each(['practicalExperience', 'focusAreas'])('rejects an empty %s list', (field) => {
+      expect(failingPaths(profileSchema, { ...validProfile, [field]: [] })).toContain(field);
     });
 
     it('rejects an empty featured stack', () => {

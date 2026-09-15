@@ -15,6 +15,8 @@ export const profileSchema = z.object({
   summary: text,
   languages: nonEmptyList(z.object({ language: text, level: text })),
   featuredStack: nonEmptyList(text),
+  practicalExperience: nonEmptyList(text),
+  focusAreas: nonEmptyList(text),
 });
 
 export const skillSchema = z.object({
