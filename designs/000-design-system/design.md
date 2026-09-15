@@ -387,7 +387,8 @@ Referencia: artboard `B · about.md — Escritorio 1440` y `— Móvil 390` del 
 | `--hero-compile-brightness` | fijo | `1.25` | — | Brillo del código al compilar |
 | `--spotlight-size` | fijo | `360px` | — | Radio de la luz del spotlight |
 | `--tilt-max` | fijo | `4deg` | — | Inclinación máxima del tilt |
-| `--reveal-range-length` | 768 | `160px` | `240px` | Distancia de scroll que dura el revelado P-1 desde que el elemento entra en pantalla |
+| `--reveal-range-start` | 768 | `80px` | `120px` | Distancia que el elemento ha entrado en pantalla cuando empieza el revelado P-1 |
+| `--reveal-range-length` | 768 | `240px` | `360px` | Distancia de scroll que dura el revelado P-1 desde su inicio |
 
 Con `prefers-reduced-motion: reduce`, `--duration-*` y `--stagger` valen `0ms`.
 
@@ -403,8 +404,9 @@ reveal y en el hero. Ninguna usa Motion (ver registro de decisiones).
 - **Propiedades**: `opacity` 0 → 1, `transform` `translateY(var(--reveal-distance))` → 0,
   `filter` `blur(var(--reveal-blur))` → 0. El desenfoque se omite en elementos de gran
   superficie (paneles o cards que ocupan buena parte del viewport).
-- **Progreso / easing**: ligado al scroll, desde que el elemento entra en pantalla hasta
-  `--reveal-range-length` después, con curva `--ease-out`; sin duración temporal. El
+- **Progreso / easing**: ligado al scroll; empieza cuando el elemento ha entrado
+  `--reveal-range-start` en pantalla y termina `--reveal-range-length` después, con curva
+  `--ease-in-out`, para que el cambio ocurra a la vista; sin duración temporal. El
   escalonado entre hermanos sale de su posición (cada elemento tiene su propia línea de
   tiempo). Al hacer scroll hacia arriba, el revelado retrocede.
 - **Implementación**: CSS scroll-driven animations, sin JavaScript. Sin soporte del navegador,
@@ -532,3 +534,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | Secciones de tokens "Secciones" (`--section-max-width`, `--section-header-gap`) y "Sobre mí" (`--about-panel-padding`, `--about-panel-gap`, `--about-groups-gap`, `--about-text-max-width`), y `--reveal-range-length` en movimiento | Medidas de la composición B de "Sobre mí", incorporadas en la tarea T01 del plan 004 | designs/004-about |
 | 2026-09-15 | Componente base "Encabezado de sección" (ruta decorativa + `h2`) | Patrón común aprobado para las secciones 004–009 | designs/004-about |
 | 2026-09-15 | P-1 pasa a progreso ligado al scroll con `--reveal-range-length` (sin duración), escalonado por posición y sin desenfoque en elementos de gran superficie | La implementación CSS scroll-driven no tiene duración temporal y un revelado por tiempo exigiría JavaScript | usuario, designs/004-about |
+| 2026-09-15 | P-1 refinado: nuevo `--reveal-range-start` (80px / 120px), `--reveal-range-length` pasa a 240px / 360px y la curva a `--ease-in-out` | En la revisión manual de la spec 004 el revelado empezaba en el borde inferior y terminaba casi al instante, sin percibirse; incorporado en la tarea T05 del plan 004 | usuario, designs/004-about |

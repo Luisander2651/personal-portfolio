@@ -168,7 +168,8 @@
   --about-panel-padding: 24px 20px 28px;
   --about-panel-gap: 32px;
   --about-groups-gap: 32px;
-  --reveal-range-length: 160px;
+  --reveal-range-start: 80px;
+  --reveal-range-length: 240px;
 }
 
 @media (min-width: 768px) {
@@ -190,7 +191,8 @@
     --about-panel-padding: 40px 48px 48px;
     --about-panel-gap: 40px;
     --about-groups-gap: 48px;
-    --reveal-range-length: 240px;
+    --reveal-range-start: 120px;
+    --reveal-range-length: 360px;
   }
 }
 

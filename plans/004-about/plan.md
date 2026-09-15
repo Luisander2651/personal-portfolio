@@ -89,7 +89,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `docs/cv.md` y `profile` tienen el resumen corregido y los dos campos nuevos.
 
-### [ ] T05 — Actualizar los tokens del revelado en el sistema
+### [x] T05 — Actualizar los tokens del revelado en el sistema
 
 Va antes de T03 porque T03 usa estos tokens (añadida al replanificar; ver registro).
 
