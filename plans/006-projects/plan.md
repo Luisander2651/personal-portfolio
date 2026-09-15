@@ -145,7 +145,7 @@ Va antes de las cards de proyecto para que "Tecnologías" y "Proyectos" comparta
     antes (dentro, se mueve, sale); con reduced motion (recargando), borde estático sin luz; sin
     JavaScript (recargando), sin luz y contenido completo.
 
-### [ ] T05 — Componentes `StatusBadge` y `ProjectCard`
+### [x] T05 — Componentes `StatusBadge` y `ProjectCard`
 
 - **Criterios**: CA-1.2, CA-1.3, CA-3.1, CA-3.2, CA-4.1, CA-4.2, CA-4.4
 - **Diseño**: `A · Sistema — Escritorio 1440` y `— Móvil 390` (card de proyecto) · `M-1` · `M-2`
@@ -281,3 +281,4 @@ Va antes de las cards de proyecto para que "Tecnologías" y "Proyectos" comparta
 | 2026-09-15 | Planificación | Texto del estado en `projectStatusLabel` y badge como componente `StatusBadge` | Reutilizable en la formación (spec 008), que también tiene estado |
 | 2026-09-15 | Planificación | Spotlight extraído a `CardSpotlight` (script y capas globales, marca `data-spotlight` y estado `data-spotlight-active`) antes de las cards de proyecto | Un único script para "Tecnologías" y "Proyectos" (CA-3.3); cada sección conserva solo sus cambios de color |
 | 2026-09-15 | Planificación | La revisión visual de `ProjectCard` se hace en T06, con la sección en la home | La card aislada no se muestra en ninguna página |
+| 2026-09-15 | Implementación (T05) | El halo del punto "En curso" (`0 0 8px` de `--color-warning` en el sistema) se expresa con `--space-2` (8px) | No existe token para el halo y los estilos no admiten literales; mismo valor con un token existente. Aprobado por el usuario |

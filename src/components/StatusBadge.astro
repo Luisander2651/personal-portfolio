@@ -1,0 +1,56 @@
+---
+import { type ProjectStatus, projectStatusLabel } from '../lib/projects';
+
+interface Props {
+  status: ProjectStatus;
+}
+
+const { status } = Astro.props;
+---
+
+<span class:list={['status-badge', `status-badge--${status}`]}>
+  <span class="status-badge-dot" aria-hidden="true"></span>
+  {projectStatusLabel(status)}
+</span>
+
+<style>
+  /* Status badge (designs/000-design-system/design.md). Tokens only; the text carries the state. */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--tag-height);
+    padding-inline: var(--tag-padding-x);
+    border: var(--border-width) solid;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .status-badge-dot {
+    flex: none;
+    width: var(--status-dot-size);
+    height: var(--status-dot-size);
+    border-radius: var(--radius-full);
+    background-color: currentColor;
+  }
+
+  .status-badge--completed {
+    border-color: var(--color-success-border);
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+  }
+
+  .status-badge--in-progress {
+    border-color: var(--color-warning-border);
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning);
+  }
+
+  .status-badge--in-progress .status-badge-dot {
+    box-shadow: 0 0 var(--space-2) var(--color-warning);
+  }
+</style>

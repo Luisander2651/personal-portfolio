@@ -1,0 +1,152 @@
+---
+import type { ProjectStatus } from '../lib/projects';
+import StatusBadge from './StatusBadge.astro';
+
+interface Props {
+  order: number;
+  name: string;
+  status: ProjectStatus;
+  achievements: readonly string[];
+  stack: readonly string[];
+}
+
+const { order, name, status, achievements, stack } = Astro.props;
+---
+
+<article class="project-card" data-reveal data-spotlight>
+  <div class="project-card-meta">
+    <span class="project-card-index" aria-hidden="true">{String(order).padStart(2, '0')}</span>
+    <StatusBadge status={status} />
+  </div>
+  <h3>{name}</h3>
+  <ul class="project-achievements" role="list">
+    {
+      achievements.map((achievement) => (
+        <li class="project-achievement">
+          <span class="project-achievement-mark" aria-hidden="true" />
+          <span>{achievement}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <ul class="project-stack" role="list">
+    {stack.map((technology) => <li class="project-tag">{technology}</li>)}
+  </ul>
+</article>
+
+<style>
+  /* Project card (designs/006-projects/design.md → Componentes). Tokens only. */
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    padding: var(--card-padding);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+  }
+
+  .project-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .project-card-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    color: var(--color-text-muted);
+  }
+
+  .project-card h3 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .project-achievements {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-achievement {
+    display: grid;
+    grid-template-columns: var(--space-2) minmax(0, 1fr);
+    column-gap: var(--space-3);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+  }
+
+  /* Centered on the first line of text. */
+  .project-achievement-mark {
+    height: var(--border-width);
+    margin-top: calc(var(--text-body-size) * var(--text-body-line-height) / 2);
+    background-color: var(--color-border-strong);
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-tag {
+    display: inline-flex;
+    align-items: center;
+    height: var(--tag-height);
+    padding-inline: var(--tag-padding-x);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* M-1 spotlight (P-2): the light and glow layers come from the shared CardSpotlight; the card
+     only brightens its achievements. */
+  @media (hover: hover) and (pointer: fine) {
+    @media (prefers-reduced-motion: no-preference) {
+      .project-achievement {
+        transition: color var(--duration-base) var(--ease-out);
+      }
+
+      .project-achievement-mark {
+        transition: background-color var(--duration-base) var(--ease-out);
+      }
+
+      .project-card[data-spotlight-active] .project-achievement {
+        color: var(--color-text-secondary);
+      }
+
+      .project-card[data-spotlight-active] .project-achievement-mark {
+        background-color: var(--color-glow);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .project-card:hover .project-achievement {
+        color: var(--color-text-secondary);
+      }
+
+      .project-card:hover .project-achievement-mark {
+        background-color: var(--color-glow);
+      }
+    }
+  }
+</style>
