@@ -51,11 +51,13 @@ src/…  tests/…                          ← /implement
 1. **Rellenar `docs/cv.md`**: ninguna skill inventa datos; sin CV no hay contenido.
 2. **Crear el repositorio git y subirlo a GitHub**: `/implement` hace un commit por tarea.
 3. **Conectar el repositorio a un hosting estático** (Vercel, Netlify o Cloudflare Pages):
-   a partir de ahí, cada `git push` publica el sitio. No hace falta una skill de release.
+   se hace en la spec `014-deployment`, con el sitio completo; a partir de ahí, cada
+   `git push` publica el sitio. No hace falta una skill de release.
 
 ## Orden de construcción del sitio
 
-Cada sección del sitio es una spec que recorre el ciclo completo:
+Cada sección del sitio es una spec que recorre el ciclo completo. El orden y los números
+están fijados: al terminar una spec, la siguiente es la primera `pendiente` de la tabla.
 
 | # | Spec | Estado | Notas |
 |---|------|--------|-------|
@@ -63,7 +65,29 @@ Cada sección del sitio es una spec que recorre el ciclo completo:
 | — | `/design-spec system` | ✅ approved | Sistema de diseño global (`designs/000-design-system/design.md`), antes de cualquier spec visual |
 | 002 | `design-tokens` | ✅ done | `tokens.css`, estilos base y fuentes autoalojadas desde el sistema de diseño. Spec **sin interfaz** propia: implementa tokens, no pantallas |
 | 003 | `home-hero` | ✅ done | Primera pantalla: tarjeta con código que se compila, descifrado del nombre y enlaces |
-| 004+ | proyectos, experiencia, contacto… | pendiente | Una spec por sección |
+| 004 | `about` | pendiente | Sobre mí · ancla `#sobre-mi` · "Resumen profesional" de `cv.md` (`profile.summary`) |
+| 005 | `tech-stack` | pendiente | Tecnologías con iconos · ancla `#tecnologias` · "Habilidades técnicas" agrupadas por las categorías de `cv.md` con icono + nombre; las categorías en prosa (Seguridad, IA, Arquitectura, CI/CD, Contenedores) como texto con contexto, nunca una fila de logos suelta. Añade a `cv.md` la categoría **Desarrollo móvil**: Android nativo (Java/Kotlin) e Ionic. El origen de los iconos (SVG propios o dependencia justificada) se decide en `/spec` |
+| 006 | `projects` | pendiente | Proyectos · ancla `#proyectos` · los 5 "Proyectos destacados" de `cv.md`; proyecto destacado + variaciones de tamaño (sin grid de cards idénticas); sin páginas de detalle |
+| 007 | `experience` | pendiente | Experiencia profesional · ancla `#experiencia` · "Experiencia" de `cv.md` con stack e impacto (sin timeline genérico) |
+| 008 | `education` | pendiente | Formación · ancla `#formacion` · "Formación" de `cv.md` con estado (en curso / finalizado) |
+| 009 | `languages` | pendiente | Idiomas · ancla `#idiomas` · "Idiomas" de `cv.md` (`profile.languages`) |
+| 010 | `navigation` | pendiente | Nav · enlaza las anclas de 004–009 en orden; depende de que esas secciones existan |
+| 011 | `footer` | pendiente | Footer · correo, GitHub y LinkedIn de `profile`; sustituye a una sección de contacto (sin formularios) |
+| 012 | `seo-metadata` | pendiente | Favicon, imagen Open Graph, sitemap y `robots.txt` |
+| 013 | `not-found-page` | pendiente | Página 404 con el estilo del sitio y enlace a la home |
+| 014 | `deployment` | pendiente | Conectar el repositorio a un hosting estático y verificar el sitio publicado; el hosting se elige en `/spec` |
+
+### Reglas del roadmap
+
+- **Una sola página**: todas las secciones viven en la home, una debajo de otra, en el orden
+  de la tabla. La única página adicional es la 404.
+- **Anclas en español**: cada spec de sección fija su ancla en sus criterios de aceptación;
+  la nav (010) solo las enlaza.
+- **Sin sección de contacto**: el hero y el footer cubren correo, GitHub y LinkedIn.
+- **Datos nuevos**: si una spec necesita un dato que no está en `cv.md` (como Desarrollo
+  móvil en 005), la propia spec lo añade al CV con aprobación del usuario.
+- **Una spec `active` a la vez**; si aparece una sección nueva, se añade a esta tabla con el
+  siguiente número libre antes de ejecutar `/spec`.
 
 ---
 
