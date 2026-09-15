@@ -45,7 +45,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Incorporar al sistema los tokens y la iconografía de tecnologías
+### [x] T01 — Incorporar al sistema los tokens y la iconografía de tecnologías
 
 - **Criterios**: CA-4.1
 - **Diseño**: `designs/005-tech-stack/design.md` → "Cambios a incorporar al sistema"

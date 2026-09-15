@@ -268,6 +268,13 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 | `--about-groups-gap` | 768 | `32px` | `48px` | Separación entre los grupos |
 | `--about-text-max-width` | fijo | `72ch` | — | Ancho máximo de lectura del resumen |
 
+### Tecnologías
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--tech-card-min-width` | fijo | `240px` | — | Ancho mínimo de las cards de la segunda fila del mosaico de tecnologías |
+| `--tech-item-min-width` | fijo | `160px` | — | Ancho mínimo de columna de los ítems dentro de una card de tecnologías |
+
 ## Componentes base
 
 Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, sección 04, y
@@ -349,6 +356,11 @@ Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, secci
 - Icono enmarcado: marco `--icon-frame-size`, icono `--icon-size-md`, `--radius-md`, borde
   `--border-width` `--color-border`, color `--color-text-secondary`; la flecha externa
   usa `--color-glow`.
+- Iconos genéricos de línea añadidos por la spec 005: taza, tabla, llaves, flechas
+  bidireccionales, enlace con flecha saliente y llave (trazados del canvas de la spec 005).
+- **Excepción · logos de tecnología**: solo en la sección de tecnologías se usan logos de
+  Simple Icons (licencia CC0) copiados al proyecto con su fuente y licencia anotadas; son
+  marcas rellenas en un solo color del sistema (`currentColor`), nunca con colores de marca.
 
 ### Encabezado de sección
 
@@ -535,3 +547,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | Componente base "Encabezado de sección" (ruta decorativa + `h2`) | Patrón común aprobado para las secciones 004–009 | designs/004-about |
 | 2026-09-15 | P-1 pasa a progreso ligado al scroll con `--reveal-range-length` (sin duración), escalonado por posición y sin desenfoque en elementos de gran superficie | La implementación CSS scroll-driven no tiene duración temporal y un revelado por tiempo exigiría JavaScript | usuario, designs/004-about |
 | 2026-09-15 | P-1 refinado: nuevo `--reveal-range-start` (80px / 120px), `--reveal-range-length` pasa a 240px / 360px y la curva a `--ease-in-out` | En la revisión manual de la spec 004 el revelado empezaba en el borde inferior y terminaba casi al instante, sin percibirse; incorporado en la tarea T05 del plan 004 | usuario, designs/004-about |
+| 2026-09-15 | Sección de tokens "Tecnologías" (`--tech-card-min-width`, `--tech-item-min-width`), 6 iconos genéricos de línea y excepción "logos de tecnología" (Simple Icons, CC0, un color) en Iconografía | Composición A · Bento de la sección de tecnologías, incorporada en la tarea T01 del plan 005 | designs/005-tech-stack |
