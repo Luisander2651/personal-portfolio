@@ -10,6 +10,8 @@ updated: 2026-09-15
 
 # Plan — Sobre mí
 
+Orden de ejecución: T01 → T02 → T05 → T03 → T04.
+
 Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con línea
 **Bloqueo** está detenida por `/implement` hasta resolver una brecha.
 
@@ -17,7 +19,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 | Capa | Tareas |
 |------|--------|
-| Sistema (incorporar tokens, encabezado de sección y P-1) | T01 |
+| Sistema (incorporar tokens, encabezado de sección y P-1) | T01, T05 |
 | Datos | T02 |
 | Estructura estática, estilos y movimiento (componentes) | T03 |
 | Pulido | — (incluido en T03) |
@@ -35,7 +37,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | CA-3.1 | T03, T04 |
 | CA-4.1 | T03, T04 |
 | CA-4.2 | T03, T04 |
-| CA-4.3 | T01, T03, T04 |
+| CA-4.3 | T01, T05, T03, T04 |
 
 ## Tareas
 
@@ -87,7 +89,34 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `docs/cv.md` y `profile` tienen el resumen corregido y los dos campos nuevos.
 
+### [ ] T05 — Actualizar los tokens del revelado en el sistema
+
+Va antes de T03 porque T03 usa estos tokens (añadida al replanificar; ver registro).
+
+- **Criterios**: CA-4.3
+- **Diseño**: `designs/004-about/design.md` → "Tokens a incorporar al sistema" (refinado del
+  revelado)
+- **Archivos**: `designs/000-design-system/design.md` (modificar), `src/styles/tokens.css` (modificar)
+- **Qué hacer**:
+  - En `designs/000-design-system/design.md`:
+    - Añadir `--reveal-range-start` (768: `80px` / `120px`) en "Tokens de movimiento".
+    - Cambiar `--reveal-range-length` a `240px` / `360px`.
+    - Patrón P-1: el revelado empieza cuando el elemento ha entrado `--reveal-range-start` y
+      termina `--reveal-range-length` después, con curva `--ease-in-out`.
+    - Entrada en el registro de decisiones del sistema.
+  - En `src/styles/tokens.css`: declarar `--reveal-range-start` y actualizar
+    `--reveal-range-length` en móvil y desde 768px.
+- **Test**: el test de tokens existente (`tests/styles/tokens.test.ts`); se pone en rojo al
+  documentar los valores nuevos y en verde al declararlos. Sin test nuevo.
+- **Terminado cuando**:
+  - `bun run test` y `bun run build` en verde.
+  - Sistema y `tokens.css` coinciden con los valores refinados del diseño 004, en un solo commit
+    que no incluye el trabajo pendiente de T03.
+
 ### [ ] T03 — Componentes de "Sobre mí": estructura, estilos y revelado
+
+Estructura, estilos y tests ya están hechos (sin commit) desde la primera ejecución; al
+retomarla solo cambia el revelado M-1 según el refinado del diseño.
 
 - **Criterios**: CA-1.1, CA-2.2, CA-3.1, CA-4.1, CA-4.2, CA-4.3
 - **Diseño**: `B · about.md — Móvil 390`, `B · about.md — Escritorio 1440`,
@@ -116,9 +145,10 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - **Revelado M-1** (CSS scroll-driven, sin JavaScript), en ambos componentes:
     - Solo dentro de `@media (prefers-reduced-motion: no-preference)` y
       `@supports (animation-timeline: view())`.
-    - Línea de tiempo de vista propia por elemento, rango desde la entrada hasta
-      `--reveal-range-length`, curva `--ease-out`, estado inicial con `--reveal-distance`
-      (y `--reveal-blur` solo en el encabezado).
+    - Línea de tiempo de vista propia por elemento, rango desde que el elemento ha entrado
+      `--reveal-range-start` hasta `--reveal-range-start` + `--reveal-range-length`, mismo
+      rango en encabezado y panel, curva `--ease-in-out`, estado inicial con
+      `--reveal-distance` (y `--reveal-blur` solo en el encabezado).
     - Fuera de esas condiciones, nada oculta el contenido.
   - **`index.astro`**: renderizar `AboutSection` con los datos de `profile`, justo después de
     `HomeHero` dentro de `main`.
@@ -134,21 +164,25 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     - `index.astro` renderiza `AboutSection` después de `HomeHero` dentro de `main`.
   - `about-section-styles.test.ts` (estilos de ambos componentes):
     - Sin colores, tamaños, espaciados ni duraciones literales.
-    - Usan los tokens `--section-*`, `--about-*` y `--reveal-range-length`.
+    - Usan los tokens `--section-*`, `--about-*`, `--reveal-range-start` y
+      `--reveal-range-length`.
     - Regla de dos columnas desde 768px.
     - Sin `--border-glow` ni sombras de glow.
     - Toda regla que oculta o desplaza contenido (animación, `opacity`, `transform`,
       `filter`) está dentro de `prefers-reduced-motion: no-preference` y del `@supports` de
       scroll-driven.
     - El panel no anima `filter`.
-    - El revelado usa `--ease-out`.
+    - El revelado empieza en `entry` + `--reveal-range-start`, termina en `entry` +
+      `--reveal-range-start` + `--reveal-range-length` y usa `--ease-in-out`.
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
   - JavaScript de cliente de la home en `dist/` sin cambios respecto a la spec 003
     (solo el del hero, ≤ 3 kB con gzip).
   - Comprobación manual en Chrome:
     - Sección a 390px y 1440px contra `B · about.md — Móvil 390` y `— Escritorio 1440`.
-    - Revelado al hacer scroll contra `B · about.md — Movimiento`.
+    - Revelado al hacer scroll contra `B · about.md — Movimiento`: encabezado y panel se
+      revelan a la vista, no pegados al borde inferior.
+    - Scroll fluido con trackpad al pasar por la sección.
     - Con reduced motion emulado, contenido directo sin revelado.
     - Con JavaScript desactivado, contenido presente y nunca oculto a la espera de un script.
 
@@ -176,6 +210,10 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     - Un único `h1`.
     - JavaScript de la home solo del hero (≤ 3 kB con gzip).
   - Reduced motion y JavaScript desactivado revisados.
+  - Rendimiento del revelado: pestaña Performance de DevTools haciendo scroll (con trackpad)
+    por la sección, sin fotogramas largos. Si hay tirones atribuibles al desenfoque del
+    encabezado, se añade **Bloqueo** y se vuelve a `/design-spec 004` para quitarlo
+    (constitución §7).
   - Contraste AA según tokens (sin valores nuevos de color) y orden de tabulación sin cambios.
   - Revisión visual a 390px y 1440px contra la composición B.
   - Lighthouse ≥ 90 en todas las categorías (DevTools sobre `bun run preview`).
@@ -191,3 +229,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-15 | Planificación | Encabezado de sección como componente propio `SectionHeader`, reutilizable en 005–009 | Patrón común aprobado en el diseño 004 |
 | 2026-09-15 | Planificación | Nombres: campos `practicalExperience` y `focusAreas`; componentes `SectionHeader` y `AboutSection` | Identificadores en inglés (constitución §9) |
 | 2026-09-15 | Aclaración | La rama reduced motion del revelado es CSS (`prefers-reduced-motion` y `@supports`), sin JavaScript | Pregunta del usuario al revisar el plan; se mantiene CA-4.2 |
+| 2026-09-15 | Bloqueo resuelto | T03 se detuvo porque el revelado M-1 del panel no se percibía (empezaba en el borde inferior y con `--ease-out` terminaba a los ~60px); `/design-spec 004` refinó M-1: inicio tras `--reveal-range-start` (80px / 120px), recorrido `--reveal-range-length` (240px / 360px) y `--ease-in-out` | Revisión manual del usuario en T03 |
+| 2026-09-15 | Replanificación | Nueva T05 para incorporar los tokens y P-1 refinados al sistema y a `tokens.css` (invalida parte de T01, ya hecha); se sitúa antes de T03 en el documento y en el orden de ejecución porque T03 la necesita | Regla de replanificar: una tarea hecha invalidada se ajusta con una tarea nueva |
+| 2026-09-15 | Replanificación | T03 se ajusta al revelado refinado y reutiliza el trabajo sin commit; su revisión manual incluye que el revelado se perciba y scroll fluido | Refinado del diseño 004 |
+| 2026-09-15 | Replanificación | T04 añade la comprobación de rendimiento del revelado (Performance con trackpad); si el desenfoque del encabezado provoca tirones, Bloqueo y `/design-spec 004` | Tirones intermitentes no reproducibles en la primera revisión; el usuario mantuvo el desenfoque |

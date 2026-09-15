@@ -29,7 +29,7 @@ y contrasta con la tarjeta luminosa del hero: superficie hundida, sin glow.
 | Pantalla | Artboard móvil | Artboard escritorio | Criterios de la spec que cubre |
 |----------|----------------|---------------------|--------------------------------|
 | Sobre mí · estado final | `B · about.md — Móvil 390` | `B · about.md — Escritorio 1440` | CA-1.1, CA-2.2, CA-3.1, CA-4.3 |
-| Sobre mí · revelado | — | `B · about.md — Movimiento` (Entra en pantalla, A mitad del rango, Revelado) | CA-4.1 |
+| Sobre mí · revelado | — | `B · about.md — Movimiento` (Asoma por abajo, A mitad del recorrido, Revelado) | CA-4.1 |
 | Sobre mí · reduced motion / sin JavaScript | — | `B · about.md — Movimiento` (Reduced motion · sin soporte) | CA-4.1, CA-4.2 |
 
 Página del canvas: "B · about.md (elegida)".
@@ -117,29 +117,36 @@ En **"Tokens de movimiento"**:
 
 | Token | Modo | Móvil | Escritorio | Uso |
 |-------|------|-------|------------|-----|
-| `--reveal-range-length` | 768 | `160px` | `240px` | Distancia de scroll que dura el revelado P-1 desde que el elemento entra en pantalla |
+| `--reveal-range-start` | 768 | `80px` | `120px` | Distancia que el elemento ha entrado en pantalla cuando empieza el revelado P-1 |
+| `--reveal-range-length` | 768 | `240px` | `360px` | Distancia de scroll que dura el revelado P-1 desde su inicio |
 
 Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema, en la misma tarea:
 
-- **Duración / easing**: sustituir "`--duration-reveal` / `--ease-out`; `--stagger` entre
-  hermanos" por: progreso ligado al scroll desde que el elemento entra en pantalla hasta
-  `--reveal-range-length` después, con curva `--ease-out`; el escalonado entre hermanos sale de
-  su posición (cada elemento tiene su propia línea de tiempo). Al hacer scroll hacia arriba,
-  el revelado retrocede.
+- **Progreso / easing**: ligado al scroll; empieza cuando el elemento ha entrado
+  `--reveal-range-start` en pantalla y termina `--reveal-range-length` después, con curva
+  `--ease-in-out`; el escalonado entre hermanos sale de su posición (cada elemento tiene su
+  propia línea de tiempo). Al hacer scroll hacia arriba, el revelado retrocede.
 - **Propiedades**: el desenfoque (`--reveal-blur`) se omite en elementos de gran superficie
   (paneles o cards que ocupan buena parte del viewport).
+
+> **Refinado 2026-09-15**: la tarea T01 del plan 004 ya incorporó la primera versión
+> (`--reveal-range-length` `160px` / `240px`, inicio en el borde inferior y `--ease-out`).
+> Los valores y el texto de P-1 de esta sección sustituyen a los anteriores y deben
+> incorporarse al sistema y a `tokens.css` en una tarea nueva del plan.
 
 ## Especificación de movimiento
 
 ### M-1 — Revelado de la sección (patrón P-1)
 
-- **Disparador**: scroll; cada elemento avanza mientras entra en pantalla por la parte inferior.
+- **Disparador**: scroll; cada elemento avanza cuando ya ha entrado `--reveal-range-start` en
+  pantalla por la parte inferior (no en el borde), para que el cambio ocurra a la vista.
 - **Elementos**: encabezado de sección y panel `about.md` (el contenido del panel se revela con él).
 - **Propiedades**:
   - Encabezado: `opacity`, `transform` y `filter`.
   - Panel: `opacity` y `transform` (sin `filter`, por su superficie).
-- **Duración / easing**: rango de scroll desde la entrada del borde superior del elemento
-  hasta `--reveal-range-length` después / `--ease-out`. Sin duración temporal.
+- **Duración / easing**: rango de scroll desde que el borde superior del elemento ha entrado
+  `--reveal-range-start` hasta `--reveal-range-length` después / `--ease-in-out`. Sin
+  duración temporal. Mismo rango y curva para el encabezado y el panel.
 - **Estado inicial → final**:
   - Encabezado: `opacity: 0`, `translateY(var(--reveal-distance))`, `blur(var(--reveal-blur))`
     → `opacity: 1`, `translateY(0)`, sin desenfoque.
@@ -155,8 +162,8 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
 - **Sin JavaScript**: el revelado no depende de JavaScript (es CSS); el contenido está en el
   HTML y nada lo oculta a la espera de un script.
 - **Táctil**: no depende del cursor.
-- **Fotogramas en canvas**: `B · about.md — Movimiento` (Entra en pantalla, A mitad del
-  rango, Revelado, Reduced motion · sin soporte).
+- **Fotogramas en canvas**: `B · about.md — Movimiento` (Asoma por abajo, A mitad del
+  recorrido, Revelado, Reduced motion · sin soporte).
 
 ## Accesibilidad
 
@@ -199,3 +206,5 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
 | 2026-09-15 | Implícita | Glow en la sección | Sin glow ni borde luminoso: la sección no es interactiva | designs/000-design-system (reglas de uso) |
 | 2026-09-15 | Implícita | Panel de archivo en otras secciones | Exclusivo de 004 para evitar secciones con estructura idéntica | anti-cliches.md |
 | 2026-09-15 | Contradicción | M-1 decía "sin JavaScript: contenido visible desde el inicio", pero el revelado CSS también se ejecuta sin JS (detectado en `/plan-spec 004`) | Se separan los casos: sin soporte, visible desde el inicio; sin JS, el revelado no depende de JS y nada espera a un script | usuario, specs/004-about |
+| 2026-09-15 | Refinado | En la revisión manual de T03 el revelado del panel no se percibía: empezaba en el borde inferior y con `--ease-out` terminaba a los ~60px | Encabezado y panel empiezan tras `--reveal-range-start` (80px / 120px) y duran `--reveal-range-length` (240px / 360px) con `--ease-in-out`; artboard de Movimiento actualizado | usuario |
+| 2026-09-15 | Refinado | Desenfoque del encabezado: el filtro animado con el scroll no va acelerado por GPU y es sospechoso de tirones intermitentes (no reproducibles) | Se mantiene por decisión del usuario; si la verificación final confirma tirones, se quita (constitución §7: rendimiento sobre efectos) | usuario, constitution.md §7 |
