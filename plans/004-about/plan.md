@@ -3,7 +3,7 @@ id: 004
 title: Sobre mí
 spec: specs/004-about/spec.md
 design: designs/004-about/design.md
-status: approved
+status: done
 created: 2026-09-15
 updated: 2026-09-15
 ---
@@ -186,7 +186,7 @@ retomarla solo cambia el revelado M-1 según el refinado del diseño.
     - Con reduced motion emulado, contenido directo sin revelado.
     - Con JavaScript desactivado, contenido presente y nunca oculto a la espera de un script.
 
-### [ ] T04 — Verificación final
+### [x] T04 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/004-about/design.md`
@@ -237,3 +237,4 @@ retomarla solo cambia el revelado M-1 según el refinado del diseño.
 | 2026-09-15 | Implementación (T03) | Rango del revelado con las propiedades largas `animation-range-start: entry var(--reveal-range-start)` y `animation-range-end: entry calc(var(--reveal-range-start) + var(--reveal-range-length))` | Evitar porcentajes literales (test de solo tokens); Chrome lo resuelve como `entry 120px` → `entry 480px` en escritorio |
 | 2026-09-15 | Incidencia (T03) | Tirones al hacer scroll con trackpad reproducidos por el usuario; aislados con pruebas en consola: el revelado del panel los provocaba (no el desenfoque del encabezado ni el halo fijo). `will-change: opacity, transform` en el panel, solo dentro de las condiciones del revelado, los elimina; protegido por test | Constitución §7; confirmado por el usuario |
 | 2026-09-15 | Verificación (T03) | Chrome: composición a 390px y 1536px contra B · about.md; revelado a la vista con el rango refinado; scroll fluido; reduced motion y JavaScript desactivado revisados por el usuario; JS de la home 1,34 kB con gzip | CA-1.1, CA-2.2, CA-3.1, CA-4.1, CA-4.2, CA-4.3 |
+| 2026-09-15 | Verificación (T04) | 409 tests y build en verde; `dist/index.html` con `section#sobre-mi` única tras el hero, resumen y 7 puntos sin JS, `h2`/`h3` y `aria-labelledby` correctos, meta description corregida, un único `h1`, sin elementos enfocables nuevos y JS de la home 1,34 kB con gzip; revisión visual a 390px y escritorio, Performance sin tirones con trackpad, reduced motion, JavaScript desactivado y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |

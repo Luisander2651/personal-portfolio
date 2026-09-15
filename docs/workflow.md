@@ -65,7 +65,7 @@ están fijados: al terminar una spec, la siguiente es la primera `pendiente` de 
 | — | `/design-spec system` | ✅ approved | Sistema de diseño global (`designs/000-design-system/design.md`), antes de cualquier spec visual |
 | 002 | `design-tokens` | ✅ done | `tokens.css`, estilos base y fuentes autoalojadas desde el sistema de diseño. Spec **sin interfaz** propia: implementa tokens, no pantallas |
 | 003 | `home-hero` | ✅ done | Primera pantalla: tarjeta con código que se compila, descifrado del nombre y enlaces |
-| 004 | `about` | pendiente | Sobre mí · ancla `#sobre-mi` · "Resumen profesional" de `cv.md` (`profile.summary`) |
+| 004 | `about` | ✅ done | Sobre mí · ancla `#sobre-mi` · "Resumen profesional" de `cv.md` (`profile.summary`) |
 | 005 | `tech-stack` | pendiente | Tecnologías con iconos · ancla `#tecnologias` · "Habilidades técnicas" agrupadas por las categorías de `cv.md` con icono + nombre; las categorías en prosa (Seguridad, IA, Arquitectura, CI/CD, Contenedores) como texto con contexto, nunca una fila de logos suelta. Añade a `cv.md` la categoría **Desarrollo móvil**: Android nativo (Java/Kotlin) e Ionic. El origen de los iconos (SVG propios o dependencia justificada) se decide en `/spec` |
 | 006 | `projects` | pendiente | Proyectos · ancla `#proyectos` · los 5 "Proyectos destacados" de `cv.md`; proyecto destacado + variaciones de tamaño (sin grid de cards idénticas); sin páginas de detalle |
 | 007 | `experience` | pendiente | Experiencia profesional · ancla `#experiencia` · "Experiencia" de `cv.md` con stack e impacto (sin timeline genérico) |

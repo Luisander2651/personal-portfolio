@@ -1,7 +1,7 @@
 ---
 id: 004
 title: Sobre mí
-status: active
+status: done
 created: 2026-09-15
 updated: 2026-09-15
 depends_on: [001, 002, 003]
@@ -163,3 +163,4 @@ competir con el hero y con su versión reduced motion.
 | 2026-09-15 | Diseño | Composición de la sección | B · about.md: encabezado de sección común (ruta mono + `h2`), panel de archivo con resumen y grupos, revelado ligado al scroll sin JS; tokens nuevos y ajuste de P-1 a incorporar al sistema en la primera tarea del plan | /design-spec |
 | 2026-09-15 | Contradicción | CA-4.1 exigía contenido visible sin animación también sin JavaScript, pero el revelado aprobado es CSS y no depende de JS (detectado en `/plan-spec 004`) | CA-4.1 refinado: con reduced motion o sin soporte, visible sin animación; sin JS, contenido en el HTML y nunca oculto a la espera de un script | usuario, designs/004-about |
 | 2026-09-15 | Diseño | Revelado M-1 refinado tras la revisión de T03 | Inicio del rango tras `--reveal-range-start`, recorrido `--reveal-range-length` (240px / 360px) y curva `--ease-in-out` para encabezado y panel; desenfoque del encabezado se mantiene y se vigila en la verificación final | /design-spec |
+| 2026-09-15 | Cierre | Spec completada: las tareas T01, T02, T05, T03 y T04 de `plans/004-about/plan.md` verificadas (tests, `dist/`, revisión visual, rendimiento del revelado, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |
