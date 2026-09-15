@@ -1,6 +1,7 @@
 ---
 category: "DevOps y herramientas"
-order: 4
+order: 5
+presentation: "icons"
 items:
   - "Docker"
   - "Git"

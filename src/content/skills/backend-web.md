@@ -1,6 +1,7 @@
 ---
 category: "Backend y web"
 order: 2
+presentation: "icons"
 items:
   - "Node.js"
   - "NestJS"

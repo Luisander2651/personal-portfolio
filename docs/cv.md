@@ -22,6 +22,9 @@ TypeScript, JavaScript, PHP, Java, Python, C++, SQL
 ### Backend y web
 Node.js, NestJS, Next.js, Express.js, Laravel 12, Spring Boot, APIs REST, WebSockets, WebHooks
 
+### Desarrollo móvil
+Android nativo (Java, Kotlin), Ionic
+
 ### Bases de datos y caché
 PostgreSQL, MySQL, Redis
 

@@ -1,6 +1,7 @@
 ---
 category: "Arquitectura y prácticas"
-order: 7
+order: 8
+presentation: "tags"
 items:
   - "Clean Architecture"
   - "Hexagonal Architecture"

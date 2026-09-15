@@ -32,7 +32,7 @@ const collections = {
   },
   skills: {
     schema: skillSchema,
-    count: 9,
+    count: 10,
     entries: entriesOf(import.meta.glob('/src/content/skills/*.md', { eager: true })),
   },
   projects: {
@@ -153,6 +153,31 @@ describe('content entries', () => {
     it('follows the order of cv.md', () => {
       const positions = skills.map(({ data }) => section.indexOf(`### ${data.category}\n`));
       expect(positions).toEqual([...positions].sort((a, b) => a - b));
+    });
+
+    it('adds "Desarrollo móvil" right after "Backend y web"', () => {
+      expect(section).toContain('### Backend y web\n');
+      expect(section).toMatch(/### Backend y web\n[^\n]+\n\n### Desarrollo móvil\nAndroid nativo \(Java, Kotlin\), Ionic\n/);
+      expect(skills[2]?.data).toMatchObject({
+        category: 'Desarrollo móvil',
+        order: 3,
+        items: ['Android nativo (Java, Kotlin)', 'Ionic'],
+      });
+    });
+
+    it('presents each category as the spec defines', () => {
+      expect(skills.map(({ data }) => [data.category, data.presentation])).toEqual([
+        ['Lenguajes y fundamentos', 'icons'],
+        ['Backend y web', 'icons'],
+        ['Desarrollo móvil', 'icons'],
+        ['Bases de datos y caché', 'icons'],
+        ['DevOps y herramientas', 'icons'],
+        ['Seguridad y pruebas', 'icons'],
+        ['Desarrollo asistido por IA', 'text'],
+        ['Arquitectura y prácticas', 'tags'],
+        ['CI/CD', 'text'],
+        ['Contenedores / entornos', 'text'],
+      ]);
     });
   });
 

@@ -64,7 +64,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - Sistema y `tokens.css` coinciden con el diseño 005, en un solo commit.
 
-### [ ] T02 — Categoría "Desarrollo móvil" y presentación de cada categoría
+### [x] T02 — Categoría "Desarrollo móvil" y presentación de cada categoría
 
 - **Criterios**: CA-1.2
 - **Diseño**: —

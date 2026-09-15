@@ -4,6 +4,8 @@ const text = z.string().min(1);
 const nonEmptyList = <T extends z.ZodType>(item: T) => z.array(item).min(1);
 const position = z.int().positive();
 const status = z.enum(['completed', 'in-progress']);
+/** How a skill category is shown in the tech stack section. */
+const presentation = z.enum(['icons', 'tags', 'text']);
 
 export const profileSchema = z.object({
   name: text,
@@ -22,6 +24,7 @@ export const profileSchema = z.object({
 export const skillSchema = z.object({
   category: text,
   order: position,
+  presentation,
   items: nonEmptyList(text),
 });
 

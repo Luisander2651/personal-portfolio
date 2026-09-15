@@ -38,7 +38,7 @@ const validProfile = {
   focusAreas: ['Focus'],
 };
 
-const validSkill = { category: 'Test category', order: 1, items: ['Item'] };
+const validSkill = { category: 'Test category', order: 1, presentation: 'icons', items: ['Item'] };
 
 const validProject = { name: 'Test project', order: 1, status: 'completed', stack: ['Tech'] };
 
@@ -62,7 +62,7 @@ const cases = [
 
 const requiredFields: Record<string, string[]> = {
   profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages', 'featuredStack', 'practicalExperience', 'focusAreas'],
-  skills: ['category', 'order', 'items'],
+  skills: ['category', 'order', 'presentation', 'items'],
   projects: ['name', 'order', 'status', 'stack'],
   experience: ['company', 'position', 'duration'],
   education: ['degree', 'specialization', 'institution', 'status'],
@@ -113,6 +113,14 @@ describe('content schemas', () => {
 
     it.each([0, -1, 1.5])('rejects order %s', (order) => {
       expect(failingPaths(skillSchema, { ...validSkill, order })).toContain('order');
+    });
+
+    it.each(['icons', 'tags', 'text'])('accepts the %s presentation', (presentation) => {
+      expect(failingPaths(skillSchema, { ...validSkill, presentation })).toEqual([]);
+    });
+
+    it('rejects an unknown presentation', () => {
+      expect(failingPaths(skillSchema, { ...validSkill, presentation: 'logos' })).toContain('presentation');
     });
   });
 
