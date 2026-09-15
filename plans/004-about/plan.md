@@ -39,7 +39,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Incorporar al sistema los tokens, el encabezado de sección y el ajuste de P-1
+### [x] T01 — Incorporar al sistema los tokens, el encabezado de sección y el ajuste de P-1
 
 - **Criterios**: CA-4.3
 - **Diseño**: `designs/004-about/design.md` → "Tokens a incorporar al sistema" y

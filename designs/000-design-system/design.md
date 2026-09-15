@@ -4,7 +4,7 @@ title: Sistema de diseño
 status: approved
 canvas: https://claude.ai/code/artifact/7951e0c7-1841-4152-9d8e-8752078f7990
 created: 2026-09-13
-updated: 2026-09-13
+updated: 2026-09-15
 ---
 
 # Sistema de diseño
@@ -252,6 +252,22 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 | `--hero-caret-width` | fijo | `8px` | — | Ancho del caret de escritura |
 | `--hero-caret-height` | fijo | `16px` | — | Alto del caret de escritura |
 
+### Secciones
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--section-max-width` | fijo | `1120px` | — | Ancho máximo del contenido de las secciones |
+| `--section-header-gap` | 768 | `24px` | `32px` | Separación entre el encabezado de sección y su contenido |
+
+### Sobre mí
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--about-panel-padding` | 768 | `24px 20px 28px` | `40px 48px 48px` | Padding del cuerpo del panel `about.md` |
+| `--about-panel-gap` | 768 | `32px` | `40px` | Separación entre resumen, separador y grupos |
+| `--about-groups-gap` | 768 | `32px` | `48px` | Separación entre los grupos |
+| `--about-text-max-width` | fijo | `72ch` | — | Ancho máximo de lectura del resumen |
+
 ## Componentes base
 
 Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, sección 04, y
@@ -334,6 +350,23 @@ Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, secci
   `--border-width` `--color-border`, color `--color-text-secondary`; la flecha externa
   usa `--color-glow`.
 
+### Encabezado de sección
+
+Patrón común de las secciones de la home (specs 004–009); cada sección aporta su ancla.
+Referencia: artboard `B · about.md — Escritorio 1440` y `— Móvil 390` del canvas de la spec 004.
+
+- **Anatomía**: columna con separación `--space-3`:
+  1. **Ruta** (decorativa, oculta a lectores de pantalla): fila con separación `--space-2` de
+     `portfolio` en `--color-text-muted`, `/` en `--color-border-strong` y el ancla sin `#`
+     en `--color-text-secondary`; tipografía `--text-mono-label-*` (mayúsculas).
+  2. **`h2`**: tokens `--text-h2-*`, color `--color-text`; es el nombre accesible de la sección
+     (`aria-labelledby`).
+- Separación con el contenido de la sección: `--section-header-gap`. Contenido de la sección
+  con ancho máximo `--section-max-width`.
+- **Estados**: ninguno (no interactivo).
+- **Variación entre secciones**: el encabezado es común; el layout del contenido varía en cada
+  sección (ver `anti-cliches.md`).
+
 ## Tokens de movimiento
 
 | Token | Modo | Móvil | Escritorio | Uso |
@@ -354,6 +387,7 @@ Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, secci
 | `--hero-compile-brightness` | fijo | `1.25` | — | Brillo del código al compilar |
 | `--spotlight-size` | fijo | `360px` | — | Radio de la luz del spotlight |
 | `--tilt-max` | fijo | `4deg` | — | Inclinación máxima del tilt |
+| `--reveal-range-length` | 768 | `160px` | `240px` | Distancia de scroll que dura el revelado P-1 desde que el elemento entra en pantalla |
 
 Con `prefers-reduced-motion: reduce`, `--duration-*` y `--stagger` valen `0ms`.
 
@@ -367,10 +401,14 @@ reveal y en el hero. Ninguna usa Motion (ver registro de decisiones).
 - **Disparador**: el elemento entra en el viewport.
 - **Elementos**: secciones y cards.
 - **Propiedades**: `opacity` 0 → 1, `transform` `translateY(var(--reveal-distance))` → 0,
-  `filter` `blur(var(--reveal-blur))` → 0.
-- **Duración / easing**: `--duration-reveal` / `--ease-out`; `--stagger` entre hermanos.
-- **Implementación**: CSS scroll-driven animations. Sin soporte del navegador, el contenido
-  se muestra directamente (nunca oculto por defecto).
+  `filter` `blur(var(--reveal-blur))` → 0. El desenfoque se omite en elementos de gran
+  superficie (paneles o cards que ocupan buena parte del viewport).
+- **Progreso / easing**: ligado al scroll, desde que el elemento entra en pantalla hasta
+  `--reveal-range-length` después, con curva `--ease-out`; sin duración temporal. El
+  escalonado entre hermanos sale de su posición (cada elemento tiene su propia línea de
+  tiempo). Al hacer scroll hacia arriba, el revelado retrocede.
+- **Implementación**: CSS scroll-driven animations, sin JavaScript. Sin soporte del navegador,
+  el contenido se muestra directamente (nunca oculto por defecto).
 - **Reduced motion**: contenido visible de inmediato, sin transición.
 
 ### P-2 — Spotlight en cards
@@ -491,3 +529,6 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-13 | `--icon-frame-size` pasa a `48px` en móvil (antes `36px`) | Los iconos enmarcados son interactivos y deben cumplir el objetivo táctil ≥ 44px (diseño de la spec 003) | usuario, designs/003-home-hero |
 | 2026-09-13 | Sección de tokens "Hero": `--hero-min-height`, `--hero-card-max-width`, `--hero-card-padding`, `--hero-card-gap`, `--hero-caret-width`, `--hero-caret-height` | Medidas de la composición A del hero, incorporadas al sistema en la tarea T01 del plan 003 | designs/003-home-hero |
 | 2026-09-13 | `body` con `margin: 0` en Estilos base | El hero de `--hero-min-height` desbordaba por el margen por defecto del navegador | usuario, designs/003-home-hero |
+| 2026-09-15 | Secciones de tokens "Secciones" (`--section-max-width`, `--section-header-gap`) y "Sobre mí" (`--about-panel-padding`, `--about-panel-gap`, `--about-groups-gap`, `--about-text-max-width`), y `--reveal-range-length` en movimiento | Medidas de la composición B de "Sobre mí", incorporadas en la tarea T01 del plan 004 | designs/004-about |
+| 2026-09-15 | Componente base "Encabezado de sección" (ruta decorativa + `h2`) | Patrón común aprobado para las secciones 004–009 | designs/004-about |
+| 2026-09-15 | P-1 pasa a progreso ligado al scroll con `--reveal-range-length` (sin duración), escalonado por posición y sin desenfoque en elementos de gran superficie | La implementación CSS scroll-driven no tiene duración temporal y un revelado por tiempo exigiría JavaScript | usuario, designs/004-about |

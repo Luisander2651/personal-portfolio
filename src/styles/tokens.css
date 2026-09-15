@@ -133,6 +133,12 @@
   --hero-caret-width: 8px;
   --hero-caret-height: 16px;
 
+  /* Sections */
+  --section-max-width: 1120px;
+
+  /* About */
+  --about-text-max-width: 72ch;
+
   /* Fluid (390px to 1440px) */
   --text-display-size: clamp(40px, calc(40px + (72 - 40) * ((100vw - 390px) / 1050)), 72px);
   --text-h1-size: clamp(30px, calc(30px + (48 - 30) * ((100vw - 390px) / 1050)), 48px);
@@ -158,6 +164,11 @@
   --icon-frame-size: 48px;
   --hero-card-padding: 24px;
   --hero-card-gap: 18px;
+  --section-header-gap: 24px;
+  --about-panel-padding: 24px 20px 28px;
+  --about-panel-gap: 32px;
+  --about-groups-gap: 32px;
+  --reveal-range-length: 160px;
 }
 
 @media (min-width: 768px) {
@@ -175,6 +186,11 @@
     --icon-frame-size: 52px;
     --hero-card-padding: 40px;
     --hero-card-gap: 24px;
+    --section-header-gap: 32px;
+    --about-panel-padding: 40px 48px 48px;
+    --about-panel-gap: 40px;
+    --about-groups-gap: 48px;
+    --reveal-range-length: 240px;
   }
 }
 
