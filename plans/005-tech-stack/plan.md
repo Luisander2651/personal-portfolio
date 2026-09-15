@@ -106,7 +106,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T04 — Catálogo de iconos de tecnologías
+### [x] T04 — Catálogo de iconos de tecnologías
 
 - **Criterios**: CA-2.1, CA-2.3
 - **Diseño**: `designs/005-tech-stack/design.md` → "Iconografía de la sección" (tabla ítem → icono)
@@ -263,3 +263,5 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-15 | Planificación | Agrupación en `src/lib/skills.ts` y catálogo de iconos en `src/lib/tech-icons.ts`, cada uno con su test | Lógica en `src/lib/` como funciones puras con test (constitución §4 y §5) |
 | 2026-09-15 | Planificación | Estructura, estilos y revelado del componente en una sola tarea (T05); el spotlight con script en otra (T06) | Preferencia del usuario en el plan 004; el spotlight añade JavaScript y se verifica aparte |
 | 2026-09-15 | Planificación | Nombres: `presentation`, `groupSkillsForSection`, `TechStackSection`, `tech-icons` | Identificadores en inglés (constitución §9) |
+| 2026-09-15 | Implementación (T04) | El catálogo tiene 23 logos y 6 iconos de línea (29 ítems), como la tabla ítem → icono del diseño; los textos "21 logos" del diseño y del plan eran una errata de conteo | La tabla del diseño es la fuente detallada; el test sigue la tabla |
+| 2026-09-15 | Implementación (T04) | Los iconos de línea con rectángulo o círculo (tabla, llave) se guardan como trazados `path` equivalentes | Un solo formato de datos (lista de trazados) para logos e iconos de línea |
