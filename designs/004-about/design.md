@@ -150,8 +150,10 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
   no hay `prefers-reduced-motion: reduce`. Sin JavaScript.
 - **Justificación de Motion**: no aplica (sin Motion).
 - **Reduced motion**: contenido visible desde el inicio, sin revelado.
-- **Sin soporte del navegador o sin JavaScript**: contenido visible desde el inicio; ningún
-  estilo lo oculta por defecto.
+- **Sin soporte del navegador**: contenido visible desde el inicio; ningún estilo lo oculta
+  por defecto.
+- **Sin JavaScript**: el revelado no depende de JavaScript (es CSS); el contenido está en el
+  HTML y nada lo oculta a la espera de un script.
 - **Táctil**: no depende del cursor.
 - **Fotogramas en canvas**: `B · about.md — Movimiento` (Entra en pantalla, A mitad del
   rango, Revelado, Reduced motion · sin soporte).
@@ -196,3 +198,4 @@ Cambio a incorporar en el patrón **P-1 — Reveal al hacer scroll** del sistema
 | 2026-09-15 | Implícita | Medidas nuevas | Tokens del sistema (`--section-*`, `--about-*`, `--reveal-range-length`) incorporados en la primera tarea del plan, como en 003 | designs/003-home-hero |
 | 2026-09-15 | Implícita | Glow en la sección | Sin glow ni borde luminoso: la sección no es interactiva | designs/000-design-system (reglas de uso) |
 | 2026-09-15 | Implícita | Panel de archivo en otras secciones | Exclusivo de 004 para evitar secciones con estructura idéntica | anti-cliches.md |
+| 2026-09-15 | Contradicción | M-1 decía "sin JavaScript: contenido visible desde el inicio", pero el revelado CSS también se ejecuta sin JS (detectado en `/plan-spec 004`) | Se separan los casos: sin soporte, visible desde el inicio; sin JS, el revelado no depende de JS y nada espera a un script | usuario, specs/004-about |

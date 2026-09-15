@@ -82,10 +82,13 @@ navegación (spec 010).
 ### HU-4
 
 - **CA-4.1**
-  - **Dado** un visitante sin JavaScript o con `prefers-reduced-motion: reduce`
+  - **Dado** un visitante con `prefers-reduced-motion: reduce`, sin JavaScript o con un
+    navegador sin soporte del revelado
   - **Cuando** carga la home y llega a la sección
-  - **Entonces** todo el contenido de "Sobre mí" es visible sin esperar ninguna animación:
-    ningún estilo lo oculta por defecto
+  - **Entonces** todo el contenido de "Sobre mí" está en el HTML y ningún estilo lo oculta por
+    defecto ni a la espera de un script; con reduced motion o sin soporte del revelado se ve
+    directamente, sin animación, y sin JavaScript el revelado (si el navegador lo soporta)
+    solo avanza con el scroll
 - **CA-4.2**
   - **Dado** el sitio generado
   - **Cuando** mido el JavaScript de cliente de la home en `dist/`
@@ -158,3 +161,4 @@ competir con el hero y con su versión reduced motion.
 | 2026-09-15 | Implícita | JavaScript | La sección no añade scripts; se conserva el presupuesto de JS de la home de la spec 003 | constitution.md §3, specs/003-home-hero |
 | 2026-09-15 | Implícita | Meta description | Pasa a ser el resumen corregido (ya se genera desde `profile.summary`) | specs/001-foundation, specs/003-home-hero |
 | 2026-09-15 | Diseño | Composición de la sección | B · about.md: encabezado de sección común (ruta mono + `h2`), panel de archivo con resumen y grupos, revelado ligado al scroll sin JS; tokens nuevos y ajuste de P-1 a incorporar al sistema en la primera tarea del plan | /design-spec |
+| 2026-09-15 | Contradicción | CA-4.1 exigía contenido visible sin animación también sin JavaScript, pero el revelado aprobado es CSS y no depende de JS (detectado en `/plan-spec 004`) | CA-4.1 refinado: con reduced motion o sin soporte, visible sin animación; sin JS, contenido en el HTML y nunca oculto a la espera de un script | usuario, designs/004-about |
