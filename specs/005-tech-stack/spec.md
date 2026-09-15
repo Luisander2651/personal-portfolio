@@ -160,7 +160,8 @@ sección común del sistema.
 
 ## Diseño
 
-Pendiente: ejecutar `/design-spec 005`.
+Diseño aprobado: [designs/005-tech-stack/design.md](../../designs/005-tech-stack/design.md)
+· [canvas](https://claude.ai/artifact/LmYFpxT1xKVunFxSWTRz7T) (composición A · Bento).
 
 Qué debe sentirse: una sección técnica y ordenada, con los logos como detalle reconocible y
 no como fila decorativa; las categorías con iconos responden al puntero con una luz sutil
@@ -199,3 +200,4 @@ no como fila decorativa; las categorías con iconos responden al puntero con una
 | 2026-09-15 | Brecha | Alcance del spotlight | Solo las 6 categorías con iconos; etiquetas y párrafos sobrios | usuario |
 | 2026-09-15 | Implícita | Glow en elementos no interactivos | Las 6 categorías son cards del sistema (P-2 aplica a cards); no son enfocables ni enlazan | designs/000-design-system |
 | 2026-09-15 | Implícita | Comportamiento sin puntero fino, con reduced motion o sin JS | Sin seguimiento del puntero; contenido completo en el HTML (P-2) | designs/000-design-system, constitution.md §7 |
+| 2026-09-15 | Diseño | Composición de la sección | A · Bento: mosaico de cards de tamaños distintos (5:7 y fila de cuatro), etiquetas de arquitectura y notas; 21 logos de Simple Icons y 6 iconos genéricos; spotlight P-2 (táctil sin efecto); tokens `--tech-card-min-width` y `--tech-item-min-width` e iconografía a incorporar al sistema en la primera tarea del plan | /design-spec |
