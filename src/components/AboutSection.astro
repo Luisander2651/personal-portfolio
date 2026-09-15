@@ -19,7 +19,7 @@ const groups = [
   <div class="about-inner">
     <SectionHeader anchor="sobre-mi" title="Sobre mí" headingId="sobre-mi-title" />
 
-    <div class="about-panel">
+    <div class="about-panel" data-reveal>
       <div class="about-panel-header" aria-hidden="true">
         <span>about.md</span>
         <span>markdown</span>
@@ -154,30 +154,6 @@ const groups = [
   @media (min-width: 768px) {
     .about-groups {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  /* M-1 reveal (P-1): scroll-linked, CSS only and without filter on this large surface; without
-     support or with reduced motion the panel is shown as is. */
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .about-panel {
-        animation-name: about-panel-reveal;
-        animation-fill-mode: both;
-        animation-timing-function: var(--ease-in-out);
-        animation-timeline: view();
-        animation-range-start: entry var(--reveal-range-start);
-        animation-range-end: entry calc(var(--reveal-range-start) + var(--reveal-range-length));
-        /* Own compositor layer: without it, revealing this large panel janks trackpad scrolling. */
-        will-change: opacity, transform;
-      }
-
-      @keyframes about-panel-reveal {
-        from {
-          opacity: 0;
-          transform: translateY(var(--reveal-distance));
-        }
-      }
     }
   }
 </style>

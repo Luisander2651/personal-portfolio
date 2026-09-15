@@ -210,8 +210,7 @@ replanificar; ver registro).
   - `bun run test` y `bun run build` en verde.
   - JavaScript de cliente de la home en `dist/` ≤ 3 kB con gzip, sin dependencias.
 
-### [ ] T09 — "Sobre mí" con el revelado común
-
+### [x] T09 — "Sobre mí" con el revelado común
 
 Aplica los criterios refinados de la spec 004 (CA-4.1, CA-4.2 y CA-4.4) con el revelado de T08.
 

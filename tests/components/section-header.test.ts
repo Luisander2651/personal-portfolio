@@ -22,6 +22,10 @@ describe('SectionHeader', () => {
     expect(textOf(headings[0]?.[2] ?? '')).toBe(props.title);
   });
 
+  it('marks the header as a block of the shared reveal', () => {
+    expect(html.match(/<header[^>]*>/)?.[0]).toMatch(/\sdata-reveal[\s>]/);
+  });
+
   it('renders no other heading level', () => {
     expect(html).not.toMatch(/<h[13-6][\s>]/);
   });

@@ -85,6 +85,17 @@ describe('AboutSection', () => {
     });
   });
 
+  it('marks the header and the about.md panel as blocks of the shared reveal', () => {
+    const marked = [...html.matchAll(/<(\w+)([^>]*\sdata-reveal[\s>=][^>]*)>/g)].map(([, tag, attributes]) => ({
+      tag,
+      className: attribute(`<${tag}${attributes}>`, 'class'),
+    }));
+
+    expect(marked).toHaveLength(2);
+    expect(marked[0]?.tag).toBe('header');
+    expect(marked[1]?.className).toMatch(/\babout-panel\b/);
+  });
+
   it('includes no client-side scripts', () => {
     expect(aboutSource).not.toMatch(/<script/i);
     expect(sectionHeaderSource).not.toMatch(/<script/i);
