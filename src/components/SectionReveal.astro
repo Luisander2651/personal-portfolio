@@ -1,50 +1,55 @@
 ---
 /*
  * P-1 section reveal (designs/000-design-system/design.md): blocks marked with `data-reveal`
- * fade and rise in once they are 10 % visible, and hide again when they leave the viewport.
- * Rendered once on the page; without JavaScript or with reduced motion nothing is hidden.
+ * fade and rise in once their top edge has entered `--reveal-start-distance` (or they are fully
+ * visible), and hide again when they leave the viewport. Rendered once on the page; without
+ * JavaScript or with reduced motion nothing is hidden.
  */
 ---
 
 <script>
-  import { REVEAL_THRESHOLD, planRevealChanges } from '../lib/section-reveal';
+  import { planRevealChanges } from '../lib/section-reveal';
 
   const blocks = [...document.querySelectorAll<HTMLElement>('[data-reveal]')];
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reducedMotion && blocks.length > 0 && 'IntersectionObserver' in window) {
-    // Blocks already on screen are shown as they are, so activating the reveal never flashes them.
+    const root = document.documentElement;
+    const startDistance = () => parseFloat(getComputedStyle(root).getPropertyValue('--reveal-start-distance')) || 0;
+    const plan = (targets: readonly HTMLElement[]) =>
+      planRevealChanges(
+        targets.map((target) => {
+          const { top, bottom, left } = target.getBoundingClientRect();
+          return { target, top, bottom, left };
+        }),
+        { height: window.innerHeight, startDistance: startDistance() },
+      );
+
+    // Blocks that already count as revealed are shown as they are, so activating never flashes them.
+    for (const block of plan(blocks).reveal) block.dataset.reveal = 'shown';
+    root.dataset.revealReady = '';
+
+    const update = (entries: IntersectionObserverEntry[]) => {
+      const { reveal, hide } = plan(entries.map((entry) => entry.target as HTMLElement));
+      for (const block of hide) {
+        block.dataset.reveal = 'hidden';
+        block.style.removeProperty('--reveal-order');
+      }
+      let order = 0;
+      for (const block of reveal) {
+        if (block.dataset.reveal === 'shown') continue;
+        block.style.setProperty('--reveal-order', String(order++));
+        block.dataset.reveal = 'shown';
+      }
+    };
+
+    // Entering: the top edge crosses the start distance. Fully visible and leaving: no margin.
+    const entering = new IntersectionObserver(update, { rootMargin: `0px 0px -${startDistance()}px 0px` });
+    const visibility = new IntersectionObserver(update, { threshold: [0, 1] });
     for (const block of blocks) {
-      const { top, bottom } = block.getBoundingClientRect();
-      if (top < window.innerHeight && bottom > 0) block.dataset.reveal = 'shown';
+      entering.observe(block);
+      visibility.observe(block);
     }
-    document.documentElement.dataset.revealReady = '';
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const { reveal, hide } = planRevealChanges(
-          entries.map((entry) => ({
-            target: entry.target as HTMLElement,
-            isIntersecting: entry.isIntersecting,
-            visibleRatio: entry.intersectionRatio,
-            top: entry.boundingClientRect.top,
-            left: entry.boundingClientRect.left,
-          })),
-        );
-        for (const block of hide) {
-          block.dataset.reveal = 'hidden';
-          block.style.removeProperty('--reveal-order');
-        }
-        reveal.forEach((block, order) => {
-          if (block.dataset.reveal === 'shown') return;
-          block.style.setProperty('--reveal-order', String(order));
-          block.dataset.reveal = 'shown';
-        });
-      },
-      { threshold: [0, REVEAL_THRESHOLD] },
-    );
-
-    for (const block of blocks) observer.observe(block);
   }
 </script>
 

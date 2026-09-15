@@ -22,10 +22,16 @@ describe('SectionReveal', () => {
       expect(script).toMatch(/matchMedia\(\s*['"]\(prefers-reduced-motion: reduce\)['"]\s*\)/);
     });
 
-    it('observes the revealable blocks with IntersectionObserver at the reveal threshold', () => {
+    it('observes the revealable blocks with IntersectionObserver, without per-frame scroll work', () => {
       expect(script).toMatch(/new IntersectionObserver\(/);
-      expect(script).toMatch(/REVEAL_THRESHOLD/);
       expect(script).toMatch(/\[data-reveal\]/);
+      expect(script).not.toMatch(/addEventListener\(\s*['"]scroll['"]|requestAnimationFrame/);
+    });
+
+    it('starts the reveal at the --reveal-start-distance token, not at a visible share', () => {
+      expect(script).toMatch(/getPropertyValue\(\s*['"]--reveal-start-distance['"]\s*\)/);
+      expect(script).toMatch(/rootMargin:\s*`0px 0px -\$\{[^}]+\}px 0px`/);
+      expect(script).not.toMatch(/REVEAL_THRESHOLD|0\.1\b/);
     });
 
     it('marks the document as active only from the script', () => {

@@ -1,58 +1,67 @@
 import { describe, expect, it } from 'vitest';
-import { REVEAL_THRESHOLD, planRevealChanges } from '../../src/lib/section-reveal';
+import { planRevealChanges } from '../../src/lib/section-reveal';
 
-const change = (target: string, visibleRatio: number, top = 0, left = 0) => ({
+const viewport = { height: 800, startDistance: 120 };
+
+/** A block whose top edge is at `top` and that is `height` tall. */
+const block = (target: string, top: number, height = 300, left = 0) => ({
   target,
-  isIntersecting: visibleRatio > 0,
-  visibleRatio,
   top,
+  bottom: top + height,
   left,
 });
 
-describe('REVEAL_THRESHOLD', () => {
-  it('is the 10 % of the design system', () => {
-    expect(REVEAL_THRESHOLD).toBe(0.1);
-  });
-});
-
 describe('planRevealChanges', () => {
-  it('reveals blocks at least 10 % visible', () => {
-    expect(planRevealChanges([change('a', 0.1), change('b', 0.6)]).reveal).toEqual(['a', 'b']);
+  it('reveals a block once its top edge has entered the start distance', () => {
+    expect(planRevealChanges([block('a', 680)], viewport).reveal).toEqual(['a']);
+    expect(planRevealChanges([block('b', 200)], viewport).reveal).toEqual(['b']);
+  });
+
+  it('does not reveal a block that has entered less than the start distance', () => {
+    expect(planRevealChanges([block('peeking', 700)], viewport)).toEqual({ reveal: [], hide: [] });
+  });
+
+  it('reveals a short block that is fully visible before reaching the start distance', () => {
+    const short = { target: 'last', top: 710, bottom: 790, left: 0 };
+
+    expect(planRevealChanges([short], viewport).reveal).toEqual(['last']);
+  });
+
+  it('reveals a tall block that already covers the viewport', () => {
+    expect(planRevealChanges([block('tall', -400, 2000)], viewport).reveal).toEqual(['tall']);
   });
 
   it('hides only blocks completely out of the viewport', () => {
-    const { reveal, hide } = planRevealChanges([change('out', 0), change('almost', 0.05)]);
+    const { reveal, hide } = planRevealChanges(
+      [block('below', 800), block('above', -300, 300), block('still-visible', -299, 300)],
+      viewport,
+    );
 
-    expect(hide).toEqual(['out']);
-    expect(reveal).toEqual([]);
+    expect(hide).toEqual(['below', 'above']);
+    expect(reveal).toEqual(['still-visible']);
   });
 
-  it('leaves blocks between both thresholds unchanged', () => {
-    expect(planRevealChanges([change('edge', 0.04)])).toEqual({ reveal: [], hide: [] });
-  });
-
-  it('orders the blocks entering together by reading order (top, then left)', () => {
-    const { reveal } = planRevealChanges([
-      change('bottom-left', 0.5, 400, 0),
-      change('top-right', 0.5, 100, 600),
-      change('top-left', 0.5, 100, 0),
-    ]);
+  it('orders the blocks revealed together by reading order (top, then left)', () => {
+    const { reveal } = planRevealChanges(
+      [block('bottom-left', 400, 100, 0), block('top-right', 100, 100, 600), block('top-left', 100, 100, 0)],
+      viewport,
+    );
 
     expect(reveal).toEqual(['top-left', 'top-right', 'bottom-left']);
   });
 
   it('treats blocks on the same row (subpixel differences) as one row', () => {
-    const { reveal } = planRevealChanges([change('right', 0.5, 100.4, 600), change('left', 0.5, 100.2, 0)]);
+    const { reveal } = planRevealChanges([block('right', 100.4, 100, 600), block('left', 100.2, 100, 0)], viewport);
 
     expect(reveal).toEqual(['left', 'right']);
   });
 
-  it('does not mutate the observed changes', () => {
-    const changes = [change('b', 0.5, 200), change('a', 0.5, 100)];
-    const snapshot = structuredClone(changes);
+  it('does not mutate the measured blocks', () => {
+    const blocks = [block('b', 300), block('a', 100)];
+    const snapshot = structuredClone(blocks);
 
-    planRevealChanges(changes);
+    planRevealChanges(blocks, viewport);
 
-    expect(changes).toEqual(snapshot);
+    expect(blocks).toEqual(snapshot);
   });
 });

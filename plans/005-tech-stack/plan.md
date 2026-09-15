@@ -176,7 +176,7 @@ Va antes de T05 y T09 porque ambas usan este revelado (añadida al replanificar;
   - `bun run test` y `bun run build` en verde.
   - JavaScript de cliente de la home en `dist/` ≤ 3 kB con gzip, sin dependencias (hero + revelado).
 
-### [ ] T10 — Inicio del revelado por distancia de entrada
+### [x] T10 — Inicio del revelado por distancia de entrada
 
 Va antes de T09 porque ajusta el revelado común que usan "Sobre mí" y "Tecnologías" (añadida al
 replanificar; ver registro).

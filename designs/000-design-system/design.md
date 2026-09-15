@@ -50,7 +50,6 @@ Todas las tablas de tokens de este documento usan las columnas
 | Breakpoint | `768px` | Cambio de valores en modo `768` (`min-width: 768px`) |
 | Viewport mínimo de interpolación | `390px` | Extremo inferior del modo `fluido` |
 | Viewport máximo de interpolación | `1440px` | Extremo superior del modo `fluido` |
-| Umbral de revelado | `10 %` | Parte visible de un bloque a partir de la cual se revela (P-1) |
 
 ## Color
 
@@ -394,6 +393,7 @@ Referencia: artboard `B · about.md — Escritorio 1440` y `— Móvil 390` del 
 | `--ease-out` | fijo | `cubic-bezier(0.16, 1, 0.3, 1)` | — | Entradas |
 | `--ease-in-out` | fijo | `cubic-bezier(0.65, 0, 0.35, 1)` | — | Transformaciones y compilación |
 | `--reveal-distance` | fijo | `16px` | — | Desplazamiento vertical inicial del reveal |
+| `--reveal-start-distance` | 768 | `80px` | `120px` | Distancia que el borde superior de un bloque ha entrado en pantalla cuando empieza el revelado P-1 |
 | `--hero-card-distance` | fijo | `12px` | — | Desplazamiento vertical inicial de la tarjeta del hero |
 | `--hero-compile-blur` | fijo | `3px` | — | Desenfoque del código al compilar |
 | `--hero-compile-brightness` | fijo | `1.25` | — | Brillo del código al compilar |
@@ -409,8 +409,9 @@ reveal y en el hero. Ninguna usa Motion (ver registro de decisiones).
 
 ### P-1 — Revelado al entrar en pantalla
 
-- **Disparador**: el bloque asoma al menos el umbral de revelado (constante, 10 %) en pantalla,
-  al cargar o al hacer scroll; se repite cada vez que vuelve a entrar tras haber salido del todo.
+- **Disparador**: el borde superior del bloque ha entrado `--reveal-start-distance` en pantalla
+  (medido desde el borde inferior), o el bloque ya se ve completo aunque no llegue a esa distancia;
+  al cargar o al hacer scroll. Se repite cada vez que vuelve a entrar tras haber salido del todo.
 - **Elementos**: bloques de sección marcados como revelables (encabezados de sección, paneles,
   cards y bloques de contenido).
 - **Propiedades**: `opacity` 0 → 1 y `transform` `translateY(var(--reveal-distance))` → 0; sin
@@ -551,3 +552,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | P-1 refinado: nuevo `--reveal-range-start` (80px / 120px), `--reveal-range-length` pasa a 240px / 360px y la curva a `--ease-in-out` | En la revisión manual de la spec 004 el revelado empezaba en el borde inferior y terminaba casi al instante, sin percibirse; incorporado en la tarea T05 del plan 004 | usuario, designs/004-about |
 | 2026-09-15 | Sección de tokens "Tecnologías" (`--tech-card-min-width`, `--tech-item-min-width`), 6 iconos genéricos de línea y excepción "logos de tecnología" (Simple Icons, CC0, un color) en Iconografía | Composición A · Bento de la sección de tecnologías, incorporada en la tarea T01 del plan 005 | designs/005-tech-stack |
 | 2026-09-15 | P-1 pasa a revelado por tiempo al entrar en pantalla (umbral 10 % como constante, `--duration-reveal` / `--ease-out`, escalonado `--stagger`, repetición al volver a entrar, sin desenfoque) con un script común; se eliminan `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` | Los revelados ligados al scroll trababan el scroll con trackpad al sumar secciones; el revelado disparado al entrar fue fluido en la prueba del usuario. Incorporado en la tarea T08 del plan 005 | usuario, designs/005-tech-stack |
+| 2026-09-15 | P-1 empieza cuando el borde superior del bloque ha entrado `--reveal-start-distance` (80px / 120px) o el bloque se ve completo; se quita la constante "umbral de revelado 10 %" | Con el 10 % del alto el revelado empezaba casi pegado al borde en bloques bajos; se recupera el inicio aprobado antes. Incorporado en la tarea T10 del plan 005 | usuario, designs/005-tech-stack |
