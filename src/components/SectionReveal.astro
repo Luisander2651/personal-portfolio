@@ -1,0 +1,65 @@
+---
+/*
+ * P-1 section reveal (designs/000-design-system/design.md): blocks marked with `data-reveal`
+ * fade and rise in once they are 10 % visible, and hide again when they leave the viewport.
+ * Rendered once on the page; without JavaScript or with reduced motion nothing is hidden.
+ */
+---
+
+<script>
+  import { REVEAL_THRESHOLD, planRevealChanges } from '../lib/section-reveal';
+
+  const blocks = [...document.querySelectorAll<HTMLElement>('[data-reveal]')];
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reducedMotion && blocks.length > 0 && 'IntersectionObserver' in window) {
+    // Blocks already on screen are shown as they are, so activating the reveal never flashes them.
+    for (const block of blocks) {
+      const { top, bottom } = block.getBoundingClientRect();
+      if (top < window.innerHeight && bottom > 0) block.dataset.reveal = 'shown';
+    }
+    document.documentElement.dataset.revealReady = '';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const { reveal, hide } = planRevealChanges(
+          entries.map((entry) => ({
+            target: entry.target as HTMLElement,
+            isIntersecting: entry.isIntersecting,
+            visibleRatio: entry.intersectionRatio,
+            top: entry.boundingClientRect.top,
+            left: entry.boundingClientRect.left,
+          })),
+        );
+        for (const block of hide) {
+          block.dataset.reveal = 'hidden';
+          block.style.removeProperty('--reveal-order');
+        }
+        reveal.forEach((block, order) => {
+          if (block.dataset.reveal === 'shown') return;
+          block.style.setProperty('--reveal-order', String(order));
+          block.dataset.reveal = 'shown';
+        });
+      },
+      { threshold: [0, REVEAL_THRESHOLD] },
+    );
+
+    for (const block of blocks) observer.observe(block);
+  }
+</script>
+
+<style is:global>
+  /* Hidden state only while the reveal script is active. */
+  html[data-reveal-ready] [data-reveal]:not([data-reveal='shown']) {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+
+  /* Only entering animates; going back to hidden is instant (the block is off screen). */
+  html[data-reveal-ready] [data-reveal='shown'] {
+    transition:
+      opacity var(--duration-reveal) var(--ease-out),
+      transform var(--duration-reveal) var(--ease-out);
+    transition-delay: calc(var(--stagger) * var(--reveal-order, 0));
+  }
+</style>

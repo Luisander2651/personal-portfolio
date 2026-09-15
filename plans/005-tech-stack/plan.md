@@ -131,7 +131,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T08 — Revelado común al entrar en pantalla
+### [x] T08 — Revelado común al entrar en pantalla
 
 Va antes de T05 y T09 porque ambas usan este revelado (añadida al replanificar; ver registro).
 

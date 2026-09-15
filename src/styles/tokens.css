@@ -120,7 +120,6 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --reveal-distance: 16px;
-  --reveal-blur: 4px;
   --hero-card-distance: 12px;
   --hero-compile-blur: 3px;
   --hero-compile-brightness: 1.25;
@@ -172,8 +171,6 @@
   --about-panel-padding: 24px 20px 28px;
   --about-panel-gap: 32px;
   --about-groups-gap: 32px;
-  --reveal-range-start: 80px;
-  --reveal-range-length: 240px;
 }
 
 @media (min-width: 768px) {
@@ -195,8 +192,6 @@
     --about-panel-padding: 40px 48px 48px;
     --about-panel-gap: 40px;
     --about-groups-gap: 48px;
-    --reveal-range-start: 120px;
-    --reveal-range-length: 360px;
   }
 }
 
