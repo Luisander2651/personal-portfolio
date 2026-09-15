@@ -48,6 +48,7 @@ Todas las tablas de tokens de este documento usan las columnas
 | Constante | Valor | Uso |
 |-----------|-------|-----|
 | Breakpoint | `768px` | Cambio de valores en modo `768` (`min-width: 768px`) |
+| Breakpoint ancho | `1024px` | Composiciones en fila que no caben entre 768px y 1023px (panel destacado y fila de proyectos de la spec 006); los tokens siguen cambiando solo en `768px` |
 | Viewport mínimo de interpolación | `390px` | Extremo inferior del modo `fluido` |
 | Viewport máximo de interpolación | `1440px` | Extremo superior del modo `fluido` |
 
@@ -335,6 +336,8 @@ Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, secci
 - **Foco (`:focus-visible` / `:focus-within`)**: mismo tratamiento que hover sin spotlight,
   más el foco visible.
 - **Táctil (`hover: none`)**: al tocar, `--border-glow` + `--shadow-glow-soft`; sin spotlight.
+- **Cards sin enlace** (spec 006): no tienen estado de foco y en táctil no muestran efecto, como
+  las cards de categoría de la spec 005.
 - **Jerarquía**: las secciones de proyectos no deben repetir cards idénticas en grid
   (ver `anti-cliches.md`); la variación se define en cada spec.
 
@@ -553,3 +556,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | Sección de tokens "Tecnologías" (`--tech-card-min-width`, `--tech-item-min-width`), 6 iconos genéricos de línea y excepción "logos de tecnología" (Simple Icons, CC0, un color) en Iconografía | Composición A · Bento de la sección de tecnologías, incorporada en la tarea T01 del plan 005 | designs/005-tech-stack |
 | 2026-09-15 | P-1 pasa a revelado por tiempo al entrar en pantalla (umbral 10 % como constante, `--duration-reveal` / `--ease-out`, escalonado `--stagger`, repetición al volver a entrar, sin desenfoque) con un script común; se eliminan `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` | Los revelados ligados al scroll trababan el scroll con trackpad al sumar secciones; el revelado disparado al entrar fue fluido en la prueba del usuario. Incorporado en la tarea T08 del plan 005 | usuario, designs/005-tech-stack |
 | 2026-09-15 | P-1 empieza cuando el borde superior del bloque ha entrado `--reveal-start-distance` (80px / 120px) o el bloque se ve completo; se quita la constante "umbral de revelado 10 %" | Con el 10 % del alto el revelado empezaba casi pegado al borde en bloques bajos; se recupera el inicio aprobado antes. Incorporado en la tarea T10 del plan 005 | usuario, designs/005-tech-stack |
+| 2026-09-15 | Constante "breakpoint ancho" (`1024px`) para composiciones en fila que no caben entre 768px y 1023px, sin modo de tokens nuevo; nota de cards de proyecto sin enlace (sin foco y sin efecto táctil) | Panel destacado y fila de proyectos de la composición A · Sistema quedaban con 180–230px de contenido entre 768px y 1023px. Incorporado en la tarea T01 del plan 006 | usuario, designs/006-projects |

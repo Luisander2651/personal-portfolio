@@ -43,7 +43,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Breakpoint ancho y cards sin enlace en el sistema
+### [x] T01 — Breakpoint ancho y cards sin enlace en el sistema
 
 - **Criterios**: CA-2.2
 - **Diseño**: `designs/006-projects/design.md` → "Cambios a incorporar al sistema"
