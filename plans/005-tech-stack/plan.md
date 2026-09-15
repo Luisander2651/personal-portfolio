@@ -3,7 +3,7 @@ id: 005
 title: Tecnologías
 spec: specs/005-tech-stack/spec.md
 design: designs/005-tech-stack/design.md
-status: approved
+status: done
 created: 2026-09-15
 updated: 2026-09-15
 ---
@@ -329,7 +329,7 @@ retomarla se sustituye el revelado ligado al scroll por las marcas del revelado 
     - Con reduced motion emulado, borde estático sin luz; con JavaScript desactivado, sin luz y
       contenido completo.
 
-### [ ] T07 — Verificación final
+### [x] T07 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/005-tech-stack/design.md`
@@ -385,3 +385,4 @@ retomarla se sustituye el revelado ligado al scroll por las marcas del revelado 
 | 2026-09-15 | Replanificación | Nueva T10 (token, funciones puras y `SectionReveal` con inicio por distancia) antes de T09; T09 sin bloqueo y con la comprobación de la distancia; T07 incluye el inicio por distancia | T08 (hecha) queda invalidada en el disparador |
 | 2026-09-15 | Archivo extra (T06) | `tests/components/tech-stack-section-styles.test.ts` excluye las capas `::before` / `::after` de la aserción "sin estilos que oculten o desplacen contenido" | Las capas decorativas del spotlight animan `opacity` 0 → 1 (M-1); el test del spotlight comprueba que solo se ocultan esas capas. Aprobado por el usuario |
 | 2026-09-15 | Implementación (T06) | Las transiciones del spotlight van en las capas `::before` (borde luminoso y sombra) y `::after` (luz) y en los iconos, nunca en la card | La regla global del revelado común define la transición de la card y la sustituiría |
+| 2026-09-15 | Verificación (T07) | 573 tests y build en verde; cada CA con su test; `dist/index.html` con `section#tecnologias` única tras `#sobre-mi`, `h2` "Tecnologías" con `aria-labelledby`, un único `h1`, 10 categorías sin JS (6 cards con 29 ítems y 29 iconos, 5 etiquetas y 3 notas) y sin elementos enfocables; JS de la home 1,98 kB con gzip (hero, revelado común y spotlight) sin scripts externos; revisión visual a 390px y 1440px, revelado tras 80px / 120px y al volver a entrar, Performance sin tareas largas con trackpad y puntero, reduced motion, JavaScript desactivado y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |

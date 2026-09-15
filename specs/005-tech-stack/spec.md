@@ -1,7 +1,7 @@
 ---
 id: 005
 title: Tecnologías
-status: active
+status: done
 created: 2026-09-15
 updated: 2026-09-15
 depends_on: [001, 002, 003, 004]
@@ -216,3 +216,4 @@ compite con el hero. La técnica y los tiempos se definen en `/design-spec`.
 | 2026-09-15 | Brecha | Repetición y elementos del revelado | Cada vez que entran en pantalla, como en 004 (CA-4.4); se revelan el encabezado, cada card, el bloque de arquitectura y el de notas | usuario, specs/004-about |
 | 2026-09-15 | Diseño | Revelado por tiempo al entrar en pantalla | Umbral 10 %, `--duration-reveal` / `--ease-out`, sin desenfoque, escalonado `--stagger`, oculto sin animación al salir y revelado de nuevo al entrar; CSS con script común mínimo; sin JS o con reduced motion todo visible | /design-spec |
 | 2026-09-15 | Diseño | Inicio del revelado | Empieza cuando el borde superior del bloque ha entrado `--reveal-start-distance` (80px / 120px) o el bloque se ve completo, como en el refinado anterior; solo cambió la técnica | /design-spec |
+| 2026-09-15 | Cierre | Spec completada: las tareas T01, T02, T03, T04, T08, T10, T09, T05, T06 y T07 de `plans/005-tech-stack/plan.md` verificadas (tests, `dist/`, revisión visual, rendimiento del revelado y del spotlight, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |
