@@ -291,7 +291,7 @@ retomarla se sustituye el revelado ligado al scroll por las marcas del revelado 
     - Revelado al entrar (cards en cascada) y otra vez al volver a entrar; scroll fluido con trackpad.
     - Con reduced motion emulado, contenido directo; con JavaScript desactivado, contenido completo.
 
-### [ ] T06 — Spotlight en las cards de categoría
+### [x] T06 — Spotlight en las cards de categoría
 
 - **Criterios**: CA-3.1, CA-3.2, CA-3.3, CA-4.1
 - **Diseño**: `A · Bento — Movimiento` · `M-1`
@@ -383,3 +383,5 @@ retomarla se sustituye el revelado ligado al scroll por las marcas del revelado 
 | 2026-09-15 | Archivo extra (T08) | `tests/components/about-section.test.ts` comprueba solo que `HomeHero` y `AboutSection` son los dos primeros componentes de `main` (commit aparte tras el de T08) | Al añadir `SectionReveal` a la home, la aserción exacta de 004 fallaba; ajuste ya aprobado por el usuario en T05 |
 | 2026-09-15 | Bloqueo resuelto | T09 se detuvo porque el revelado empezaba con el 10 % del alto del bloque; `/design-spec 005` recuperó el inicio por distancia de entrada (`--reveal-start-distance`, 80px / 120px) con salvaguarda de bloque completo | Revisión manual del usuario en T09 |
 | 2026-09-15 | Replanificación | Nueva T10 (token, funciones puras y `SectionReveal` con inicio por distancia) antes de T09; T09 sin bloqueo y con la comprobación de la distancia; T07 incluye el inicio por distancia | T08 (hecha) queda invalidada en el disparador |
+| 2026-09-15 | Archivo extra (T06) | `tests/components/tech-stack-section-styles.test.ts` excluye las capas `::before` / `::after` de la aserción "sin estilos que oculten o desplacen contenido" | Las capas decorativas del spotlight animan `opacity` 0 → 1 (M-1); el test del spotlight comprueba que solo se ocultan esas capas. Aprobado por el usuario |
+| 2026-09-15 | Implementación (T06) | Las transiciones del spotlight van en las capas `::before` (borde luminoso y sombra) y `::after` (luz) y en los iconos, nunca en la card | La regla global del revelado común define la transición de la card y la sustituiría |

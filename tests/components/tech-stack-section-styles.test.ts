@@ -81,8 +81,10 @@ describe('TechStackSection styles', () => {
       expect(styles).not.toMatch(/animation|@keyframes|will-change/);
     });
 
-    it('has no styles that hide or move its content', () => {
-      expect(rules.filter((rule) => MOTION_PROPERTIES.test(rule.body))).toEqual([]);
+    it('has no styles that hide or move its content (the spotlight layers are decorative)', () => {
+      const content = rules.filter(({ selector }) => selector.split(',').some((part) => !/::(before|after)\s*$/.test(part)));
+
+      expect(content.filter((rule) => MOTION_PROPERTIES.test(rule.body))).toEqual([]);
     });
   });
 });
