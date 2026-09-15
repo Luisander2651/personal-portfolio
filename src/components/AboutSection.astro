@@ -1,0 +1,183 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  summary: string;
+  practicalExperience: readonly string[];
+  focusAreas: readonly string[];
+}
+
+const { summary, practicalExperience, focusAreas } = Astro.props;
+
+const groups = [
+  { title: 'Experiencia práctica', points: practicalExperience },
+  { title: 'Enfoque', points: focusAreas },
+];
+---
+
+<section id="sobre-mi" class="about" aria-labelledby="sobre-mi-title">
+  <div class="about-inner">
+    <SectionHeader anchor="sobre-mi" title="Sobre mí" headingId="sobre-mi-title" />
+
+    <div class="about-panel">
+      <div class="about-panel-header" aria-hidden="true">
+        <span>about.md</span>
+        <span>markdown</span>
+      </div>
+      <div class="about-panel-body">
+        <p class="about-summary">{summary}</p>
+        <hr class="about-divider" aria-hidden="true" />
+        <div class="about-groups">
+          {
+            groups.map(({ title, points }) => (
+              <div class="about-group">
+                <div class="about-group-title">
+                  <span class="about-marker" aria-hidden="true">##</span>
+                  <h3>{title}</h3>
+                </div>
+                <ul class="about-list" role="list">
+                  {points.map((point) => (
+                    <li>
+                      <span class="about-marker" aria-hidden="true">-</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Composition B · "about.md" (designs/004-about/design.md). Tokens only. */
+  .about {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+  }
+
+  .about-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-header-gap);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  .about-panel {
+    overflow: hidden;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-sunken);
+  }
+
+  .about-panel-header {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
+    border-bottom: var(--border-width) solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-code-size);
+    line-height: var(--text-code-line-height);
+    color: var(--color-text-muted);
+  }
+
+  .about-panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--about-panel-gap);
+    padding: var(--about-panel-padding);
+  }
+
+  .about-summary {
+    max-width: var(--about-text-max-width);
+    margin: 0;
+    color: var(--color-text-secondary);
+    text-wrap: pretty;
+  }
+
+  .about-divider {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .about-groups {
+    display: grid;
+    gap: var(--about-groups-gap);
+  }
+
+  .about-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+  }
+
+  .about-group-title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+
+  .about-group-title h3 {
+    margin: 0;
+  }
+
+  .about-marker {
+    font-family: var(--font-mono);
+    font-size: var(--text-code-size);
+    color: var(--color-text-muted);
+  }
+
+  .about-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about-list li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .about-groups {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* M-1 reveal (P-1): scroll-linked, CSS only and without filter on this large surface; without
+     support or with reduced motion the panel is shown as is. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .about-panel {
+        animation-name: about-panel-reveal;
+        animation-fill-mode: both;
+        animation-timing-function: var(--ease-in-out);
+        animation-timeline: view();
+        animation-range-start: entry var(--reveal-range-start);
+        animation-range-end: entry calc(var(--reveal-range-start) + var(--reveal-range-length));
+        /* Own compositor layer: without it, revealing this large panel janks trackpad scrolling. */
+        will-change: opacity, transform;
+      }
+
+      @keyframes about-panel-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(var(--reveal-distance));
+        }
+      }
+    }
+  }
+</style>

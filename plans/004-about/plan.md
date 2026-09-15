@@ -113,7 +113,7 @@ Va antes de T03 porque T03 usa estos tokens (añadida al replanificar; ver regis
   - Sistema y `tokens.css` coinciden con los valores refinados del diseño 004, en un solo commit
     que no incluye el trabajo pendiente de T03.
 
-### [ ] T03 — Componentes de "Sobre mí": estructura, estilos y revelado
+### [x] T03 — Componentes de "Sobre mí": estructura, estilos y revelado
 
 Estructura, estilos y tests ya están hechos (sin commit) desde la primera ejecución; al
 retomarla solo cambia el revelado M-1 según el refinado del diseño.
@@ -233,3 +233,7 @@ retomarla solo cambia el revelado M-1 según el refinado del diseño.
 | 2026-09-15 | Replanificación | Nueva T05 para incorporar los tokens y P-1 refinados al sistema y a `tokens.css` (invalida parte de T01, ya hecha); se sitúa antes de T03 en el documento y en el orden de ejecución porque T03 la necesita | Regla de replanificar: una tarea hecha invalidada se ajusta con una tarea nueva |
 | 2026-09-15 | Replanificación | T03 se ajusta al revelado refinado y reutiliza el trabajo sin commit; su revisión manual incluye que el revelado se perciba y scroll fluido | Refinado del diseño 004 |
 | 2026-09-15 | Replanificación | T04 añade la comprobación de rendimiento del revelado (Performance con trackpad); si el desenfoque del encabezado provoca tirones, Bloqueo y `/design-spec 004` | Tirones intermitentes no reproducibles en la primera revisión; el usuario mantuvo el desenfoque |
+| 2026-09-15 | Implementación (T03) | `SectionHeader` con ruta decorativa en un `p` oculto y `h2`; `AboutSection` con `hr` decorativo oculto y listas con `role="list"` para conservar la semántica sin viñetas | Accesibilidad según el diseño 004 |
+| 2026-09-15 | Implementación (T03) | Rango del revelado con las propiedades largas `animation-range-start: entry var(--reveal-range-start)` y `animation-range-end: entry calc(var(--reveal-range-start) + var(--reveal-range-length))` | Evitar porcentajes literales (test de solo tokens); Chrome lo resuelve como `entry 120px` → `entry 480px` en escritorio |
+| 2026-09-15 | Incidencia (T03) | Tirones al hacer scroll con trackpad reproducidos por el usuario; aislados con pruebas en consola: el revelado del panel los provocaba (no el desenfoque del encabezado ni el halo fijo). `will-change: opacity, transform` en el panel, solo dentro de las condiciones del revelado, los elimina; protegido por test | Constitución §7; confirmado por el usuario |
+| 2026-09-15 | Verificación (T03) | Chrome: composición a 390px y 1536px contra B · about.md; revelado a la vista con el rango refinado; scroll fluido; reduced motion y JavaScript desactivado revisados por el usuario; JS de la home 1,34 kB con gzip | CA-1.1, CA-2.2, CA-3.1, CA-4.1, CA-4.2, CA-4.3 |

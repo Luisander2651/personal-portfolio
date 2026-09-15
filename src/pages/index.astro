@@ -1,5 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
+import AboutSection from '../components/AboutSection.astro';
 import HomeHero from '../components/HomeHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPageMeta } from '../lib/page-meta';
@@ -10,7 +11,8 @@ if (!profile) {
 }
 
 const { title, description } = getPageMeta(profile.data);
-const { name, role, location, featuredStack, github, linkedin, email } = profile.data;
+const { name, role, location, featuredStack, github, linkedin, email, summary, practicalExperience, focusAreas } =
+  profile.data;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -24,5 +26,6 @@ const { name, role, location, featuredStack, github, linkedin, email } = profile
       linkedin={linkedin}
       email={email}
     />
+    <AboutSection summary={summary} practicalExperience={practicalExperience} focusAreas={focusAreas} />
   </main>
 </BaseLayout>

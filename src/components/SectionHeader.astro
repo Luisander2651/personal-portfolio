@@ -1,0 +1,75 @@
+---
+interface Props {
+  /** Section anchor without `#`, shown in the decorative path. */
+  anchor: string;
+  title: string;
+  headingId: string;
+}
+
+const { anchor, title, headingId } = Astro.props;
+---
+
+<header class="section-header">
+  <p class="section-header-path" aria-hidden="true">
+    <span>portfolio</span><span class="section-header-separator">/</span><span class="section-header-anchor">{anchor}</span>
+  </p>
+  <h2 id={headingId}>{title}</h2>
+</header>
+
+<style>
+  /* "Encabezado de sección" (designs/000-design-system/design.md). Tokens only. */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .section-header-path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    text-transform: var(--text-mono-label-transform);
+    color: var(--color-text-muted);
+  }
+
+  .section-header-separator {
+    color: var(--color-border-strong);
+  }
+
+  .section-header-anchor {
+    color: var(--color-text-secondary);
+  }
+
+  .section-header h2 {
+    margin: 0;
+  }
+
+  /* M-1 reveal (P-1): scroll-linked, CSS only; without support or with reduced motion the
+     header is shown as is. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .section-header {
+        animation-name: section-header-reveal;
+        animation-fill-mode: both;
+        animation-timing-function: var(--ease-in-out);
+        animation-timeline: view();
+        animation-range-start: entry var(--reveal-range-start);
+        animation-range-end: entry calc(var(--reveal-range-start) + var(--reveal-range-length));
+      }
+
+      @keyframes section-header-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(var(--reveal-distance));
+          filter: blur(var(--reveal-blur));
+        }
+      }
+    }
+  }
+</style>
