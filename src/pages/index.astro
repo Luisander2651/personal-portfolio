@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import AboutSection from '../components/AboutSection.astro';
+import CardSpotlight from '../components/CardSpotlight.astro';
 import HomeHero from '../components/HomeHero.astro';
 import SectionReveal from '../components/SectionReveal.astro';
 import TechStackSection from '../components/TechStackSection.astro';
@@ -33,5 +34,6 @@ const skillGroups = groupSkillsForSection(await getCollection('skills'));
     <AboutSection summary={summary} practicalExperience={practicalExperience} focusAreas={focusAreas} />
     <TechStackSection icons={skillGroups.icons} tags={skillGroups.tags} text={skillGroups.text} />
     <SectionReveal />
+    <CardSpotlight />
   </main>
 </BaseLayout>

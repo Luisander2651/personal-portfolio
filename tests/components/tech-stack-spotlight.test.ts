@@ -1,14 +1,14 @@
-import { describe, expect, it } from 'vitest';
+import { experimental_AstroContainer as AstroContainer } from 'astro/container';
+import { beforeAll, describe, expect, it } from 'vitest';
+import TechStackSection from '../../src/components/TechStackSection.astro';
 import techStackSource from '../../src/components/TechStackSection.astro?raw';
 
 type Rule = { selector: string; body: string; ancestors: string[] };
 
-const LITERAL = /#[0-9a-f]{3,8}\b|\b(rgba?|hsla?)\(|\b\d*\.?\d+(px|rem|em|vh|svh|dvh|vw|%|ms|s)\b/i;
 const FINE_POINTER = /@media\s*\(\s*hover:\s*hover\s*\)\s*and\s*\(\s*pointer:\s*fine\s*\)/;
 const REDUCED = /@media\s*\(\s*prefers-reduced-motion:\s*reduce\s*\)/;
-const SPOTLIGHT = /--color-spotlight|--spotlight-size|--border-glow|--shadow-glow-soft|data-spotlight|:hover/;
+const NO_PREFERENCE = /@media\s*\(\s*prefers-reduced-motion:\s*no-preference\s*\)/;
 
-const script = techStackSource.match(/<script(?![^>]*is:inline)[^>]*>([\s\S]*?)<\/script>/)?.[1] ?? '';
 const styles = (techStackSource.match(/<style[^>]*>([\s\S]*?)<\/style>/)?.[1] ?? '').replace(/\/\*[\s\S]*?\*\//g, '');
 
 /** Innermost rules with the preludes of every block that contains them. */
@@ -33,91 +33,60 @@ function parseRules(css: string): Rule[] {
 
 const rules = parseRules(styles);
 const inside = (rule: Rule, prelude: RegExp) => rule.ancestors.some((ancestor) => prelude.test(ancestor));
-const spotlightRules = rules.filter((rule) => SPOTLIGHT.test(rule.selector) || SPOTLIGHT.test(rule.body));
 
-describe('TechStackSection spotlight (M-1)', () => {
-  describe('script', () => {
-    it('runs only with a fine pointer and without prefers-reduced-motion: reduce', () => {
-      expect(script).toMatch(/matchMedia\(\s*['"]\(hover: hover\) and \(pointer: fine\)['"]\s*\)/);
-      expect(script).toMatch(/matchMedia\(\s*['"]\(prefers-reduced-motion: reduce\)['"]\s*\)/);
-    });
+const category = (id: string, name: string, order: number, presentation: string, items: string[]) => ({
+  id,
+  data: { category: name, order, presentation, items },
+});
 
-    it('follows the pointer over the cards at most once per frame', () => {
-      expect(script).toMatch(/\.tech-card/);
-      expect(script).toMatch(/pointermove/);
-      expect(script).toMatch(/requestAnimationFrame\(/);
-      expect(script).toMatch(/--spotlight-x/);
-      expect(script).toMatch(/--spotlight-y/);
-    });
+const props = {
+  icons: [
+    category('languages', 'Lenguajes y fundamentos', 1, 'icons', ['TypeScript', 'SQL']),
+    category('backend', 'Backend y web', 2, 'icons', ['Node.js']),
+    category('mobile', 'Desarrollo móvil', 3, 'icons', ['Ionic']),
+  ],
+  tags: [category('architecture', 'Arquitectura y prácticas', 8, 'tags', ['microservicios'])],
+  text: [category('ci-cd', 'CI/CD', 9, 'text', ['Texto de CI/CD de prueba'])],
+};
 
-    it('marks the card while the pointer is inside', () => {
-      expect(script).toMatch(/pointerenter/);
-      expect(script).toMatch(/pointerleave/);
-      expect(script).toMatch(/dataset\.spotlight/);
-    });
+describe('TechStackSection spotlight (M-1, shared CardSpotlight)', () => {
+  let html = '';
 
-    it('imports no packages', () => {
-      expect(script).not.toMatch(/\bimport\b/);
-    });
+  beforeAll(async () => {
+    const container = await AstroContainer.create();
+    html = await container.renderToString(TechStackSection, { props });
   });
 
-  describe('styles', () => {
-    it('uses no literal colors, sizes, spacing or durations', () => {
-      const values = [...styles.matchAll(/:\s*([^;{}]+);/g)].map(([, value]) => value ?? '');
-      expect(values.filter((value) => LITERAL.test(value))).toEqual([]);
-    });
+  it('marks every category card with icons, and nothing else, as a spotlight card', () => {
+    const opening = (className: string) =>
+      [...html.matchAll(new RegExp(`<div[^>]*class="(?:[^"]*\\s)?${className}(?:\\s[^"]*)?"[^>]*>`, 'g'))].map(([tag]) => tag);
+    const marked = (tag: string) => /\sdata-spotlight(?=[\s=>])/.test(tag);
 
-    it('draws the light with --color-spotlight and --spotlight-size at the pointer position', () => {
-      const light = spotlightRules.filter(({ body }) => /radial-gradient\(/.test(body));
+    expect(opening('tech-card')).toHaveLength(3);
+    expect(opening('tech-card').every(marked)).toBe(true);
+    expect(html.match(/\sdata-spotlight(?=[\s=>])/g)).toHaveLength(3);
+  });
 
-      expect(light).toHaveLength(1);
-      expect(light[0]?.body).toMatch(/var\(--spotlight-size\)/);
-      expect(light[0]?.body).toMatch(/var\(--color-spotlight\)/);
-      expect(light[0]?.body).toMatch(/at\s+var\(--spotlight-x\)\s+var\(--spotlight-y\)/);
-    });
+  it('has no spotlight script or light layers of its own', () => {
+    expect(techStackSource).not.toMatch(/<script\b/);
+    expect(styles).not.toMatch(/::before|::after|radial-gradient|--color-spotlight|--border-glow|--shadow-glow-soft/);
+  });
 
-    it('lights the border with --border-glow and --shadow-glow-soft', () => {
-      const bodies = spotlightRules.map(({ body }) => body).join(';');
+  it('turns the icons to --color-text for the active card, inside the fine pointer media query', () => {
+    const lit = rules.filter(({ selector }) => /\.tech-icon\b/.test(selector) && /data-spotlight-active|:hover/.test(selector));
 
-      expect(bodies).toMatch(/var\(--border-glow\)/);
-      expect(bodies).toMatch(/var\(--shadow-glow-soft\)/);
-    });
+    expect(lit.filter(({ selector }) => /data-spotlight-active/.test(selector)).length).toBeGreaterThan(0);
+    expect(lit.filter((rule) => inside(rule, REDUCED) && /:hover/.test(rule.selector)).length).toBeGreaterThan(0);
+    for (const rule of lit) {
+      expect(rule.body).toMatch(/color:\s*var\(--color-text\)/);
+      expect(inside(rule, FINE_POINTER)).toBe(true);
+    }
+  });
 
-    it('turns the icons to --color-text while lit', () => {
-      const lit = spotlightRules.filter(({ selector }) => /\.tech-icon\b/.test(selector) && /data-spotlight|:hover/.test(selector));
+  it('animates the icon color only without reduced motion', () => {
+    const transitions = rules.filter(({ body }) => /transition/.test(body));
 
-      expect(lit.length).toBeGreaterThan(0);
-      for (const { body } of lit) expect(body).toMatch(/color:\s*var\(--color-text\)/);
-    });
-
-    it('keeps every spotlight rule inside the fine pointer media query', () => {
-      expect(spotlightRules.length).toBeGreaterThan(0);
-      expect(spotlightRules.filter((rule) => !inside(rule, FINE_POINTER))).toEqual([]);
-    });
-
-    it('lights only the cards marked by the script, except the static reduced motion hover', () => {
-      const lit = rules.filter(({ selector }) => /\.tech-card[^,]*:hover/.test(selector));
-
-      expect(lit.length).toBeGreaterThan(0);
-      expect(lit.filter((rule) => !inside(rule, REDUCED))).toEqual([]);
-    });
-
-    it('has no light layer and no transitions with reduced motion', () => {
-      const reduced = rules.filter((rule) => inside(rule, REDUCED));
-
-      expect(reduced.length).toBeGreaterThan(0);
-      for (const { body } of reduced) {
-        expect(body).not.toMatch(/--color-spotlight|radial-gradient|transition/);
-      }
-      const transitions = rules.filter(({ body }) => /transition/.test(body));
-      expect(transitions.length).toBeGreaterThan(0);
-      expect(transitions.filter((rule) => !inside(rule, /prefers-reduced-motion:\s*no-preference/))).toEqual([]);
-    });
-
-    it('hides only its decorative layers, never content', () => {
-      const hiding = rules.filter(({ body }) => /(^|;|\s)(opacity:\s*0\b|visibility:\s*hidden|display:\s*none)/.test(body));
-
-      expect(hiding.filter(({ selector }) => !/::(before|after)$/.test(selector))).toEqual([]);
-    });
+    expect(transitions.length).toBeGreaterThan(0);
+    expect(transitions.filter((rule) => !inside(rule, NO_PREFERENCE) || !inside(rule, FINE_POINTER))).toEqual([]);
   });
 });

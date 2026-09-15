@@ -29,7 +29,7 @@ const counter = (items: readonly string[]) => String(items.length).padStart(2, '
         cardRows.map((row, rowIndex) => (
           <div class:list={['tech-row', rowIndex === 0 ? 'tech-row--primary' : 'tech-row--secondary']}>
             {row.map(({ data }) => (
-              <div class="tech-card" data-reveal>
+              <div class="tech-card" data-reveal data-spotlight>
                 <div class="tech-card-header">
                   <h3>{data.category}</h3>
                   <span class="tech-count" aria-hidden="true">{counter(data.items)}</span>
@@ -253,115 +253,23 @@ const counter = (items: readonly string[]) => String(items.length).padStart(2, '
     }
   }
 
-  /* M-1 spotlight (P-2), fine pointers only. Transitions live on the layers and the icons, never
-     on the card: the shared reveal owns the card's own transition. */
+  /* M-1 spotlight (P-2): the light and glow layers come from the shared CardSpotlight; this
+     section only lights its icons. */
   @media (hover: hover) and (pointer: fine) {
-    .tech-card {
-      position: relative;
-      isolation: isolate;
-    }
-
-    /* Glow layer: the surface fills the padding box, so the gradient shows as the border. */
-    .tech-card::before {
-      content: '';
-      position: absolute;
-      inset: calc(-1 * var(--border-width));
-      z-index: -1;
-      border: var(--border-width) solid transparent;
-      border-radius: inherit;
-      background:
-        linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
-        var(--border-glow) border-box;
-      box-shadow: var(--shadow-glow-soft);
-      opacity: 0;
-      pointer-events: none;
-    }
-
     @media (prefers-reduced-motion: no-preference) {
-      /* Light layer, centered on the pointer position set by the script. */
-      .tech-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        border-radius: calc(var(--radius-lg) - var(--border-width));
-        background: radial-gradient(
-          circle var(--spotlight-size) at var(--spotlight-x) var(--spotlight-y),
-          var(--color-spotlight),
-          transparent
-        );
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity var(--duration-base) var(--ease-out);
-      }
-
-      .tech-card::before {
-        transition: opacity var(--duration-base) var(--ease-out);
-      }
-
       .tech-icon {
         transition: color var(--duration-base) var(--ease-out);
       }
 
-      .tech-card[data-spotlight]::before,
-      .tech-card[data-spotlight]::after {
-        opacity: 1;
-      }
-
-      .tech-card[data-spotlight] .tech-icon {
+      .tech-card[data-spotlight-active] .tech-icon {
         color: var(--color-text);
       }
     }
 
-    /* Reduced motion: no light, static glow border on hover. */
     @media (prefers-reduced-motion: reduce) {
-      .tech-card:hover::before {
-        opacity: 1;
-      }
-
       .tech-card:hover .tech-icon {
         color: var(--color-text);
       }
     }
   }
 </style>
-
-<script>
-  // M-1 spotlight: follows a fine pointer over each card, at most once per frame.
-  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (finePointer && !reducedMotion) {
-    for (const card of document.querySelectorAll<HTMLElement>('.tech-card')) {
-      let pointerX = 0;
-      let pointerY = 0;
-      let frame = 0;
-
-      const place = () => {
-        frame = 0;
-        const { left, top } = card.getBoundingClientRect();
-        card.style.setProperty('--spotlight-x', `${pointerX - left}px`);
-        card.style.setProperty('--spotlight-y', `${pointerY - top}px`);
-      };
-      const track = (event: PointerEvent) => {
-        pointerX = event.clientX;
-        pointerY = event.clientY;
-      };
-
-      card.addEventListener('pointerenter', (event) => {
-        track(event);
-        place();
-        card.dataset.spotlight = '';
-      });
-      card.addEventListener('pointermove', (event) => {
-        track(event);
-        frame ||= requestAnimationFrame(place);
-      });
-      card.addEventListener('pointerleave', () => {
-        cancelAnimationFrame(frame);
-        frame = 0;
-        delete card.dataset.spotlight;
-      });
-    }
-  }
-</script>

@@ -102,7 +102,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T04 — Spotlight común para las cards
+### [x] T04 — Spotlight común para las cards
 
 Va antes de las cards de proyecto para que "Tecnologías" y "Proyectos" compartan un único script
 (CA-3.3) en lugar de duplicarlo.
