@@ -187,7 +187,7 @@ Va antes de las cards de proyecto para que "Tecnologías" y "Proyectos" comparta
   - `bun run test` y `bun run build` en verde (la revisión visual se hace en T06, cuando la card
     está en la home).
 
-### [ ] T06 — Sección "Proyectos" en la home
+### [x] T06 — Sección "Proyectos" en la home
 
 - **Criterios**: CA-1.1, CA-1.2, CA-2.2, CA-4.1, CA-4.2, CA-4.4
 - **Diseño**: `A · Sistema — Escritorio 1440`, `— Intermedio 900`, `— Móvil 390` · `M-1` · `M-2`

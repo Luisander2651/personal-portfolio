@@ -1,0 +1,158 @@
+---
+import { type ProjectStatus, parseProjectAchievements } from '../lib/projects';
+import ProjectCard from './ProjectCard.astro';
+import SectionHeader from './SectionHeader.astro';
+
+type Project = {
+  id: string;
+  body?: string;
+  data: { name: string; order: number; status: ProjectStatus; stack: readonly string[] };
+};
+
+interface Props {
+  featured: readonly Project[];
+  rest: readonly Project[];
+}
+
+const { featured, rest } = Astro.props;
+
+const cardProps = ({ body, data }: Project) => ({
+  order: data.order,
+  name: data.name,
+  status: data.status,
+  achievements: parseProjectAchievements(body ?? ''),
+  stack: data.stack,
+});
+---
+
+<section id="proyectos" class="projects" aria-labelledby="proyectos-title">
+  <div class="projects-inner">
+    <SectionHeader anchor="proyectos" title="Proyectos" headingId="proyectos-title" />
+
+    {
+      featured.length > 0 && (
+        <div class="projects-featured">
+          {featured.map((project, index) => (
+            <Fragment>
+              {index > 0 && <span class="projects-connector" aria-hidden="true" />}
+              <ProjectCard {...cardProps(project)} />
+            </Fragment>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      rest.length > 0 && (
+        <div class="projects-rest">
+          {rest.map((project) => (
+            <ProjectCard {...cardProps(project)} />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  /* Composition A · "Sistema" (designs/006-projects/design.md). Tokens only. */
+  .projects {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+  }
+
+  .projects-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-header-gap);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  /* DentissaApp panel: a small architecture diagram on a sunken dot grid. */
+  .projects-featured {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--card-padding);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-sunken);
+    background-image: radial-gradient(var(--color-border-strong) var(--border-width), transparent var(--border-width));
+    background-size: var(--grid-size) var(--grid-size);
+  }
+
+  /* Decorative connector between the two nodes: vertical while stacked. */
+  .projects-connector {
+    position: relative;
+    justify-self: center;
+    width: var(--border-width);
+    height: var(--space-6);
+    background: linear-gradient(to bottom, var(--color-border-strong), var(--color-glow), var(--color-border-strong));
+  }
+
+  .projects-connector::before,
+  .projects-connector::after {
+    content: '';
+    position: absolute;
+    left: calc((var(--border-width) - var(--status-dot-size)) / 2);
+    box-sizing: border-box;
+    width: var(--status-dot-size);
+    height: var(--status-dot-size);
+    border: var(--border-width) solid var(--color-glow);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg);
+  }
+
+  .projects-connector::before {
+    top: calc(var(--status-dot-size) / -2);
+  }
+
+  .projects-connector::after {
+    bottom: calc(var(--status-dot-size) / -2);
+  }
+
+  .projects-rest {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .projects-rest {
+      gap: var(--space-4);
+    }
+  }
+
+  /* Wide breakpoint: the rows only fit from 1024px. */
+  @media (min-width: 1024px) {
+    .projects-featured {
+      grid-template-columns: minmax(0, 7fr) var(--space-7) minmax(0, 5fr);
+    }
+
+    .projects-connector {
+      justify-self: stretch;
+      align-self: center;
+      width: auto;
+      height: var(--border-width);
+      background: linear-gradient(to right, var(--color-border-strong), var(--color-glow), var(--color-border-strong));
+    }
+
+    .projects-connector::before,
+    .projects-connector::after {
+      top: calc((var(--border-width) - var(--status-dot-size)) / 2);
+      bottom: auto;
+      left: auto;
+    }
+
+    .projects-connector::before {
+      left: calc(var(--status-dot-size) / -2);
+    }
+
+    .projects-connector::after {
+      right: calc(var(--status-dot-size) / -2);
+    }
+
+    .projects-rest {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>
