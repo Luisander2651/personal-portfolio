@@ -79,7 +79,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T03 — Funciones de proyectos para la sección
+### [x] T03 — Funciones de proyectos para la sección
 
 - **Criterios**: CA-1.2, CA-1.3, CA-2.2
 - **Diseño**: `A · Sistema — Escritorio 1440` (orden y agrupación)
