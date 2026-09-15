@@ -1,0 +1,255 @@
+---
+import { getTechIcon } from '../lib/tech-icons';
+import SectionHeader from './SectionHeader.astro';
+
+type SkillCategory = { id: string; data: { category: string; items: readonly string[] } };
+
+interface Props {
+  icons: readonly SkillCategory[];
+  tags: readonly SkillCategory[];
+  text: readonly SkillCategory[];
+}
+
+const { icons, tags, text } = Astro.props;
+
+/** Lenguajes and Backend open the mosaic; the rest share the second row. */
+const primaryCards = icons.slice(0, 2);
+const secondaryCards = icons.slice(2);
+const cardRows = [primaryCards, secondaryCards].filter((row) => row.length > 0);
+
+const counter = (items: readonly string[]) => String(items.length).padStart(2, '0');
+---
+
+<section id="tecnologias" class="tech" aria-labelledby="tecnologias-title">
+  <div class="tech-inner">
+    <SectionHeader anchor="tecnologias" title="Tecnologías" headingId="tecnologias-title" />
+
+    <div class="tech-bento">
+      {
+        cardRows.map((row, rowIndex) => (
+          <div class:list={['tech-row', rowIndex === 0 ? 'tech-row--primary' : 'tech-row--secondary']}>
+            {row.map(({ data }) => (
+              <div class="tech-card" data-reveal>
+                <div class="tech-card-header">
+                  <h3>{data.category}</h3>
+                  <span class="tech-count" aria-hidden="true">{counter(data.items)}</span>
+                </div>
+                <ul class="tech-items" role="list">
+                  {data.items.map((item) => {
+                    const icon = getTechIcon(item);
+                    return (
+                      <li class="tech-item">
+                        <svg
+                          class:list={['tech-icon', `tech-icon--${icon.kind}`]}
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          {icon.paths.map((d) => (
+                            <path d={d} />
+                          ))}
+                        </svg>
+                        <span>{item}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      tags.map(({ data }) => (
+        <div class="tech-practices" data-reveal>
+          <h3>{data.category}</h3>
+          <ul class="tech-tags" role="list">
+            {data.items.map((item) => (
+              <li class="tech-tag">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+
+    {
+      text.length > 0 && (
+        <div class="tech-notes" data-reveal>
+          {text.map(({ data }) => (
+            <div class="tech-note">
+              <h3>{data.category}</h3>
+              <p>{data.items.join(' ')}</p>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  /* Composition A · "Bento" (designs/005-tech-stack/design.md). Tokens only. */
+  .tech {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+  }
+
+  .tech-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-header-gap);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  .tech h3 {
+    margin: 0;
+  }
+
+  .tech-bento,
+  .tech-row {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .tech-row--secondary {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--tech-card-min-width), 100%), 1fr));
+  }
+
+  .tech-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    padding: var(--card-padding);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+  }
+
+  .tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .tech-count {
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    color: var(--color-text-muted);
+  }
+
+  .tech-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--tech-item-min-width), 100%), 1fr));
+    gap: var(--space-3) var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line-height);
+    color: var(--color-text-secondary);
+  }
+
+  .tech-icon {
+    flex: none;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .tech-icon--logo {
+    fill: currentColor;
+  }
+
+  .tech-icon--line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--icon-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .tech-practices {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tech-tag {
+    display: inline-flex;
+    align-items: center;
+    height: var(--tag-height);
+    padding-inline: var(--tag-padding-x);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    line-height: 1;
+  }
+
+  .tech-notes {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .tech-note {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .tech-note p {
+    margin: 0;
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 768px) {
+    .tech-bento,
+    .tech-row {
+      gap: var(--space-4);
+    }
+
+    .tech-row--primary {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+
+    .tech-practices {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-5);
+    }
+
+    .tech-notes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+  }
+</style>

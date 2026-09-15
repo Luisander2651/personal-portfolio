@@ -238,7 +238,7 @@ Aplica los criterios refinados de la spec 004 (CA-4.1, CA-4.2 y CA-4.4) con el r
     - Scroll fluido con trackpad.
     - Con reduced motion emulado y con JavaScript desactivado, todo visible sin animación.
 
-### [ ] T05 — Componente "Tecnologías": estructura, estilos y marcas de revelado
+### [x] T05 — Componente "Tecnologías": estructura, estilos y marcas de revelado
 
 Estructura, estilos y tests ya están hechos (sin commit) desde la primera ejecución; al
 retomarla se sustituye el revelado ligado al scroll por las marcas del revelado común (T08).

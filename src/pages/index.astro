@@ -1,10 +1,12 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import AboutSection from '../components/AboutSection.astro';
 import HomeHero from '../components/HomeHero.astro';
 import SectionReveal from '../components/SectionReveal.astro';
+import TechStackSection from '../components/TechStackSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPageMeta } from '../lib/page-meta';
+import { groupSkillsForSection } from '../lib/skills';
 
 const profile = await getEntry('profile', 'profile');
 if (!profile) {
@@ -14,6 +16,7 @@ if (!profile) {
 const { title, description } = getPageMeta(profile.data);
 const { name, role, location, featuredStack, github, linkedin, email, summary, practicalExperience, focusAreas } =
   profile.data;
+const skillGroups = groupSkillsForSection(await getCollection('skills'));
 ---
 
 <BaseLayout title={title} description={description}>
@@ -28,6 +31,7 @@ const { name, role, location, featuredStack, github, linkedin, email, summary, p
       email={email}
     />
     <AboutSection summary={summary} practicalExperience={practicalExperience} focusAreas={focusAreas} />
+    <TechStackSection icons={skillGroups.icons} tags={skillGroups.tags} text={skillGroups.text} />
     <SectionReveal />
   </main>
 </BaseLayout>
