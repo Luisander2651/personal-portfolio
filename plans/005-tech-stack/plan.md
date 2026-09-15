@@ -92,7 +92,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `docs/cv.md` y la colección incluyen "Desarrollo móvil" y las 10 categorías tienen su
     presentación.
 
-### [ ] T03 — Agrupación de categorías para la sección
+### [x] T03 — Agrupación de categorías para la sección
 
 - **Criterios**: CA-1.3, CA-1.4, CA-1.5
 - **Diseño**: `A · Bento — Escritorio 1440` (orden de los bloques)
