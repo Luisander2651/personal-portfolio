@@ -1,5 +1,6 @@
 ---
-import { type ProjectStatus, parseProjectAchievements } from '../lib/projects';
+import { parseAchievements } from '../lib/achievements';
+import type { ProjectStatus } from '../lib/projects';
 import ProjectCard from './ProjectCard.astro';
 import SectionHeader from './SectionHeader.astro';
 
@@ -20,7 +21,7 @@ const cardProps = ({ body, data }: Project) => ({
   order: data.order,
   name: data.name,
   status: data.status,
-  achievements: parseProjectAchievements(body ?? ''),
+  achievements: parseAchievements(body ?? ''),
   stack: data.stack,
 });
 ---

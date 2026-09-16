@@ -85,7 +85,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `docs/cv.md` y la colección incluyen el periodo y los tres logros.
 
-### [ ] T03 — Extracción de logros compartida
+### [x] T03 — Extracción de logros compartida
 
 Va antes del componente porque la sección reutiliza la función que hoy vive en
 `src/lib/projects.ts` (ver registro).

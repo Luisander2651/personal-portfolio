@@ -5,8 +5,6 @@ export type ProjectStatus = 'completed' | 'in-progress';
 
 export type ProjectGroups<T> = { featured: T[]; rest: T[] };
 
-const LIST_ITEM = /^\s*[-*]\s+(.+?)\s*$/;
-
 const STATUS_LABELS: Record<ProjectStatus, string> = {
   completed: 'Finalizado',
   'in-progress': 'En curso',
@@ -32,19 +30,6 @@ export function groupProjectsForSection<T extends FeaturedEntry>(projects: reado
     featured: sorted.filter(({ data }) => data.featured),
     rest: sorted.filter(({ data }) => !data.featured),
   };
-}
-
-/** Returns the text of each markdown list item in a project entry body, in order. */
-export function parseProjectAchievements(body: string): string[] {
-  const achievements = body
-    .split('\n')
-    .map((line) => line.match(LIST_ITEM)?.[1])
-    .filter((text): text is string => text !== undefined);
-
-  if (achievements.length === 0) {
-    throw new Error('A project body must list at least one achievement');
-  }
-  return achievements;
 }
 
 /** Visible label of a project status. */

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { groupProjectsForSection, parseProjectAchievements, projectStatusLabel, sortProjects } from '../../src/lib/projects';
+import { groupProjectsForSection, projectStatusLabel, sortProjects } from '../../src/lib/projects';
 
 const project = (id: string, order: number) => ({ id, data: { order } });
 
@@ -58,23 +58,6 @@ describe('groupProjectsForSection', () => {
 
   it('throws when two projects share the same order', () => {
     expect(() => groupProjectsForSection([entry('a', 1, true), entry('b', 1, false)])).toThrow(/order 1/);
-  });
-});
-
-describe('parseProjectAchievements', () => {
-  it('returns the text of every list item, in order', () => {
-    const body = '\n- First achievement.\n- Second achievement, with a comma.\n';
-
-    expect(parseProjectAchievements(body)).toEqual(['First achievement.', 'Second achievement, with a comma.']);
-  });
-
-  it('ignores blank lines', () => {
-    expect(parseProjectAchievements('- One.\n\n\n- Two.')).toEqual(['One.', 'Two.']);
-  });
-
-  it('throws when the body has no list items', () => {
-    expect(() => parseProjectAchievements('Plain paragraph.')).toThrow(/achievement/);
-    expect(() => parseProjectAchievements('')).toThrow(/achievement/);
   });
 });
 
