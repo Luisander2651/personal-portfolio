@@ -5,7 +5,7 @@ spec: specs/007-experience/spec.md
 design: designs/007-experience/design.md
 status: approved
 created: 2026-09-15
-updated: 2026-09-15
+updated: 2026-09-16
 ---
 
 # Plan — Experiencia profesional
@@ -108,9 +108,8 @@ Va antes del componente porque la sección reutiliza la función que hoy vive en
   - `bun run test` y `bun run build` en verde.
   - La sección de proyectos sigue mostrando sus logros igual (sin cambios en su HTML).
 
-### [ ] T04 — Sección "Experiencia profesional" en la home
+### [x] T04 — Sección "Experiencia profesional" en la home
 
-- **Bloqueo**: 2026-09-15 — En la revisión manual el usuario pide que desde 768px la fila sea siempre una card (superficie, borde y radio) y que las líneas finas se mantengan solo en móvil; el diseño aprobado define la fila entre líneas en todos los anchos y la card solo mientras el spotlight la ilumina — resolver con /design-spec 007 y replanificar si cambia el alcance de T04.
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.4, CA-2.1, CA-2.2, CA-2.3, CA-3.1, CA-3.2, CA-3.4
 - **Diseño**: `A · Registro — Escritorio 1440` y `— Móvil 390` · `M-1` · `M-2`

@@ -1,0 +1,207 @@
+---
+import { parseAchievements } from '../lib/achievements';
+import SectionHeader from './SectionHeader.astro';
+
+type Experience = {
+  id: string;
+  body?: string;
+  data: { company: string; position: string; period: string; duration: string };
+};
+
+interface Props {
+  experiences: readonly Experience[];
+}
+
+const { experiences } = Astro.props;
+---
+
+<section id="experiencia" class="experience" aria-labelledby="experiencia-title">
+  <div class="experience-inner">
+    <SectionHeader anchor="experiencia" title="Experiencia profesional" headingId="experiencia-title" />
+
+    <div class="experience-rows">
+      {
+        experiences.map(({ body, data }) => (
+          <article class="experience-row" data-reveal data-spotlight>
+            <p class="experience-period">
+              <span>{data.period}</span>
+              <span class="experience-period-separator" aria-hidden="true">
+                ·
+              </span>
+              <span>{data.duration}</span>
+            </p>
+            <div class="experience-body">
+              <div class="experience-heading">
+                <h3>{data.company}</h3>
+                <p class="experience-position">{data.position}</p>
+              </div>
+              <ul class="experience-achievements" role="list">
+                {parseAchievements(body ?? '').map((achievement) => (
+                  <li class="experience-achievement">
+                    <span class="experience-achievement-mark" aria-hidden="true" />
+                    <span>{achievement}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Composition A · "Registro" (designs/007-experience/design.md). Tokens only. */
+  .experience {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+  }
+
+  .experience-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-header-gap);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  /* Consecutive rows share their hairline: each row draws the top one and the list the last. */
+  .experience-rows {
+    display: flex;
+    flex-direction: column;
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .experience-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--card-gap);
+    padding-block: var(--card-padding);
+    padding-inline: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  /* Hugs its own lines instead of stretching to the full height of the row. */
+  .experience-period {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: start;
+    align-self: start;
+    gap: var(--space-2);
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    text-transform: var(--text-mono-label-transform);
+    color: var(--color-text-muted);
+  }
+
+  .experience-period-separator {
+    color: var(--color-border-strong);
+  }
+
+  .experience-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+  }
+
+  .experience-heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .experience-heading h3 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .experience-position {
+    margin: 0;
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-secondary);
+  }
+
+  .experience-achievements {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .experience-achievement {
+    display: grid;
+    grid-template-columns: var(--space-2) minmax(0, 1fr);
+    column-gap: var(--space-3);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+  }
+
+  /* Centered on the first line of text. */
+  .experience-achievement-mark {
+    height: var(--border-width);
+    margin-top: calc(var(--text-body-size) * var(--text-body-line-height) / 2);
+    background-color: var(--color-border-strong);
+  }
+
+  /* From 768px each row is a system card; the spotlight layers inherit its radius. */
+  @media (min-width: 768px) {
+    .experience-rows {
+      gap: var(--space-4);
+      border-bottom: 0;
+    }
+
+    .experience-row {
+      grid-template-columns: var(--experience-meta-width) minmax(0, 1fr);
+      gap: var(--space-6);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background-color: var(--color-surface);
+    }
+  }
+
+  /* M-1 spotlight (P-2): the light and glow layers come from the shared CardSpotlight; the row
+     only brightens its achievements and its period. */
+  @media (hover: hover) and (pointer: fine) {
+    @media (prefers-reduced-motion: no-preference) {
+      .experience-period,
+      .experience-achievement {
+        transition: color var(--duration-base) var(--ease-out);
+      }
+
+      .experience-achievement-mark {
+        transition: background-color var(--duration-base) var(--ease-out);
+      }
+
+      .experience-row[data-spotlight-active] .experience-period,
+      .experience-row[data-spotlight-active] .experience-achievement {
+        color: var(--color-text-secondary);
+      }
+
+      .experience-row[data-spotlight-active] .experience-achievement-mark {
+        background-color: var(--color-glow);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .experience-row:hover .experience-period,
+      .experience-row:hover .experience-achievement {
+        color: var(--color-text-secondary);
+      }
+
+      .experience-row:hover .experience-achievement-mark {
+        background-color: var(--color-glow);
+      }
+    }
+  }
+</style>

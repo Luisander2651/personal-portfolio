@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import AboutSection from '../components/AboutSection.astro';
 import CardSpotlight from '../components/CardSpotlight.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
 import HomeHero from '../components/HomeHero.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import SectionReveal from '../components/SectionReveal.astro';
@@ -21,6 +22,7 @@ const { name, role, location, featuredStack, github, linkedin, email, summary, p
   profile.data;
 const skillGroups = groupSkillsForSection(await getCollection('skills'));
 const projectGroups = groupProjectsForSection(await getCollection('projects'));
+const experiences = await getCollection('experience');
 ---
 
 <BaseLayout title={title} description={description}>
@@ -37,6 +39,7 @@ const projectGroups = groupProjectsForSection(await getCollection('projects'));
     <AboutSection summary={summary} practicalExperience={practicalExperience} focusAreas={focusAreas} />
     <TechStackSection icons={skillGroups.icons} tags={skillGroups.tags} text={skillGroups.text} />
     <ProjectsSection featured={projectGroups.featured} rest={projectGroups.rest} />
+    <ExperienceSection experiences={experiences} />
     <SectionReveal />
     <CardSpotlight />
   </main>
