@@ -41,7 +41,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Token y patrón de la fila de experiencia en el sistema
+### [x] T01 — Token y patrón de la fila de experiencia en el sistema
 
 - **Criterios**: CA-3.1
 - **Diseño**: `designs/007-experience/design.md` → "Cambios a incorporar al sistema"

@@ -276,6 +276,12 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 | `--tech-card-min-width` | fijo | `240px` | — | Ancho mínimo de las cards de la segunda fila del mosaico de tecnologías |
 | `--tech-item-min-width` | fijo | `160px` | — | Ancho mínimo de columna de los ítems dentro de una card de tecnologías |
 
+### Experiencia
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--experience-meta-width` | fijo | `220px` | — | Ancho de la columna de periodo y duración en la fila de experiencia (desde 768px) |
+
 ## Componentes base
 
 Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, sección 04, y
@@ -340,6 +346,21 @@ Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, secci
   las cards de categoría de la spec 005.
 - **Jerarquía**: las secciones de proyectos no deben repetir cards idénticas en grid
   (ver `anti-cliches.md`); la variación se define en cada spec.
+
+### Fila de experiencia
+
+- **Anatomía**: bloque sin superficie propia, entre bordes superior e inferior de
+  `--border-width` `--color-border` (las filas consecutivas comparten borde), padding
+  `--card-padding` en vertical y `--space-5` en horizontal. Desde 768px, dos columnas:
+  `--experience-meta-width` para el periodo y la duración, y el resto para el contenido, con
+  separación `--space-6`; por debajo, una sola columna.
+- **Contenido**: periodo y duración en `--font-mono` con `--text-mono-label-*` y
+  `--color-text-muted`; título `h3` con la organización; línea de apoyo con `--text-body-*` en
+  `--color-text-secondary`; lista de logros como en la card de proyecto.
+- **Hover (puntero fino)**: adopta el tratamiento de card solo mientras el spotlight (P-2) la
+  ilumina: superficie `--color-surface`, borde `--border-glow` y sombra `--shadow-glow-soft`
+  sobre las líneas finas.
+- **Foco y táctil**: sin estados propios, como las cards sin enlace (spec 006).
 
 ### Bloque de código
 
@@ -557,3 +578,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | P-1 pasa a revelado por tiempo al entrar en pantalla (umbral 10 % como constante, `--duration-reveal` / `--ease-out`, escalonado `--stagger`, repetición al volver a entrar, sin desenfoque) con un script común; se eliminan `--reveal-range-start`, `--reveal-range-length` y `--reveal-blur` | Los revelados ligados al scroll trababan el scroll con trackpad al sumar secciones; el revelado disparado al entrar fue fluido en la prueba del usuario. Incorporado en la tarea T08 del plan 005 | usuario, designs/005-tech-stack |
 | 2026-09-15 | P-1 empieza cuando el borde superior del bloque ha entrado `--reveal-start-distance` (80px / 120px) o el bloque se ve completo; se quita la constante "umbral de revelado 10 %" | Con el 10 % del alto el revelado empezaba casi pegado al borde en bloques bajos; se recupera el inicio aprobado antes. Incorporado en la tarea T10 del plan 005 | usuario, designs/005-tech-stack |
 | 2026-09-15 | Constante "breakpoint ancho" (`1024px`) para composiciones en fila que no caben entre 768px y 1023px, sin modo de tokens nuevo; nota de cards de proyecto sin enlace (sin foco y sin efecto táctil) | Panel destacado y fila de proyectos de la composición A · Sistema quedaban con 180–230px de contenido entre 768px y 1023px. Incorporado en la tarea T01 del plan 006 | usuario, designs/006-projects |
+| 2026-09-15 | Sección de tokens "Experiencia" (`--experience-meta-width`) y patrón "Fila de experiencia" (bloque entre líneas, sin superficie propia, que adopta el tratamiento de card solo con el spotlight) | Composición A · Registro de la sección de experiencia, incorporada en la tarea T01 del plan 007 | designs/007-experience |
