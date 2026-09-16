@@ -1,9 +1,9 @@
 ---
 id: 007
 title: Experiencia profesional
-status: active
+status: done
 created: 2026-09-15
-updated: 2026-09-15
+updated: 2026-09-16
 depends_on: [001, 002, 003, 004, 005, 006]
 ---
 
@@ -169,3 +169,4 @@ pantalla, cada vez que entra. La composición, la técnica y los tiempos se defi
 | 2026-09-15 | Implícita | Revelado | Encabezado y bloque con el revelado común al entrar en pantalla, cada vez, uniforme con 004, 005 y 006 | specs/004-about, specs/005-tech-stack, specs/006-projects |
 | 2026-09-15 | Diseño | Composición de la sección | A · Registro: cada experiencia es una fila entre líneas finas, con periodo y duración en mono a la izquierda (columna `--experience-meta-width` desde 768px) y empresa, puesto y logros a la derecha; el spotlight común la levanta como card al pasar el puntero; revelado común de encabezado y fila; token nuevo `--experience-meta-width` y patrón "Fila de experiencia" a incorporar al sistema en la primera tarea del plan | /design-spec |
 | 2026-09-15 | Diseño | Refinado de la fila tras la revisión manual de T04 | Desde 768px la fila de experiencia es una card del sistema en reposo (superficie, borde, `--radius-lg`, separación `--space-4`); por debajo de 768px sigue entre líneas finas. El spotlight solo añade la luz y el borde luminoso | /design-spec |
+| 2026-09-16 | Cierre | Spec completada: las tareas T01 a T05 de `plans/007-experience/plan.md` verificadas (tests, `dist/`, revisión visual a 390px y 1440px, spotlight y revelado, rendimiento, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |

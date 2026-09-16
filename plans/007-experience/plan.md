@@ -3,7 +3,7 @@ id: 007
 title: Experiencia profesional
 spec: specs/007-experience/spec.md
 design: designs/007-experience/design.md
-status: approved
+status: done
 created: 2026-09-15
 updated: 2026-09-16
 ---
@@ -165,7 +165,7 @@ Va antes del componente porque la sección reutiliza la función que hoy vive en
       con trackpad.
     - Con reduced motion y con JavaScript desactivado (recargando), todo visible y sin animación.
 
-### [ ] T05 — Verificación final
+### [x] T05 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/007-experience/design.md`
@@ -207,3 +207,4 @@ Va antes del componente porque la sección reutiliza la función que hoy vive en
 | 2026-09-15 | Planificación | La extracción de logros se mueve de `src/lib/projects.ts` a `src/lib/achievements.ts` como `parseAchievements` (T03) | La usan dos secciones; importar `parseProjectAchievements` desde la experiencia sería confuso (constitución §4) |
 | 2026-09-15 | Planificación | Estructura, estilos y marcas de revelado y spotlight en una sola tarea (T04) | La fila es un único bloque y comparte revisión visual; el movimiento reutiliza los scripts existentes |
 | 2026-09-15 | Planificación | Sin tarea propia de animación | `CardSpotlight` y `SectionReveal` ya existen (specs 005 y 006); la sección solo añade sus marcas |
+| 2026-09-16 | Verificación (T05) | 678 tests y build en verde; cada CA con su test; `dist/index.html` con `section#experiencia` única tras `#proyectos`, `h2` "Experiencia profesional" con `aria-labelledby`, un único `h1`, la fila sin JS con empresa, puesto, "mayo – agosto de 2025 · 4 meses" y los 3 logros, marcada para revelado y spotlight, y sin elementos enfocables; JS de la home 1,97 kB con gzip sin scripts externos; revisión visual a 390px y 1440px, spotlight y revelado, Performance sin tareas largas, reduced motion, JavaScript desactivado y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |
