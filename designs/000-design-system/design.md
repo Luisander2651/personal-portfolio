@@ -349,17 +349,20 @@ Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, secci
 
 ### Fila de experiencia
 
-- **Anatomía**: bloque sin superficie propia, entre bordes superior e inferior de
-  `--border-width` `--color-border` (las filas consecutivas comparten borde), padding
-  `--card-padding` en vertical y `--space-5` en horizontal. Desde 768px, dos columnas:
-  `--experience-meta-width` para el periodo y la duración, y el resto para el contenido, con
-  separación `--space-6`; por debajo, una sola columna.
+- **Anatomía**: padding `--card-padding` en vertical y `--space-5` en horizontal, con dos
+  variantes según el ancho:
+  - **Desde 768px**: card del sistema — `--color-surface`, borde `--border-width`
+    `--color-border` y `--radius-lg`; filas consecutivas separadas `--space-4`. Dos columnas:
+    `--experience-meta-width` para el periodo y la duración, y el resto para el contenido, con
+    separación `--space-6`.
+  - **Por debajo de 768px**: sin superficie propia, entre bordes superior e inferior de
+    `--border-width` `--color-border` (las filas consecutivas comparten borde) y en una sola
+    columna.
 - **Contenido**: periodo y duración en `--font-mono` con `--text-mono-label-*` y
   `--color-text-muted`; título `h3` con la organización; línea de apoyo con `--text-body-*` en
   `--color-text-secondary`; lista de logros como en la card de proyecto.
-- **Hover (puntero fino)**: adopta el tratamiento de card solo mientras el spotlight (P-2) la
-  ilumina: superficie `--color-surface`, borde `--border-glow` y sombra `--shadow-glow-soft`
-  sobre las líneas finas.
+- **Hover (puntero fino)**: el spotlight (P-2) añade la luz, el borde `--border-glow` y la sombra
+  `--shadow-glow-soft`; en móvil no aplica (sin puntero fino).
 - **Foco y táctil**: sin estados propios, como las cards sin enlace (spec 006).
 
 ### Bloque de código
@@ -579,3 +582,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | P-1 empieza cuando el borde superior del bloque ha entrado `--reveal-start-distance` (80px / 120px) o el bloque se ve completo; se quita la constante "umbral de revelado 10 %" | Con el 10 % del alto el revelado empezaba casi pegado al borde en bloques bajos; se recupera el inicio aprobado antes. Incorporado en la tarea T10 del plan 005 | usuario, designs/005-tech-stack |
 | 2026-09-15 | Constante "breakpoint ancho" (`1024px`) para composiciones en fila que no caben entre 768px y 1023px, sin modo de tokens nuevo; nota de cards de proyecto sin enlace (sin foco y sin efecto táctil) | Panel destacado y fila de proyectos de la composición A · Sistema quedaban con 180–230px de contenido entre 768px y 1023px. Incorporado en la tarea T01 del plan 006 | usuario, designs/006-projects |
 | 2026-09-15 | Sección de tokens "Experiencia" (`--experience-meta-width`) y patrón "Fila de experiencia" (bloque entre líneas, sin superficie propia, que adopta el tratamiento de card solo con el spotlight) | Composición A · Registro de la sección de experiencia, incorporada en la tarea T01 del plan 007 | designs/007-experience |
+| 2026-09-15 | El patrón "Fila de experiencia" pasa a tener dos variantes: card del sistema desde 768px (separación `--space-4`) y bloque entre líneas por debajo de 768px | En la revisión manual de T04 el usuario pidió que en escritorio la fila se vea siempre como card; el estado encendido del spotlight ya no es lo que la convierte en card | usuario, designs/007-experience |

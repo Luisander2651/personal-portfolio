@@ -16,20 +16,22 @@ updated: 2026-09-15
 (A · Registro, B · Ficha, C · Rótulo). Sin combinar elementos de B ni C; las descartadas se
 conservan en el canvas.
 
-Cada experiencia es una fila entre líneas finas, como una entrada de registro: a la izquierda el
-periodo y la duración en mono, discretos; a la derecha la empresa, el puesto y los logros. El
-puesto y el impacto pesan más que las fechas.
+Cada experiencia es una fila de registro: a la izquierda el periodo y la duración en mono,
+discretos; a la derecha la empresa, el puesto y los logros. El puesto y el impacto pesan más que
+las fechas. Desde 768px la fila es una card del sistema; por debajo, un bloque a todo el ancho
+entre líneas finas.
 
 - **Motivo**: da a la sección un ritmo propio frente a las cards de "Proyectos" (006) y al mosaico
-  de "Tecnologías" (005), y escala bien si el CV suma más experiencias.
-- **Riesgo asumido**: con una sola experiencia la fila puede parecer vacía → el spotlight la
-  levanta como card al pasar el puntero y el contenido ocupa el ancho completo de la sección.
+  de "Tecnologías" (005) —una sola fila ancha con la columna de fechas—, y escala bien si el CV
+  suma más experiencias.
+- **Riesgo asumido**: en escritorio la card puede recordar a "Proyectos" → la columna de periodo,
+  la ausencia de badge y de etiquetas, y el ancho completo la diferencian.
 
 ## Pantallas
 
 | Pantalla | Artboard móvil | Artboard escritorio | Criterios de la spec que cubre |
 |----------|----------------|---------------------|--------------------------------|
-| Experiencia · reposo y spotlight en la fila | `A · Registro — Móvil 390` | `A · Registro — Escritorio 1440` (fila con spotlight) | CA-1.1, CA-1.2, CA-1.4, CA-3.1, CA-3.2 |
+| Experiencia · reposo | `A · Registro — Móvil 390` (entre líneas) | `A · Registro — Escritorio 1440` (card) | CA-1.1, CA-1.2, CA-1.4, CA-3.1, CA-3.2 |
 | Spotlight · reposo → puntero dentro → se mueve → sale; táctil y reduced motion | — | `Movimiento — Spotlight y revelado` (fila de spotlight) | CA-2.1, CA-2.2 |
 | Revelado al entrar en pantalla · fuera → entra → completo; sin JS y reduced motion | — | `Movimiento — Spotlight y revelado` (fila de revelado) | CA-2.2, CA-3.4 |
 
@@ -42,13 +44,15 @@ puesto y el impacto pesan más que las fechas.
 - **Orden de lectura**: encabezado (`PORTFOLIO / EXPERIENCIA` y `h2` "Experiencia profesional") →
   fila de la experiencia.
 - **Fila de experiencia** (una por entrada de la colección, en el orden de la colección):
-  - Sin card: borde superior e inferior de `--border-width` `--color-border`; padding
-    `--card-padding` en vertical y `--space-5` en horizontal. Filas consecutivas comparten el
-    borde (sin dobles líneas).
-  - **Por debajo de 768px**: una columna; primero el periodo y la duración, después empresa,
-    puesto y logros; separación `--card-gap`.
-  - **Desde 768px**: dos columnas, `--experience-meta-width` para el periodo y el resto para el
-    contenido, con separación `--space-6`.
+  padding `--card-padding` en vertical y `--space-5` en horizontal.
+  - **Por debajo de 768px**: sin card; borde superior e inferior de `--border-width`
+    `--color-border`, y filas consecutivas que comparten el borde (sin dobles líneas). Una
+    columna: primero el periodo y la duración, después empresa, puesto y logros; separación
+    `--card-gap`.
+  - **Desde 768px**: card del sistema — `--color-surface`, borde `--border-width`
+    `--color-border` y `--radius-lg`, con las filas separadas `--space-4`. Dos columnas,
+    `--experience-meta-width` para el periodo y el resto para el contenido, con separación
+    `--space-6`.
 - **Contenido de la fila**:
   1. **Periodo y duración**: en una línea, con `--font-mono`, `--text-mono-label-*` (mayúsculas,
      tracking del sistema) y `--color-text-muted`; el separador `·` en `--color-border-strong`.
@@ -63,9 +67,9 @@ puesto y el impacto pesan más que las fechas.
 ## Componentes
 
 - **Encabezado de sección** (sistema): ancla `experiencia`, título "Experiencia profesional".
-- **Fila de experiencia** (variante nueva, documentada en "Cambios a incorporar al sistema"): no
-  es una card del sistema en reposo; con el puntero dentro adopta el tratamiento de card
-  (superficie, borde luminoso y sombra) que aporta el spotlight común.
+- **Fila de experiencia** (patrón del sistema, ver "Cambios a incorporar al sistema"): card del
+  sistema desde 768px y bloque entre líneas por debajo; el spotlight común solo añade la luz, el
+  borde luminoso y la sombra.
 - **Marca de logro**: la misma de la card de proyecto (006).
 - Sin badge de estado, sin etiquetas de stack, sin iconos y sin elementos enfocables.
 
@@ -80,14 +84,14 @@ puesto y el impacto pesan más que las fechas.
   - Luz: gradiente radial de `--color-spotlight` con radio `--spotlight-size`, centrado en la
     posición del puntero; la capa de luz pasa de `opacity: 0` a `1`.
   - Capa luminosa (`opacity` 0 → 1): rellena `--color-surface` y dibuja el borde `--border-glow`
-    con la sombra `--shadow-glow-soft`; mientras está encendida, la fila se lee como una card y
-    sus líneas finas quedan cubiertas por el borde luminoso.
+    con la sombra `--shadow-glow-soft`, sobre la card (desde 768px, el único cambio visible es la
+    luz y el borde) con el radio `--radius-lg` de la fila.
   - Texto de los logros y de la línea de periodo de `--color-text-muted` a
     `--color-text-secondary`; marcas de `--color-border-strong` a `--color-glow`.
 - **Duración / easing**: `--duration-base` / `--ease-out`; la posición de la luz sigue al puntero
   sin transición.
-- **Estado inicial → final**: fila entre líneas → fila encendida con puntero dentro → reposo al
-  salir.
+- **Estado inicial → final**: fila en reposo (card desde 768px) → fila encendida con puntero
+  dentro → reposo al salir.
 - **Secuencia / stagger**: no aplica; cada fila responde por separado.
 - **Implementación**: el spotlight común de la home (`CardSpotlight`, specs 005 y 006): CSS con
   variables de posición + un único script nativo mínimo, sin dependencias. La fila se marca como
@@ -135,10 +139,11 @@ Sección nueva **"Experiencia"**:
 |-------|------|-------|------------|-----|
 | `--experience-meta-width` | fijo | `220px` | — | Ancho de la columna de periodo y duración en la fila de experiencia (desde 768px) |
 
-En **Componentes**, patrón nuevo **"Fila de experiencia"**: bloque entre líneas de
-`--border-width` `--color-border`, sin superficie propia en reposo, que adopta el tratamiento de
-card (superficie, `--border-glow` y `--shadow-glow-soft`) solo mientras el spotlight lo ilumina;
-sin foco ni efecto táctil, como las cards sin enlace de la spec 006.
+En **Componentes**, patrón nuevo **"Fila de experiencia"**, con dos variantes: card del sistema
+(`--color-surface`, borde `--border-width` `--color-border`, `--radius-lg`, filas separadas
+`--space-4`) desde 768px, y bloque entre líneas de `--border-width` `--color-border` por debajo de
+768px; el spotlight añade `--border-glow` y `--shadow-glow-soft` con puntero fino. Sin foco ni
+efecto táctil, como las cards sin enlace de la spec 006.
 
 ## Accesibilidad
 
@@ -174,3 +179,4 @@ sin foco ni efecto táctil, como las cards sin enlace de la spec 006.
 | 2026-09-15 | Implícita | Columna del periodo | Token nuevo `--experience-meta-width` (220px) desde 768px; por debajo, apilado. Sin usar el breakpoint ancho de 1024px: la fila solo tiene dos columnas | designs/000-design-system |
 | 2026-09-15 | Implícita | Marca de los logros y colores | Los mismos de la card de proyecto (006), para no inventar un tratamiento nuevo | designs/006-projects |
 | 2026-09-15 | Implícita | Varias experiencias | Filas consecutivas que comparten borde; el diseño no cambia con más entradas (CA-1.4) | specs/007-experience |
+| 2026-09-15 | Refinado | En la revisión manual de T04 el usuario pidió que en escritorio la fila se vea como card, como en el artboard (que estaba dibujado con el spotlight encendido) | Desde 768px la fila es una card del sistema en reposo (superficie, borde y `--radius-lg`, separación `--space-4`); por debajo de 768px se mantiene entre líneas finas. El spotlight solo añade luz, borde luminoso y sombra. Canvas y patrón del sistema actualizados | usuario |
