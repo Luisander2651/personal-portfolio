@@ -42,6 +42,8 @@ export const projectSchema = z.object({
 export const experienceSchema = z.object({
   company: text,
   position: text,
+  /** Months and year of the role, as written in the CV. */
+  period: text,
   duration: text,
 });
 

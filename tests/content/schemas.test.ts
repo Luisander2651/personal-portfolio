@@ -42,7 +42,7 @@ const validSkill = { category: 'Test category', order: 1, presentation: 'icons',
 
 const validProject = { name: 'Test project', order: 1, status: 'completed', featured: false, stack: ['Tech'] };
 
-const validExperience = { company: 'Test company', position: 'Test position', duration: '4 meses' };
+const validExperience = { company: 'Test company', position: 'Test position', period: 'mayo – agosto de 2025', duration: '4 meses' };
 
 const validEducation = {
   degree: 'Test degree',
@@ -64,7 +64,7 @@ const requiredFields: Record<string, string[]> = {
   profile: ['name', 'role', 'location', 'email', 'github', 'linkedin', 'summary', 'languages', 'featuredStack', 'practicalExperience', 'focusAreas'],
   skills: ['category', 'order', 'presentation', 'items'],
   projects: ['name', 'order', 'status', 'featured', 'stack'],
-  experience: ['company', 'position', 'duration'],
+  experience: ['company', 'position', 'period', 'duration'],
   education: ['degree', 'specialization', 'institution', 'status'],
 };
 

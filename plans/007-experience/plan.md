@@ -62,7 +62,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - Sistema y `tokens.css` coinciden, en un solo commit.
 
-### [ ] T02 — Periodo y logro nuevo en el CV y en la colección
+### [x] T02 — Periodo y logro nuevo en el CV y en la colección
 
 - **Criterios**: CA-1.3
 - **Diseño**: —

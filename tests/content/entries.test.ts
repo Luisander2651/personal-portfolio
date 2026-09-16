@@ -217,12 +217,23 @@ describe('content entries', () => {
   describe('experience', () => {
     const section = cvSection('Experiencia');
 
-    it('matches company, position, duration and achievements in cv.md', () => {
+    it('matches company, position, period, duration and achievements in cv.md', () => {
       for (const { data, body } of collections.experience.entries) {
         expect(section).toContain(`### ${data.company} — ${data.position}\n`);
-        expect(section).toContain(`**Duración:** ${data.duration}\n`);
+        expect(section).toContain(`**Periodo:** ${data.period}\n**Duración:** ${data.duration}\n`);
         bodyLinesAppearIn(body, section);
       }
+    });
+
+    it('lists the three achievements of Syspyra Solutions in order', () => {
+      const [entry] = collections.experience.entries;
+      const achievements = (entry?.body ?? '').split('\n').filter((line) => line.startsWith('- '));
+
+      expect(achievements).toEqual([
+        '- Contribuí a la construcción de una sección de la página principal corporativa para presentar un producto que aún no estaba en el catálogo, y desarrollé una sección específica dedicada a ese producto.',
+        '- Mantuve y optimicé plataformas web corporativas, desplegando funcionalidades a medida que mejoraron la estructura del sitio y la navegación de los usuarios.',
+        '- Redacté documentación técnica y guías de uso de APIs para equipos internos, agilizando la incorporación de personal y el mantenimiento de las plataformas.',
+      ]);
     });
   });
 
