@@ -89,7 +89,7 @@ Va antes del componente porque la formación reutiliza el texto del estado que h
   - `bun run test` y `bun run build` en verde.
   - La sección de proyectos sigue mostrando sus badges igual (sin cambios en su HTML).
 
-### [ ] T03 — Orden y rango de años de la formación
+### [x] T03 — Orden y rango de años de la formación
 
 - **Criterios**: CA-1.2
 - **Diseño**: `A · Par — Escritorio 1440` (fila de años y estado)
