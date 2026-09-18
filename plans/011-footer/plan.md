@@ -39,7 +39,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Datos de contacto del footer
+### [x] T01 — Datos de contacto del footer
 
 - **Criterios**: CA-1.2, CA-1.3
 - **Diseño**: `A · Firma — Escritorio 1440` (lista de contacto y copyright)
