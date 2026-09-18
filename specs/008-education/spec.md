@@ -1,9 +1,9 @@
 ---
 id: 008
 title: Formación
-status: active
+status: done
 created: 2026-09-16
-updated: 2026-09-16
+updated: 2026-09-17
 depends_on: [001, 002, 003, 004, 005, 006, 007]
 ---
 
@@ -164,3 +164,4 @@ entra. La composición, la técnica y los tiempos se definen en `/design-spec`.
 | 2026-09-16 | Implícita | Revelado | Encabezado y bloques con el revelado común al entrar en pantalla, cada vez, uniforme con 004–007 | specs/004-about, specs/007-experience |
 | 2026-09-16 | Diseño | Composición de la sección | A · Par: dos cards del sistema (una columna en móvil, dos desde 768px) con rango de años y badge de estado en la fila superior, titulación, especialidad y, al pie, la institución con la etiqueta mono `UTCGG` delante del nombre completo; spotlight y revelado comunes; sin tokens ni patrones nuevos. Pendiente: añadir la abreviatura a `docs/cv.md` y el campo `institutionShort` a la colección refinando esta spec | /design-spec |
 | 2026-09-16 | Brecha | Abreviatura de la universidad pedida en el diseño (no estaba en `docs/cv.md`) | Se añade `(UTCGG)` al nombre de la institución en `docs/cv.md` y un campo obligatorio `institutionShort` en el esquema y en las dos entradas; la sección muestra la sigla junto al nombre completo | usuario, designs/008-education |
+| 2026-09-17 | Cierre | Spec completada: las tareas T01 a T05 de `plans/008-education/plan.md` verificadas (tests, `dist/`, revisión visual a 390px y 1440px, spotlight y revelado, rendimiento, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |

@@ -3,7 +3,7 @@ id: 008
 title: Formación
 spec: specs/008-education/spec.md
 design: designs/008-education/design.md
-status: approved
+status: done
 created: 2026-09-16
 updated: 2026-09-17
 ---
@@ -156,7 +156,7 @@ Va antes del componente porque la formación reutiliza el texto del estado que h
       fluido con trackpad.
     - Con reduced motion y con JavaScript desactivado (recargando), todo visible y sin animación.
 
-### [ ] T05 — Verificación final
+### [x] T05 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/008-education/design.md`
@@ -199,3 +199,4 @@ Va antes del componente porque la formación reutiliza el texto del estado que h
 | 2026-09-16 | Planificación | Orden y formato del rango de años en `src/lib/education.ts` (T03) | Lógica pura y testeable fuera del componente (constitución §4 y §5) |
 | 2026-09-16 | Planificación | Estructura, estilos y marcas de revelado y spotlight en una sola tarea (T04) | Son dos cards con la misma revisión visual; el movimiento reutiliza los scripts existentes |
 | 2026-09-16 | Planificación | Sin tarea propia de animación ni cambios en el sistema | `CardSpotlight` y `SectionReveal` ya existen y el diseño 008 no añade tokens ni patrones |
+| 2026-09-17 | Verificación (T05) | 716 tests y build en verde; cada CA con su test; `dist/index.html` con `section#formacion` única tras `#experiencia`, `h2` "Formación" con `aria-labelledby`, un único `h1`, las dos formaciones en orden sin JS (años, estado, titulación, especialidad, UTCGG e institución), marcadas para revelado y spotlight, y sin elementos enfocables; JS de la home 1,97 kB con gzip sin scripts externos; revisión visual a 390px y 1440px, spotlight y revelado, Performance sin tareas largas, reduced motion, JavaScript desactivado y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |
