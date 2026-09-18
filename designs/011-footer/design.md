@@ -33,9 +33,9 @@ El footer cierra la página como una firma: nombre y rol a la izquierda, la list
 
 ## Composición y jerarquía
 
-- **`footer`** después de `main` y fuera de él: borde superior `--border-width`
-  `--color-border`; padding superior `--space-section`, inferior `--space-5`, lateral
-  `--space-gutter`. Contenido con ancho máximo `--section-max-width`, centrado, en columna con
+- **`footer`** después de `main` y fuera de él: fondo sólido `--color-bg` (la cuadrícula de la
+  página termina donde empieza el footer), borde superior `--border-width` `--color-border`;
+  padding superior `--space-section`, inferior `--space-5`, lateral `--space-gutter`. Contenido con ancho máximo `--section-max-width`, centrado, en columna con
   separación `--space-7` entre la fila principal y el copyright.
 - **Fila principal**: por debajo de 768px, apilada (firma → contacto) con separación
   `--space-6`; desde 768px, dos columnas (`minmax(0, 1.2fr)` y `minmax(0, 1fr)`), firma a la
@@ -133,3 +133,4 @@ enlace del sistema.
 | 2026-09-18 | Diseño | Composición del footer | A · Firma, sin combinar | usuario |
 | 2026-09-18 | Implícita | Tamaño del nombre | `--text-h2-size` como párrafo, no encabezado: firma sin competir con el hero ni alterar la jerarquía | anti-cliches.md, constitution.md §7 |
 | 2026-09-18 | Implícita | Nombre accesible de los enlaces | "{servicio}: {dato}", que incluye el servicio exigido por CA-1.2 | specs/011-footer |
+| 2026-09-18 | Refinamiento | Fondo del footer | Sólido (`--color-bg`), como en el canvas: la cuadrícula de la página no continúa bajo el footer | usuario |

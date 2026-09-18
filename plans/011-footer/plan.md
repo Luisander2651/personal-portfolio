@@ -78,7 +78,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - Los iconos del hero se ven igual (revisión rápida en `bun run preview`).
 
-### [ ] T03 — Footer en la home
+### [x] T03 — Footer en la home
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.3, CA-1.4, CA-2.1, CA-2.2, CA-3.1, CA-3.2, CA-3.3
 - **Diseño**: `A · Firma — Escritorio 1440` y `— Móvil 390` · `M-1` · `M-2`
@@ -158,3 +158,5 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Estructura, estilos y marca de revelado del footer en una sola tarea (T03) | Es un único bloque con la misma revisión visual; el revelado reutiliza el script común |
 | 2026-09-18 | Planificación | El año llega como prop desde `index.astro` (fecha de la build) | Permite testear el componente con cualquier año |
 | 2026-09-18 | Implementación (T02) | En el hero, la regla `.hero-link svg` pasa a `.hero-link :global(.contact-icon)`; el tamaño lo dan los tokens (`--icon-size-md`) en lugar de los atributos `width`/`height` del SVG | Los estilos de Astro tienen alcance por componente y el SVG ahora vive en `ContactIcon`; medido en el navegador: iconos de 22×22 y trazo 1,75 como antes |
+| 2026-09-18 | Implementación (T03) | `data-reveal` en el contenedor interior del footer, no en el `footer` | El borde superior del footer se mantiene visible mientras el contenido se revela; el diseño revela "el contenido del footer como un único bloque" |
+| 2026-09-18 | Implementación (T03) | Fondo sólido `--color-bg` en el footer (diseño 011 actualizado) | En la revisión manual la cuadrícula de la página se veía a través del footer; el canvas lo muestra sólido |

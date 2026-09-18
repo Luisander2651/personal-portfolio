@@ -1,0 +1,202 @@
+---
+/*
+ * Footer, direction A · "Firma" (designs/011-footer/design.md): signature (name and role), the
+ * contact links (icon, service and value) and the copyright line. Revealed as one block by the
+ * shared reveal script; no JavaScript of its own.
+ */
+import { contactLinks, copyrightLine } from '../lib/contact';
+import ContactIcon from './ContactIcon.astro';
+
+interface Props {
+  name: string;
+  role: string;
+  email: string;
+  github: string;
+  linkedin: string;
+  year: number;
+}
+
+const { name, role, email, github, linkedin, year } = Astro.props;
+const links = contactLinks({ email, github, linkedin });
+---
+
+<footer class="site-footer">
+  <div class="site-footer-inner" data-reveal>
+    <div class="site-footer-main">
+      <div class="site-footer-signature">
+        <p class="site-footer-name">{name}</p>
+        <p class="site-footer-role">{role}</p>
+      </div>
+
+      <nav aria-label="Contacto">
+        <ul class="site-footer-links">
+          {
+            links.map(({ service, text, href, icon }) => (
+              <li>
+                <a class="site-footer-link" href={href} aria-label={`${service}: ${text}`}>
+                  <ContactIcon name={icon} />
+                  <span class="site-footer-contact">
+                    <span class="site-footer-service">{service}</span>
+                    <span class="site-footer-value">{text}</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer-copyright">{copyrightLine(name, year)}</p>
+  </div>
+</footer>
+
+<style>
+  /* Direction A · "Firma" (designs/011-footer/design.md). Tokens only, mobile first. */
+  .site-footer {
+    padding-block: var(--space-section) var(--space-5);
+    padding-inline: var(--space-gutter);
+    border-top: var(--border-width) solid var(--color-border);
+    /* Solid: the page grid stops where the footer starts. */
+    background-color: var(--color-bg);
+  }
+
+  .site-footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-7);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  .site-footer-main {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .site-footer-signature {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  .site-footer-name {
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--text-h2-size);
+    line-height: var(--text-h2-line-height);
+    font-weight: var(--text-h2-weight);
+    letter-spacing: var(--text-h2-tracking);
+    text-wrap: balance;
+  }
+
+  .site-footer-role {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .site-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer-link {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-height: var(--control-height);
+    padding-block: var(--space-2);
+    border-radius: var(--radius-sm);
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  .site-footer-link :global(.contact-icon) {
+    flex: none;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    stroke-width: var(--icon-stroke);
+    color: var(--color-text-muted);
+  }
+
+  .site-footer-contact {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .site-footer-service {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    text-transform: var(--text-mono-label-transform);
+  }
+
+  /* Long values (the LinkedIn URL) wrap instead of overflowing at 390px. */
+  .site-footer-value {
+    font-family: var(--font-mono);
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line-height);
+    overflow-wrap: anywhere;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: var(--space-1);
+  }
+
+  .site-footer-link:hover,
+  .site-footer-link:focus-visible {
+    color: var(--color-link-hover);
+  }
+
+  .site-footer-link:hover .site-footer-value {
+    text-decoration-color: var(--color-glow);
+  }
+
+  .site-footer-link:hover :global(.contact-icon),
+  .site-footer-link:focus-visible :global(.contact-icon) {
+    color: var(--color-glow);
+  }
+
+  .site-footer-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .site-footer-copyright {
+    margin: 0;
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+  }
+
+  @media (min-width: 768px) {
+    .site-footer-main {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-7);
+    }
+  }
+
+  /* M-2: colors change smoothly only without reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .site-footer-link,
+    .site-footer-link :global(.contact-icon) {
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .site-footer-value {
+      transition: text-decoration-color var(--duration-fast) var(--ease-out);
+    }
+  }
+</style>

@@ -8,6 +8,7 @@ import HomeHero from '../components/HomeHero.astro';
 import LanguagesSection from '../components/LanguagesSection.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import SectionReveal from '../components/SectionReveal.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import SiteNav from '../components/SiteNav.astro';
 import TechStackSection from '../components/TechStackSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -38,6 +39,8 @@ const skillGroups = groupSkillsForSection(await getCollection('skills'));
 const projectGroups = groupProjectsForSection(await getCollection('projects'));
 const experiences = await getCollection('experience');
 const education = await getCollection('education');
+/** Year of the build, for the footer copyright (specs/011-footer, CA-1.3). */
+const buildYear = new Date().getFullYear();
 ---
 
 <BaseLayout title={title} description={description}>
@@ -61,4 +64,5 @@ const education = await getCollection('education');
     <SectionReveal />
     <CardSpotlight />
   </main>
+  <SiteFooter name={name} role={role} email={email} github={github} linkedin={linkedin} year={buildYear} />
 </BaseLayout>
