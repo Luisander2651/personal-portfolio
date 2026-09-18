@@ -83,7 +83,7 @@ describe('LanguagesSection', () => {
 
 describe('home page', () => {
   it('renders LanguagesSection right after EducationSection inside main', () => {
-    const main = indexSource.match(/<main>([\s\S]*?)<\/main>/)?.[1] ?? '';
+    const main = indexSource.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
     const components = [...main.matchAll(/<([A-Z]\w*)[\s/>]/g)].map(([, name]) => name);
 
     expect(components.slice(0, 7)).toEqual([

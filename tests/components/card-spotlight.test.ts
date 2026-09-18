@@ -133,7 +133,7 @@ describe('CardSpotlight', () => {
 
 describe('home page', () => {
   it('renders CardSpotlight once inside main', () => {
-    const main = indexSource.match(/<main>([\s\S]*?)<\/main>/)?.[1] ?? '';
+    const main = indexSource.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
 
     expect(indexSource).toMatch(/import CardSpotlight from '\.\.\/components\/CardSpotlight\.astro';/);
     expect(main.match(/<CardSpotlight\b/g)).toHaveLength(1);

@@ -91,7 +91,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T03 — Barra de navegación en la home (HTML sin JavaScript)
+### [x] T03 — Barra de navegación en la home (HTML sin JavaScript)
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.3, CA-2.1, CA-2.2, CA-3.2, CA-4.2
 - **Diseño**: `A · Índice — Escritorio 1440` y `— Móvil 390` (estructura)
@@ -222,3 +222,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Estructura sin JavaScript (T03) antes de estilos (T04) y del script (T05) | El sitio debe funcionar sin JavaScript antes de cualquier interacción |
 | 2026-09-18 | Planificación | Menú y sección activa en un único script (T05) | Comparten el componente y el presupuesto de JavaScript; menos sobrecarga que dos scripts |
 | 2026-09-18 | Implementación (T02) | `pickActiveSection` activa la última sección cuando su final ya está en la ventana | "Idiomas" es más baja que dos tercios de la ventana y nunca cruzaría la línea de lectura; el plan pide la última sección al final de la página |
+| 2026-09-18 | Implementación (T03) | Se ajustó el patrón `<main>` a `<main[^>]*>` en 8 tests de secciones (about, tech-stack, projects, experience, education, languages, section-reveal, card-spotlight), con aprobación del usuario | `main` pasa a tener `id="contenido"` (CA-2.1) y esos tests buscaban la etiqueta literal |

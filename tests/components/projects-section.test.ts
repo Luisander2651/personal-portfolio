@@ -84,7 +84,7 @@ describe('ProjectsSection', () => {
 
 describe('home page', () => {
   it('renders ProjectsSection right after TechStackSection inside main', () => {
-    const main = indexSource.match(/<main>([\s\S]*?)<\/main>/)?.[1] ?? '';
+    const main = indexSource.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
     const components = [...main.matchAll(/<([A-Z]\w*)[\s/>]/g)].map(([, name]) => name);
 
     expect(components.slice(0, 4)).toEqual(['HomeHero', 'AboutSection', 'TechStackSection', 'ProjectsSection']);

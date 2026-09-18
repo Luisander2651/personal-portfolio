@@ -8,6 +8,7 @@ import HomeHero from '../components/HomeHero.astro';
 import LanguagesSection from '../components/LanguagesSection.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import SectionReveal from '../components/SectionReveal.astro';
+import SiteNav from '../components/SiteNav.astro';
 import TechStackSection from '../components/TechStackSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPageMeta } from '../lib/page-meta';
@@ -40,7 +41,8 @@ const education = await getCollection('education');
 ---
 
 <BaseLayout title={title} description={description}>
-  <main>
+  <SiteNav name={name} />
+  <main id="contenido">
     <HomeHero
       name={name}
       role={role}

@@ -81,7 +81,7 @@ describe('SectionReveal', () => {
 
 describe('home page', () => {
   it('renders SectionReveal once inside main', () => {
-    const main = indexSource.match(/<main>([\s\S]*?)<\/main>/)?.[1] ?? '';
+    const main = indexSource.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
 
     expect(main.match(/<SectionReveal\b/g)).toHaveLength(1);
   });
