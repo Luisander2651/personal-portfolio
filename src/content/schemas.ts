@@ -15,7 +15,7 @@ export const profileSchema = z.object({
   github: z.url(),
   linkedin: z.url(),
   summary: text,
-  languages: nonEmptyList(z.object({ language: text, level: text })),
+  languages: nonEmptyList(z.object({ language: text, level: text, tag: text.optional() })),
   featuredStack: nonEmptyList(text),
   practicalExperience: nonEmptyList(text),
   focusAreas: nonEmptyList(text),

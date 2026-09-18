@@ -107,6 +107,21 @@ describe('content schemas', () => {
       const languages = [{ language: 'Español' }];
       expect(failingPaths(profileSchema, { ...validProfile, languages })).toContain('languages.0.level');
     });
+
+    it('accepts a language without tag', () => {
+      expect(failingPaths(profileSchema, validProfile)).toEqual([]);
+    });
+
+    it('keeps the tag of a language', () => {
+      const languages = [{ language: 'Inglés', level: 'Test level', tag: 'B2' }];
+      const result = profileSchema.safeParse({ ...validProfile, languages });
+      expect(result.success && result.data.languages[0]).toEqual(languages[0]);
+    });
+
+    it('rejects an empty language tag', () => {
+      const languages = [{ language: 'Inglés', level: 'Test level', tag: '' }];
+      expect(failingPaths(profileSchema, { ...validProfile, languages })).toContain('languages.0.tag');
+    });
   });
 
   describe('skills', () => {

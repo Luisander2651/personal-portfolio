@@ -113,5 +113,5 @@ Creación y optimización de Dockerfiles multi-stage y arquitecturas multiconten
 
 ## Idiomas
 
-- **Español:** Nativo
+- **Español:** Dominio completo (lengua materna)
 - **Inglés:** Competencia profesional (B2)

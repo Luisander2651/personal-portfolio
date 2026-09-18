@@ -40,7 +40,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Etiqueta y nivel de los idiomas
+### [x] T01 — Etiqueta y nivel de los idiomas
 
 - **Criterios**: CA-1.3
 - **Diseño**: —

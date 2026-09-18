@@ -93,14 +93,25 @@ describe('content entries', () => {
       expect(cvSection('Resumen profesional')).toContain(`\n${profile.summary}\n`);
     });
 
-    it('matches every language of cv.md', () => {
-      const section = cvSection('Idiomas');
-      const listed = section.match(/^- \*\*/gm) ?? [];
+    it('lists the languages with their level and tag', () => {
+      expect(profile.languages).toEqual([
+        { language: 'Español', level: 'Dominio completo', tag: 'Lengua materna' },
+        { language: 'Inglés', level: 'Competencia profesional', tag: 'B2' },
+      ]);
+    });
 
-      expect(profile.languages).toHaveLength(listed.length);
-      for (const { language, level } of profile.languages ?? []) {
-        expect(section).toContain(`- **${language}:** ${level}\n`);
-      }
+    it('matches every language of cv.md', () => {
+      const lines = cvSection('Idiomas')
+        .split('\n')
+        .filter((line) => line.startsWith('- **'));
+
+      expect(profile.languages).toHaveLength(lines.length);
+      (profile.languages ?? []).forEach(({ language, level, tag }: Frontmatter, index: number) => {
+        const line = lines[index] ?? '';
+        const levelPart = `- **${language}:** ${level}`;
+        expect(line.startsWith(levelPart), line).toBe(true);
+        expect(line.slice(levelPart.length).toLowerCase()).toBe(tag ? ` (${tag.toLowerCase()})` : '');
+      });
     });
 
     it('features exactly the stack highlighted in cv.md, in order', () => {
