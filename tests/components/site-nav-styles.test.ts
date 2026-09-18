@@ -108,7 +108,8 @@ describe('SiteNav styles', () => {
 
   it('lays the links in a row from 1024px and hides the menu button there', () => {
     expect(bodyOf(/^\.site-nav-links ul$/, (rule) => inside(rule, WIDE))).toMatch(/flex-direction:\s*row/);
-    expect(bodyOf(/^\.site-nav-toggle$/, (rule) => inside(rule, WIDE))).toMatch(/display:\s*none/);
+    // It must beat `.site-nav-toggle:not([hidden])`, which shows the button once the script runs.
+    expect(bodyOf(/^\.site-nav-toggle:not\(\[hidden\]\)$/, (rule) => inside(rule, WIDE))).toMatch(/display:\s*none/);
   });
 
   it('shows the menu button only when it is not hidden', () => {

@@ -155,7 +155,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     él: barra a 390px y 1440px contra A · Índice; "Saltar al contenido" al primer Tab; la barra
     no tapa los `h2` al saltar a las anclas.
 
-### [ ] T05 — Script de la navegación: menú y sección activa
+### [x] T05 — Script de la navegación: menú y sección activa
 
 - **Criterios**: CA-3.1, CA-4.1, CA-5.1, CA-5.4
 - **Diseño**: `Movimiento — Menú y enlace activo` · `M-1` · `M-2`
@@ -226,3 +226,5 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Implementación (T04) | Por debajo de 1024px y sin JavaScript la cabecera no es fija (excepción anotada en CA-1.4 de la spec); con la marca `html[data-nav-ready]` es fija y el panel se pliega | La lista visible bajo una barra fija taparía unos 340px en móvil sin JavaScript; decisión del usuario |
 | 2026-09-18 | Implementación (T04) | Panel del menú con fondo opaco `--color-bg` (diseño 010 y sistema actualizados) | En la revisión visual el hero se transparentaba bajo las filas con `--color-nav-bg`; decisión del usuario |
 | 2026-09-18 | Planificación | T05 debe poner `data-nav-ready` antes del primer pintado | Si la marca llega tarde, en móvil la barra pasa de estar en el flujo a fija tras cargar y provoca un salto de maquetación |
+| 2026-09-18 | Implementación (T05) | Dos scripts en lugar de uno: uno en línea justo después del `header` pone `data-nav-ready` y muestra el botón antes del primer pintado; el módulo empaquetado lleva el menú y la sección activa | El módulo de Astro es diferido y llegaría tarde: la barra saltaría de estar en el flujo a fija tras cargar en móvil |
+| 2026-09-18 | Implementación (T05) | Corrección de T04: el `display: none` del botón desde 1024px pasa a `.site-nav-toggle:not([hidden])` y su test lo exige | Con el script activo, la regla que muestra el botón era más específica y el botón "Menú" aparecía en escritorio |

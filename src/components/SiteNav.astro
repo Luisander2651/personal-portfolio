@@ -52,6 +52,54 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     </nav>
   </div>
 </header>
+<script is:inline>
+  document.documentElement.dataset.navReady = '';
+  document.querySelector('.site-nav-toggle').hidden = false;
+</script>
+
+<script>
+  /* M-1 menu and M-2 current link (designs/010-navigation/design.md). The inline script above
+     already fixed the bar and showed the button before the first paint. */
+  import { NAV_LINKS, pickActiveSection } from '../lib/navigation';
+
+  const toggle = document.querySelector<HTMLButtonElement>('.site-nav-toggle');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.site-nav-links a')];
+  const isOpen = () => toggle?.getAttribute('aria-expanded') === 'true';
+  const setOpen = (open: boolean) => toggle?.setAttribute('aria-expanded', String(open));
+
+  toggle?.addEventListener('click', () => setOpen(!isOpen()));
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !isOpen()) return;
+    setOpen(false);
+    toggle?.focus();
+  });
+  for (const link of links) link.addEventListener('click', () => setOpen(false));
+
+  const sections = NAV_LINKS.flatMap(({ anchor }) => document.getElementById(anchor) ?? []);
+  const markActive = () => {
+    const active = pickActiveSection(
+      sections.map((section) => {
+        const { top, bottom } = section.getBoundingClientRect();
+        return { anchor: section.id, top, bottom };
+      }),
+      window.innerHeight,
+    );
+    for (const link of links) {
+      if (active !== null && link.hash === `#${active}`) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  };
+
+  if (sections.length > 0 && 'IntersectionObserver' in window) {
+    // A zero-height band on the reading line (a third of the viewport) plus the last section,
+    // which may be too short to reach the line: any crossing recomputes the active link.
+    const line = new IntersectionObserver(markActive, { rootMargin: '-33.333% 0px -66.667% 0px' });
+    const end = new IntersectionObserver(markActive, { threshold: [0, 1] });
+    for (const section of sections) line.observe(section);
+    end.observe(sections[sections.length - 1] as HTMLElement);
+    markActive();
+  }
+</script>
 
 <style>
   /* Direction A · "Índice" (designs/010-navigation/design.md). Tokens only, mobile first.
@@ -287,7 +335,8 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
       inset-inline: 0;
     }
 
-    .site-nav-toggle {
+    /* Same specificity as the rule that shows it, so it wins from 1024px. */
+    .site-nav-toggle:not([hidden]) {
       display: none;
     }
 
