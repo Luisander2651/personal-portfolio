@@ -1,0 +1,178 @@
+---
+import { formatYearRange, sortEducation } from '../lib/education';
+import type { EntryStatus } from '../lib/status';
+import SectionHeader from './SectionHeader.astro';
+import StatusBadge from './StatusBadge.astro';
+
+type Education = {
+  id: string;
+  data: {
+    degree: string;
+    specialization: string;
+    institution: string;
+    institutionShort: string;
+    status: EntryStatus;
+    order: number;
+    startYear: number;
+    endYear: number;
+  };
+};
+
+interface Props {
+  entries: readonly Education[];
+}
+
+const entries = sortEducation(Astro.props.entries);
+---
+
+<section id="formacion" class="education" aria-labelledby="formacion-title">
+  <div class="education-inner">
+    <SectionHeader anchor="formacion" title="Formación" headingId="formacion-title" />
+
+    <div class="education-list">
+      {
+        entries.map(({ data }) => (
+          <article class="education-card" data-reveal data-spotlight>
+            <div class="education-meta">
+              <span class="education-years">{formatYearRange(data.startYear, data.endYear)}</span>
+              <StatusBadge status={data.status} />
+            </div>
+            <div class="education-heading">
+              <h3>{data.degree}</h3>
+              <p class="education-specialization">{data.specialization}</p>
+            </div>
+            <p class="education-institution">
+              <span class="education-short">{data.institutionShort}</span>
+              <span>{data.institution}</span>
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Composition A · "Par" (designs/008-education/design.md). Tokens only. */
+  .education {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+  }
+
+  .education-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-header-gap);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  .education-list {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .education-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    padding: var(--card-padding);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+  }
+
+  .education-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .education-years {
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-label-size);
+    line-height: var(--text-mono-label-line-height);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    color: var(--color-text-muted);
+  }
+
+  .education-heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .education-heading h3 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .education-specialization {
+    margin: 0;
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-secondary);
+  }
+
+  /* Pushed to the bottom of the card when the row stretches it. */
+  .education-institution {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin: auto 0 0;
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+  }
+
+  .education-short {
+    display: inline-flex;
+    align-items: center;
+    height: var(--tag-height);
+    padding-inline: var(--tag-padding-x);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .education-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+  }
+
+  /* M-1 spotlight (P-2): the light and glow layers come from the shared CardSpotlight; the card
+     only brightens its years and its institution. */
+  @media (hover: hover) and (pointer: fine) {
+    @media (prefers-reduced-motion: no-preference) {
+      .education-years,
+      .education-institution {
+        transition: color var(--duration-base) var(--ease-out);
+      }
+
+      .education-card[data-spotlight-active] .education-years,
+      .education-card[data-spotlight-active] .education-institution {
+        color: var(--color-text-secondary);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .education-card:hover .education-years,
+      .education-card:hover .education-institution {
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+</style>

@@ -104,7 +104,7 @@ Va antes del componente porque la formación reutiliza el texto del estado que h
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T04 — Sección "Formación" en la home
+### [x] T04 — Sección "Formación" en la home
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.4, CA-2.1, CA-2.2, CA-2.3, CA-3.1, CA-3.2, CA-3.4
 - **Diseño**: `A · Par — Escritorio 1440` y `— Móvil 390` · `M-1` · `M-2`
