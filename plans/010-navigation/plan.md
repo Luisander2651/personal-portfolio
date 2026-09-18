@@ -69,7 +69,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Enlaces, iniciales y sección activa
+### [x] T02 — Enlaces, iniciales y sección activa
 
 - **Criterios**: CA-1.2, CA-1.3, CA-4.1
 - **Diseño**: `designs/010-navigation/design.md` → Composición (marca, zona de lectura)
@@ -221,3 +221,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Lista de enlaces, iniciales y cálculo de la sección activa en `src/lib/navigation.ts` (T02) | Lógica pura y testeable fuera del componente y del script (constitución §4 y §5), como `section-reveal.ts` |
 | 2026-09-18 | Planificación | Estructura sin JavaScript (T03) antes de estilos (T04) y del script (T05) | El sitio debe funcionar sin JavaScript antes de cualquier interacción |
 | 2026-09-18 | Planificación | Menú y sección activa en un único script (T05) | Comparten el componente y el presupuesto de JavaScript; menos sobrecarga que dos scripts |
+| 2026-09-18 | Implementación (T02) | `pickActiveSection` activa la última sección cuando su final ya está en la ventana | "Idiomas" es más baja que dos tercios de la ventana y nunca cruzaría la línea de lectura; el plan pide la última sección al final de la página |
