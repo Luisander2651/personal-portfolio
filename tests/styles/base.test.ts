@@ -86,6 +86,20 @@ describe('base styles', () => {
     });
   });
 
+  it('scrolls smoothly to anchors only without reduced motion', () => {
+    const css = baseCss.replace(/\/\*[\s\S]*?\*\//g, '');
+    const smooth = [...css.matchAll(/scroll-behavior\s*:\s*smooth/g)];
+
+    expect(smooth).toHaveLength(1);
+    expect(css).toMatch(
+      /@media\s*\(\s*prefers-reduced-motion:\s*no-preference\s*\)\s*\{\s*html\s*\{\s*scroll-behavior:\s*smooth;\s*\}\s*\}/,
+    );
+  });
+
+  it('keeps anchored sections clear of the fixed navigation bar', () => {
+    expect(rules['section[id]']).toEqual({ 'scroll-margin-top': 'var(--nav-height)' });
+  });
+
   it('uses no literal colors, sizes or durations', () => {
     const literals = Object.values(rules)
       .flatMap((declarations) => Object.values(declarations))

@@ -82,3 +82,15 @@ a:hover {
   background-color: var(--color-selection-bg);
   color: var(--color-selection-text);
 }
+
+/* Anchored sections stop below the fixed navigation bar (designs/010-navigation/design.md). */
+section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+/* M-3: smooth scrolling to anchors; with reduced motion the jump is immediate. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

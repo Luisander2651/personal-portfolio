@@ -143,6 +143,12 @@
   --tech-item-min-width: 160px;
   --experience-meta-width: 220px;
 
+  /* Navigation */
+  --color-nav-bg: rgba(5, 7, 13, 0.92);
+  --nav-row-height: 56px;
+  --nav-marker-size: 6px;
+  --shadow-nav-marker: 0 0 10px rgba(34, 211, 238, 0.8);
+
   /* Fluid (390px to 1440px) */
   --text-display-size: clamp(40px, calc(40px + (72 - 40) * ((100vw - 390px) / 1050)), 72px);
   --text-h1-size: clamp(30px, calc(30px + (48 - 30) * ((100vw - 390px) / 1050)), 48px);
@@ -173,6 +179,7 @@
   --about-panel-gap: 32px;
   --about-groups-gap: 32px;
   --reveal-start-distance: 80px;
+  --nav-height: 60px;
 }
 
 @media (min-width: 768px) {
@@ -195,6 +202,7 @@
     --about-panel-gap: 40px;
     --about-groups-gap: 48px;
     --reveal-start-distance: 120px;
+    --nav-height: 64px;
   }
 }
 

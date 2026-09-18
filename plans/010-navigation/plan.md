@@ -46,7 +46,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Tokens de la navegación y scroll del documento
+### [x] T01 — Tokens de la navegación y scroll del documento
 
 - **Criterios**: CA-1.4, CA-1.5, CA-5.4
 - **Diseño**: `designs/010-navigation/design.md` → Cambios a incorporar al sistema · `M-3`

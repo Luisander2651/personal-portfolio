@@ -4,7 +4,7 @@ title: Sistema de diseño
 status: approved
 canvas: https://claude.ai/code/artifact/7951e0c7-1841-4152-9d8e-8752078f7990
 created: 2026-09-13
-updated: 2026-09-15
+updated: 2026-09-18
 ---
 
 # Sistema de diseño
@@ -282,6 +282,16 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 |-------|------|-------|------------|-----|
 | `--experience-meta-width` | fijo | `220px` | — | Ancho de la columna de periodo y duración en la fila de experiencia (desde 768px) |
 
+### Navegación
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--nav-height` | 768 | `60px` | `64px` | Alto de la barra de navegación y `scroll-margin-top` de las secciones con ancla |
+| `--color-nav-bg` | fijo | `rgba(5, 7, 13, 0.92)` | — | Fondo de la barra de navegación y del panel del menú |
+| `--nav-row-height` | fijo | `56px` | — | Filas del menú de navegación por debajo de 1024px |
+| `--nav-marker-size` | fijo | `6px` | — | Punto de luz del enlace activo y de la marca |
+| `--shadow-nav-marker` | fijo | `0 0 10px rgba(34, 211, 238, 0.8)` | — | Halo del punto de luz de la navegación |
+
 ## Componentes base
 
 Referencia: artboard `A · Luz en la oscuridad — Sistema · escritorio`, sección 04, y
@@ -405,6 +415,31 @@ Referencia: artboard `B · about.md — Escritorio 1440` y `— Móvil 390` del 
 - **Estados**: ninguno (no interactivo).
 - **Variación entre secciones**: el encabezado es común; el layout del contenido varía en cada
   sección (ver `anti-cliches.md`).
+
+### Barra de navegación
+
+- **Cabecera** fija arriba por encima del contenido, alto `--nav-height`, fondo `--color-nav-bg`
+  (sin `backdrop-filter`) y borde inferior `--border-width` `--color-border`; contenido con
+  `--section-max-width` y `--space-gutter`.
+- **Marca**: punto de luz de `--nav-marker-size` en `--color-glow` con `--shadow-nav-marker` y
+  las iniciales en `--font-mono`; el nombre completo como nombre accesible.
+- **Desde 1024px** (breakpoint ancho): enlaces en línea. **Por debajo**: botón "Menú" (variante
+  mono del botón secundario, alto `--control-height`) que despliega un panel de filas de
+  `--nav-row-height`; sin JavaScript la lista siempre se ve.
+- **"Saltar al contenido"**: fuera de la vista hasta recibir foco; con foco, etiqueta mono sobre
+  `--color-surface` con el punto de luz.
+- Las secciones con ancla dejan `scroll-margin-top: var(--nav-height)`.
+- Detalle y movimiento: `designs/010-navigation/design.md`.
+
+### Enlace de navegación
+
+- **Anatomía**: marcador (hueco de `--nav-marker-size`), número mono `01`–`06` y texto, en
+  `--font-mono` y `--text-small-size`; alto `--control-height`.
+- **Reposo**: número `--color-text-muted`, texto `--color-text-secondary`, sin marcador.
+- **Hover**: número `--color-link`, texto `--color-text`.
+- **Activo** (`aria-current="true"`): marcador `--color-glow` con `--shadow-nav-marker`, número
+  `--color-glow`, texto `--color-text`.
+- **Foco**: `outline: var(--focus-ring)`, `outline-offset: var(--focus-ring-offset)`.
 
 ## Tokens de movimiento
 
@@ -583,3 +618,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | Constante "breakpoint ancho" (`1024px`) para composiciones en fila que no caben entre 768px y 1023px, sin modo de tokens nuevo; nota de cards de proyecto sin enlace (sin foco y sin efecto táctil) | Panel destacado y fila de proyectos de la composición A · Sistema quedaban con 180–230px de contenido entre 768px y 1023px. Incorporado en la tarea T01 del plan 006 | usuario, designs/006-projects |
 | 2026-09-15 | Sección de tokens "Experiencia" (`--experience-meta-width`) y patrón "Fila de experiencia" (bloque entre líneas, sin superficie propia, que adopta el tratamiento de card solo con el spotlight) | Composición A · Registro de la sección de experiencia, incorporada en la tarea T01 del plan 007 | designs/007-experience |
 | 2026-09-15 | El patrón "Fila de experiencia" pasa a tener dos variantes: card del sistema desde 768px (separación `--space-4`) y bloque entre líneas por debajo de 768px | En la revisión manual de T04 el usuario pidió que en escritorio la fila se vea siempre como card; el estado encendido del spotlight ya no es lo que la convierte en card | usuario, designs/007-experience |
+| 2026-09-18 | Sección de tokens "Navegación" (`--nav-height`, `--color-nav-bg`, `--nav-row-height`, `--nav-marker-size`, `--shadow-nav-marker`) y patrones "Barra de navegación" y "Enlace de navegación" | Dirección A · Índice de la navegación, incorporada en la tarea T01 del plan 010 | designs/010-navigation |
