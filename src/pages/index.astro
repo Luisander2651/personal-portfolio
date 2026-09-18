@@ -5,6 +5,7 @@ import CardSpotlight from '../components/CardSpotlight.astro';
 import EducationSection from '../components/EducationSection.astro';
 import ExperienceSection from '../components/ExperienceSection.astro';
 import HomeHero from '../components/HomeHero.astro';
+import LanguagesSection from '../components/LanguagesSection.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import SectionReveal from '../components/SectionReveal.astro';
 import TechStackSection from '../components/TechStackSection.astro';
@@ -19,8 +20,19 @@ if (!profile) {
 }
 
 const { title, description } = getPageMeta(profile.data);
-const { name, role, location, featuredStack, github, linkedin, email, summary, practicalExperience, focusAreas } =
-  profile.data;
+const {
+  name,
+  role,
+  location,
+  featuredStack,
+  github,
+  linkedin,
+  email,
+  summary,
+  practicalExperience,
+  focusAreas,
+  languages,
+} = profile.data;
 const skillGroups = groupSkillsForSection(await getCollection('skills'));
 const projectGroups = groupProjectsForSection(await getCollection('projects'));
 const experiences = await getCollection('experience');
@@ -43,6 +55,7 @@ const education = await getCollection('education');
     <ProjectsSection featured={projectGroups.featured} rest={projectGroups.rest} />
     <ExperienceSection experiences={experiences} />
     <EducationSection entries={education} />
+    <LanguagesSection languages={languages} />
     <SectionReveal />
     <CardSpotlight />
   </main>

@@ -1,0 +1,128 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+type Language = {
+  language: string;
+  level: string;
+  tag?: string;
+};
+
+interface Props {
+  languages: readonly Language[];
+}
+
+const { languages } = Astro.props;
+---
+
+<section id="idiomas" class="languages" aria-labelledby="idiomas-title">
+  <div class="languages-inner">
+    <SectionHeader anchor="idiomas" title="Idiomas" headingId="idiomas-title" />
+
+    <div class="languages-list">
+      {
+        languages.map(({ language, level, tag }) => (
+          <article class="language-card" data-reveal data-spotlight>
+            <div class="language-heading">
+              <h3>{language}</h3>
+              <p class="language-level">{level}</p>
+            </div>
+            {tag && <span class="language-tag">{tag}</span>}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Composition C · "Escala" without the scale (designs/009-languages/design.md). Tokens only. */
+  .languages {
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+  }
+
+  .languages-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-header-gap);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+
+  .languages-list {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .language-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    padding: var(--card-padding);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+  }
+
+  .language-heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .language-heading h3 {
+    margin: 0;
+  }
+
+  .language-level {
+    margin: 0;
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-secondary);
+  }
+
+  .language-tag {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    height: var(--tag-height);
+    padding-inline: var(--tag-padding-x);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    font-family: var(--font-mono);
+    font-size: var(--tag-font-size);
+    font-weight: var(--text-mono-label-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .languages-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+  }
+
+  /* M-1 spotlight (P-2): the light and glow layers come from the shared CardSpotlight; the card
+     only brightens its level. */
+  @media (hover: hover) and (pointer: fine) {
+    @media (prefers-reduced-motion: no-preference) {
+      .language-level {
+        transition: color var(--duration-base) var(--ease-out);
+      }
+
+      .language-card[data-spotlight-active] .language-level {
+        color: var(--color-text);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .language-card:hover .language-level {
+        color: var(--color-text);
+      }
+    }
+  }
+</style>

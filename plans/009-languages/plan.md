@@ -65,7 +65,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Sección "Idiomas" en la home
+### [x] T02 — Sección "Idiomas" en la home
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.4, CA-2.1, CA-2.2, CA-2.3, CA-3.1, CA-3.2, CA-3.4
 - **Diseño**: `C · Escala (ajustada) — Escritorio` y `— Móvil` · `M-1` · `M-2`
