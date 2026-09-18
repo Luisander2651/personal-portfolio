@@ -104,10 +104,10 @@ Creación y optimización de Dockerfiles multi-stage y arquitecturas multiconten
 ## Formación
 
 - **Ingeniería en Tecnologías de la Información** (Desarrollo de Software Multiplataforma)
-  Universidad Tecnológica de la Costa Grande de Guerrero — *En curso, egreso esperado en 2026*
+  Universidad Tecnológica de la Costa Grande de Guerrero (UTCGG) — *2025 – 2026 · En curso*
 
 - **TSU en Tecnologías de la Información** (Desarrollo de Software)
-  Universidad Tecnológica de la Costa Grande de Guerrero — *Finalizado*
+  Universidad Tecnológica de la Costa Grande de Guerrero (UTCGG) — *2023 – 2025 · Finalizado*
 
 ---
 

@@ -48,8 +48,11 @@ const validEducation = {
   degree: 'Test degree',
   specialization: 'Test specialization',
   institution: 'Test institution',
+  institutionShort: 'TI',
   status: 'in-progress',
-  expectedYear: 2026,
+  order: 1,
+  startYear: 2025,
+  endYear: 2026,
 };
 
 const cases = [
@@ -65,7 +68,7 @@ const requiredFields: Record<string, string[]> = {
   skills: ['category', 'order', 'presentation', 'items'],
   projects: ['name', 'order', 'status', 'featured', 'stack'],
   experience: ['company', 'position', 'period', 'duration'],
-  education: ['degree', 'specialization', 'institution', 'status'],
+  education: ['degree', 'specialization', 'institution', 'institutionShort', 'status', 'order', 'startYear', 'endYear'],
 };
 
 describe('content schemas', () => {
@@ -151,20 +154,28 @@ describe('content schemas', () => {
   });
 
   describe('education', () => {
-    it('accepts an entry without expectedYear', () => {
-      expect(
-        failingPaths(educationSchema, { ...without(validEducation, 'expectedYear'), status: 'completed' }),
-      ).toEqual([]);
+    it('accepts the completed status', () => {
+      expect(failingPaths(educationSchema, { ...validEducation, status: 'completed' })).toEqual([]);
     });
 
     it('rejects an unknown status', () => {
       expect(failingPaths(educationSchema, { ...validEducation, status: 'dropped' })).toContain('status');
     });
 
-    it('rejects a non-integer expectedYear', () => {
-      expect(failingPaths(educationSchema, { ...validEducation, expectedYear: 2026.5 })).toContain(
-        'expectedYear',
-      );
+    it.each([0, -1, 1.5])('rejects order %s', (order) => {
+      expect(failingPaths(educationSchema, { ...validEducation, order })).toContain('order');
+    });
+
+    it.each(['startYear', 'endYear'])('rejects a non-integer %s', (field) => {
+      expect(failingPaths(educationSchema, { ...validEducation, [field]: 2025.5 })).toContain(field);
+    });
+
+    it('rejects an empty institutionShort', () => {
+      expect(failingPaths(educationSchema, { ...validEducation, institutionShort: '' })).toContain('institutionShort');
+    });
+
+    it('no longer has an expectedYear field', () => {
+      expect(Object.keys(educationSchema.shape)).not.toContain('expectedYear');
     });
   });
 });

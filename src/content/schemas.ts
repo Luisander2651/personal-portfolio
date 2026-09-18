@@ -51,6 +51,11 @@ export const educationSchema = z.object({
   degree: text,
   specialization: text,
   institution: text,
+  /** Short name of the institution, shown next to the full one. */
+  institutionShort: text,
   status,
-  expectedYear: z.int().optional(),
+  order: position,
+  startYear: z.int(),
+  /** Year the studies ended or are expected to end. */
+  endYear: z.int(),
 });

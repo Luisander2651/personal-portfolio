@@ -242,17 +242,31 @@ describe('content entries', () => {
     const byDegree = (degree: string) =>
       collections.education.entries.find(({ data }) => data.degree === degree)?.data;
 
-    it('matches degree, specialization and institution in cv.md', () => {
+    it('matches degree, specialization, institution, abbreviation, years and status in cv.md', () => {
+      const statusText = { completed: 'Finalizado', 'in-progress': 'En curso' } as const;
+
       for (const { data } of collections.education.entries) {
-        expect(section).toContain(`- **${data.degree}** (${data.specialization})\n  ${data.institution} — `);
+        const status = statusText[data.status as keyof typeof statusText];
+        expect(section).toContain(
+          `- **${data.degree}** (${data.specialization})\n  ${data.institution} (${data.institutionShort}) — *${data.startYear} – ${data.endYear} · ${status}*\n`,
+        );
       }
     });
 
-    it('marks the TSU as completed and the Engineering as in progress, expected in 2026', () => {
-      expect(byDegree('TSU en Tecnologías de la Información')?.status).toBe('completed');
+    it('orders, dates and marks the Engineering and the TSU as in the spec', () => {
       expect(byDegree('Ingeniería en Tecnologías de la Información')).toMatchObject({
+        order: 1,
+        startYear: 2025,
+        endYear: 2026,
         status: 'in-progress',
-        expectedYear: 2026,
+        institutionShort: 'UTCGG',
+      });
+      expect(byDegree('TSU en Tecnologías de la Información')).toMatchObject({
+        order: 2,
+        startYear: 2023,
+        endYear: 2025,
+        status: 'completed',
+        institutionShort: 'UTCGG',
       });
     });
   });

@@ -5,7 +5,7 @@ spec: specs/008-education/spec.md
 design: designs/008-education/design.md
 status: approved
 created: 2026-09-16
-updated: 2026-09-16
+updated: 2026-09-17
 ---
 
 # Plan — Formación
@@ -40,7 +40,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Años, abreviatura y campos de formación
+### [x] T01 — Años, abreviatura y campos de formación
 
 - **Criterios**: CA-1.3
 - **Diseño**: —
