@@ -1,13 +1,13 @@
 ---
 import { parseAchievements } from '../lib/achievements';
-import type { ProjectStatus } from '../lib/projects';
+import type { EntryStatus } from '../lib/status';
 import ProjectCard from './ProjectCard.astro';
 import SectionHeader from './SectionHeader.astro';
 
 type Project = {
   id: string;
   body?: string;
-  data: { name: string; order: number; status: ProjectStatus; stack: readonly string[] };
+  data: { name: string; order: number; status: EntryStatus; stack: readonly string[] };
 };
 
 interface Props {

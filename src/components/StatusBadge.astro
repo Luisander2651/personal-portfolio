@@ -1,8 +1,8 @@
 ---
-import { type ProjectStatus, projectStatusLabel } from '../lib/projects';
+import { type EntryStatus, statusLabel } from '../lib/status';
 
 interface Props {
-  status: ProjectStatus;
+  status: EntryStatus;
 }
 
 const { status } = Astro.props;
@@ -10,7 +10,7 @@ const { status } = Astro.props;
 
 <span class:list={['status-badge', `status-badge--${status}`]}>
   <span class="status-badge-dot" aria-hidden="true"></span>
-  {projectStatusLabel(status)}
+  {statusLabel(status)}
 </span>
 
 <style>

@@ -65,7 +65,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Estado compartido entre secciones
+### [x] T02 — Estado compartido entre secciones
 
 Va antes del componente porque la formación reutiliza el texto del estado que hoy vive en
 `src/lib/projects.ts` (ver registro).

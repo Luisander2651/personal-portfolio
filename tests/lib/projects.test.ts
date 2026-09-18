@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { groupProjectsForSection, projectStatusLabel, sortProjects } from '../../src/lib/projects';
+import { groupProjectsForSection, sortProjects } from '../../src/lib/projects';
 
 const project = (id: string, order: number) => ({ id, data: { order } });
 
@@ -58,14 +58,5 @@ describe('groupProjectsForSection', () => {
 
   it('throws when two projects share the same order', () => {
     expect(() => groupProjectsForSection([entry('a', 1, true), entry('b', 1, false)])).toThrow(/order 1/);
-  });
-});
-
-describe('projectStatusLabel', () => {
-  it.each([
-    ['completed', 'Finalizado'],
-    ['in-progress', 'En curso'],
-  ] as const)('labels %s as "%s"', (status, label) => {
-    expect(projectStatusLabel(status)).toBe(label);
   });
 });

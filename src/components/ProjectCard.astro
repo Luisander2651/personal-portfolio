@@ -1,11 +1,11 @@
 ---
-import type { ProjectStatus } from '../lib/projects';
+import type { EntryStatus } from '../lib/status';
 import StatusBadge from './StatusBadge.astro';
 
 interface Props {
   order: number;
   name: string;
-  status: ProjectStatus;
+  status: EntryStatus;
   achievements: readonly string[];
   stack: readonly string[];
 }
