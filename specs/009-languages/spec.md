@@ -1,7 +1,7 @@
 ---
 id: 009
 title: Idiomas
-status: active
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 depends_on: [001, 002, 003, 004, 005, 006, 007, 008]
@@ -13,9 +13,10 @@ depends_on: [001, 002, 003, 004, 005, 006, 007, 008]
 
 Añadir a la home, justo después de "Formación", la sección "Idiomas" con los idiomas de
 `docs/cv.md` y su nivel, con una etiqueta aparte que indica en qué se apoya ese nivel: el código
-del Marco Común Europeo de Referencia (MCER) en inglés y "Lengua materna" en español. El objetivo es que un reclutador vea de un
-vistazo en qué idiomas puede trabajar el autor. Es la última sección de contenido antes de la navegación (spec 010) y el
-footer (spec 011), y expone el ancla `#idiomas`.
+del Marco Común Europeo de Referencia (MCER) en inglés y "Lengua materna" en español. El
+objetivo es que un reclutador vea de un vistazo en qué idiomas puede trabajar el autor. Es la
+última sección de contenido antes de la navegación (spec 010) y el footer (spec 011), y expone el
+ancla `#idiomas`.
 
 ## Historias de usuario
 
@@ -158,3 +159,4 @@ y los tiempos se definen en `/design-spec`.
 | 2026-09-18 | Diseño | Composición de la sección | C · Escala sin la escala A1…C2: dos cards del sistema (una columna en móvil, dos desde 768px) con idioma, nivel y una etiqueta mono (`Lengua materna`, `B2`); spotlight y revelado comunes; sin tokens ni patrones nuevos. Pendiente: refinar esta spec (`/spec 009`) para cambiar el nivel de español a "Dominio completo" con la etiqueta "Lengua materna" en `docs/cv.md` y sustituir `cefr` por el campo opcional `tag` (CA-1.2, CA-1.3, Contenido) | /design-spec |
 | 2026-09-18 | Brecha | Etiqueta de la card de español y modelo de datos (pedidos en el diseño) | Campo opcional `tag` de texto no vacío en lugar de `cefr` (A1–C2): Español → `Lengua materna`, Inglés → `B2`; la etiqueta del CV se compara sin distinguir mayúsculas | usuario, designs/009-languages |
 | 2026-09-18 | Conflicto | Redundancia entre "Nativo" y "Lengua materna" | El nivel de español pasa a "Dominio completo" en `docs/cv.md` y en los datos: `- **Español:** Dominio completo (lengua materna)` | usuario, designs/009-languages |
+| 2026-09-18 | Cierre | Spec completada: las tareas T01 a T03 de `plans/009-languages/plan.md` verificadas (tests, `dist/`, revisión visual a 390px y 1440px, spotlight y revelado, rendimiento, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |

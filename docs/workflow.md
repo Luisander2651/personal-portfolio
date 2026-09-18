@@ -70,7 +70,7 @@ están fijados: al terminar una spec, la siguiente es la primera `pendiente` de 
 | 006 | `projects` | ✅ done | Proyectos · ancla `#proyectos` · los 5 "Proyectos destacados" de `cv.md`; proyecto destacado + variaciones de tamaño (sin grid de cards idénticas); sin páginas de detalle |
 | 007 | `experience` | ✅ done | Experiencia profesional · ancla `#experiencia` · "Experiencia" de `cv.md` con stack e impacto (sin timeline genérico) |
 | 008 | `education` | ✅ done | Formación · ancla `#formacion` · "Formación" de `cv.md` con estado (en curso / finalizado) |
-| 009 | `languages` | pendiente | Idiomas · ancla `#idiomas` · "Idiomas" de `cv.md` (`profile.languages`) |
+| 009 | `languages` | ✅ done | Idiomas · ancla `#idiomas` · "Idiomas" de `cv.md` (`profile.languages`) |
 | 010 | `navigation` | pendiente | Nav · enlaza las anclas de 004–009 en orden; depende de que esas secciones existan |
 | 011 | `footer` | pendiente | Footer · correo, GitHub y LinkedIn de `profile`; sustituye a una sección de contacto (sin formularios) |
 | 012 | `seo-metadata` | pendiente | Favicon, imagen Open Graph, sitemap y `robots.txt` |

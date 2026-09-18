@@ -3,7 +3,7 @@ id: 009
 title: Idiomas
 spec: specs/009-languages/spec.md
 design: designs/009-languages/design.md
-status: approved
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 ---
@@ -115,7 +115,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
       fluido con trackpad.
     - Con reduced motion y con JavaScript desactivado (recargando), todo visible y sin animación.
 
-### [ ] T03 — Verificación final
+### [x] T03 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/009-languages/design.md`
@@ -157,3 +157,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Sin funciones nuevas en `src/lib/` | La sección muestra los idiomas en el orden de los datos y sin formateo |
 | 2026-09-18 | Planificación | Estructura, estilos y marcas de revelado y spotlight en una sola tarea (T02) | Son dos cards con la misma revisión visual; el movimiento reutiliza `CardSpotlight` y `SectionReveal` |
 | 2026-09-18 | Planificación | Sin tarea propia de animación ni cambios en el sistema | El diseño 009 no añade tokens ni patrones |
+| 2026-09-18 | Verificación (T03) | 743 tests y build en verde; cada CA con su test; `dist/index.html` con `section#idiomas` única tras `#formacion`, `h2` "Idiomas" con `aria-labelledby`, un único `h1`, los dos idiomas en orden sin JS (idioma, nivel y etiqueta), marcados para revelado y spotlight, sin elementos enfocables ni barras, medidores o porcentajes; JS de la home 1,97 kB con gzip sin scripts externos; revisión visual a 390px y 1440px, spotlight y revelado, reduced motion, JavaScript desactivado, Performance sin tareas largas y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |
