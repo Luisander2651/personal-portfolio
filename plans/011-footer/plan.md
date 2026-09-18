@@ -3,7 +3,7 @@ id: 011
 title: Footer
 spec: specs/011-footer/spec.md
 design: designs/011-footer/design.md
-status: approved
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 ---
@@ -121,7 +121,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     foco de los enlaces; revelado al entrar y al volver a entrar; con reduced motion y sin
     JavaScript, todo visible.
 
-### [ ] T04 — Verificación final
+### [x] T04 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/011-footer/design.md`
@@ -160,3 +160,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Implementación (T02) | En el hero, la regla `.hero-link svg` pasa a `.hero-link :global(.contact-icon)`; el tamaño lo dan los tokens (`--icon-size-md`) en lugar de los atributos `width`/`height` del SVG | Los estilos de Astro tienen alcance por componente y el SVG ahora vive en `ContactIcon`; medido en el navegador: iconos de 22×22 y trazo 1,75 como antes |
 | 2026-09-18 | Implementación (T03) | `data-reveal` en el contenedor interior del footer, no en el `footer` | El borde superior del footer se mantiene visible mientras el contenido se revela; el diseño revela "el contenido del footer como un único bloque" |
 | 2026-09-18 | Implementación (T03) | Fondo sólido `--color-bg` en el footer (diseño 011 actualizado) | En la revisión manual la cuadrícula de la página se veía a través del footer; el canvas lo muestra sólido |
+| 2026-09-18 | Verificación (T04) | 853 tests y build en verde; cada CA con su test; `dist/index.html` con un único `footer` tras `main` sin `id`, `nav` "Contacto" con los tres enlaces en orden (`href`, textos y nombres accesibles "{servicio}: {dato}", sin `target`), firma, "© 2026 Luis Mario Gutiérrez Valdovinos", sin formularios ni botones y un único `h1`; JS de la home 2,49 kB con gzip sin scripts nuevos; revelado, teclado, reduced motion, sin JavaScript y Lighthouse móvil ≥ 90 confirmados por el usuario | Todas las CA de la spec cubiertas |

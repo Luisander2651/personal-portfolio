@@ -1,7 +1,7 @@
 ---
 id: 011
 title: Footer
-status: active
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 depends_on: [001, 002, 003, 004, 005, 006, 007, 008, 009, 010]
@@ -138,3 +138,4 @@ composición, los estados de los enlaces y los tiempos se definen en `/design-sp
 | 2026-09-18 | Implícita | Estructura | `footer` después de `main`, sin ancla ni enlace en la navegación; lista de enlaces con etiqueta accesible "Contacto" | specs/010-navigation, constitution.md §7 |
 | 2026-09-18 | Implícita | JavaScript | Presupuesto compartido de la home ≤ 3 kB con gzip sin scripts nuevos | constitution.md §3, specs/010-navigation |
 | 2026-09-18 | Diseño | Composición del footer | A · Firma: nombre (tamaño `h2`, como párrafo) y rol a la izquierda, lista de contacto (icono, servicio y dato mono en color de enlace) a la derecha desde 768px, copyright mono al pie; revelado común como un único bloque; sin tokens nuevos | /design-spec |
+| 2026-09-18 | Cierre | Spec completada: las tareas T01 a T04 de `plans/011-footer/plan.md` verificadas (tests, `dist/`, revisión visual a 390px y 1440px, revelado, teclado, reduced motion, sin JS y Lighthouse móvil ≥ 90) | Estado `done` | /implement |
