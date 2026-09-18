@@ -57,6 +57,12 @@ describe('pickActiveSection', () => {
     expect(pickActiveSection(sections, height)).toBe('idiomas');
   });
 
+  it('picks the last section at the end of the page even when it overflows by a fraction of a pixel', () => {
+    // Real case at 730px: the page is 5980.25px tall but scrolling stops at a whole pixel.
+    const sections = [section('formacion', -193, 336.2), section('idiomas', 336.2, 730.25)];
+    expect(pickActiveSection(sections, 730)).toBe('idiomas');
+  });
+
   it('picks none without sections', () => {
     expect(pickActiveSection([], height)).toBeNull();
   });

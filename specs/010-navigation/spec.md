@@ -1,7 +1,7 @@
 ---
 id: 010
 title: Navegación
-status: active
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 depends_on: [001, 002, 003, 004, 005, 006, 007, 008, 009]
@@ -192,3 +192,4 @@ suave hasta cada sección. El aspecto, la zona de lectura y los tiempos se defin
 | 2026-09-18 | Diseño | Composición de la barra | A · Índice: barra completa fija, marca "LMGV" en mono con punto de luz, enlaces mono numerados 01–06 con punto de luz en el activo, menú desplegable por debajo de 1024px, "Saltar al contenido" como etiqueta mono; zona de lectura a un tercio de la ventana; tokens nuevos `--nav-height`, `--color-nav-bg`, `--nav-row-height`, `--nav-marker-size` y `--shadow-nav-marker` a incorporar al sistema | /design-spec |
 | 2026-09-18 | Brecha | Móvil sin JavaScript: la lista visible bajo una barra fija taparía unos 340px durante todo el scroll | Por debajo de 1024px y sin JavaScript la cabecera no es fija (queda al inicio de la página con la lista debajo); con JavaScript es fija desde el primer pintado | usuario, /implement T04 |
 | 2026-09-18 | Refinamiento | Utilidad del enlace "Saltar al contenido" | Se elimina (CA-2.1 eliminado; CA-2.2 empieza en la marca): tras la barra solo hay tres enlaces enfocables y los landmarks y encabezados ya permiten saltar la navegación; `main` conserva `id="contenido"` | usuario |
+| 2026-09-18 | Cierre | Spec completada: las tareas T01 a T06 de `plans/010-navigation/plan.md` verificadas (tests, `dist/`, revisión visual a 390px y 1440px, menú, sección activa, teclado, reduced motion, sin JS, rendimiento y Lighthouse móvil ≥ 90) | Estado `done` | /implement |

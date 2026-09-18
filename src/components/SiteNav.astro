@@ -87,9 +87,11 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
 
   if (sections.length > 0 && 'IntersectionObserver' in window) {
     // A zero-height band on the reading line (a third of the viewport) plus the last section,
-    // which may be too short to reach the line: any crossing recomputes the active link.
+    // which may be too short to reach the line: any crossing recomputes the active link. The
+    // bottom margin matches the end tolerance of pickActiveSection (the page can end a fraction
+    // of a pixel below the last scroll position), so the last section still reaches ratio 1.
     const line = new IntersectionObserver(markActive, { rootMargin: '-33.333% 0px -66.667% 0px' });
-    const end = new IntersectionObserver(markActive, { threshold: [0, 1] });
+    const end = new IntersectionObserver(markActive, { rootMargin: '0px 0px 1px 0px', threshold: [0, 1] });
     for (const section of sections) line.observe(section);
     end.observe(sections[sections.length - 1] as HTMLElement);
     markActive();

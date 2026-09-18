@@ -33,6 +33,9 @@ export type MeasuredSection = {
 /** The reading line sits at this fraction of the viewport height (designs/010-navigation). */
 const READING_LINE = 1 / 3;
 
+/** Scrolling stops at whole pixels while layout does not: the page can end a fraction below. */
+const END_TOLERANCE = 1;
+
 /**
  * Anchor of the section that crosses the reading line, or `null` when the line falls outside
  * every section (the hero). Once the end of the last section is in view, that section is the
@@ -40,7 +43,7 @@ const READING_LINE = 1 / 3;
  */
 export function pickActiveSection(sections: readonly MeasuredSection[], viewportHeight: number): string | null {
   const last = sections.at(-1);
-  if (last && last.bottom <= viewportHeight && last.bottom > 0) return last.anchor;
+  if (last && last.bottom <= viewportHeight + END_TOLERANCE && last.bottom > 0) return last.anchor;
 
   const line = viewportHeight * READING_LINE;
   return sections.find(({ top, bottom }) => top <= line && bottom > line)?.anchor ?? null;

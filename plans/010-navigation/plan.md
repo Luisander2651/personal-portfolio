@@ -3,7 +3,7 @@ id: 010
 title: Navegación
 spec: specs/010-navigation/spec.md
 design: designs/010-navigation/design.md
-status: approved
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 ---
@@ -180,7 +180,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     hero, una en cada sección), movimiento contra `Movimiento — Menú y enlace activo`; con
     reduced motion sin animación; sin JavaScript, lista visible y sin botón.
 
-### [ ] T06 — Verificación final
+### [x] T06 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/010-navigation/design.md`
@@ -230,3 +230,5 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Implementación (T05) | Dos scripts en lugar de uno: uno en línea justo después del `header` pone `data-nav-ready` y muestra el botón antes del primer pintado; el módulo empaquetado lleva el menú y la sección activa | El módulo de Astro es diferido y llegaría tarde: la barra saltaría de estar en el flujo a fija tras cargar en móvil |
 | 2026-09-18 | Implementación (T05) | Corrección de T04: el `display: none` del botón desde 1024px pasa a `.site-nav-toggle:not([hidden])` y su test lo exige | Con el script activo, la regla que muestra el botón era más específica y el botón "Menú" aparecía en escritorio |
 | 2026-09-18 | Replanificación | Se quita el enlace "Saltar al contenido" (marcado, estilos y tests) de `SiteNav`; T03 y T04 lo incluían. La verificación final (T06) comprueba que no existe | Refinamiento de la spec 010 pedido por el usuario (CA-2.1 eliminado) |
+| 2026-09-18 | Verificación (T06) | Corrección: `pickActiveSection` acepta 1px de tolerancia al final de la página y el observador de la última sección amplía su borde inferior 1px | En la revisión manual "Idiomas" no se activaba: la página mide fracciones de píxel más que el último scroll posible (5980,25px frente a 5250 + 730) y la última sección nunca quedaba entera en la ventana |
+| 2026-09-18 | Verificación (T06) | 807 tests y build en verde; cada CA con su test (CA-2.1 eliminado); `dist/index.html` con un único `header` antes de `main`, `nav` "Principal" con los seis enlaces en el orden de las secciones, marca "LMGV" con el nombre completo, `main#contenido`, un único `h1`, botón "Menú" con `hidden` y sin `aria-current` en el HTML; JS de la home 2,48 kB con gzip sin scripts externos; teclado, reduced motion, sin JavaScript, sección activa (con el arreglo de "Idiomas"), Performance y Lighthouse móvil ≥ 90 confirmados por el usuario. Aviso de contraste de Lighthouse sobre `.education-short` atribuido a la animación del revelado en curso durante la auditoría (tokens 10,2:1); aceptado por el usuario | Todas las CA de la spec cubiertas |
