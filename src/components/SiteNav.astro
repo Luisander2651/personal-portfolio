@@ -1,7 +1,7 @@
 ---
 /*
- * Main navigation, direction A · "Índice" (designs/010-navigation/design.md): skip link, brand
- * with the initials of the profile name, "Menú" button (hidden until the navigation script runs)
+ * Main navigation, direction A · "Índice" (designs/010-navigation/design.md): brand with the
+ * initials of the profile name, "Menú" button (hidden until the navigation script runs)
  * and the numbered section links. Without JavaScript the list is always visible.
  */
 import { initialsOf, NAV_LINKS } from '../lib/navigation';
@@ -16,11 +16,6 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
 ---
 
 <header class="site-nav">
-  <a class="site-nav-skip" href="#contenido"
-    ><span class="site-nav-marker" aria-hidden="true"></span><span class="site-nav-skip-arrow" aria-hidden="true">↓</span
-    >Saltar al contenido</a
-  >
-
   <div class="site-nav-inner">
     <a class="site-nav-brand" href="#top"
       ><span class="site-nav-marker" aria-hidden="true"></span><span class="site-nav-initials" aria-hidden="true"
@@ -130,36 +125,7 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     padding-inline: var(--space-gutter);
   }
 
-  /* Skip link: out of view until it has focus. */
-  .site-nav-skip {
-    position: absolute;
-    top: var(--space-2);
-    left: var(--space-gutter);
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    min-height: var(--control-height);
-    padding-inline: var(--space-4);
-    border: var(--border-width) solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-surface);
-    color: var(--color-text);
-    font-family: var(--font-mono);
-    font-size: var(--text-small-size);
-    text-decoration: none;
-    transform: translateY(calc(-2 * var(--nav-height)));
-  }
-
-  .site-nav-skip:focus {
-    transform: none;
-  }
-
-  .site-nav-skip-arrow {
-    color: var(--color-text-muted);
-  }
-
-  /* Light marker: skip link, brand and the current link. */
+  /* Light marker: brand and the current link. */
   .site-nav-marker {
     flex: none;
     width: var(--nav-marker-size);
@@ -286,7 +252,6 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     color: var(--color-glow);
   }
 
-  .site-nav-skip:focus-visible,
   .site-nav-brand:focus-visible,
   .site-nav-toggle:focus-visible,
   .site-nav-links a:focus-visible {

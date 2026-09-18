@@ -29,7 +29,7 @@ Barra completa y fija arriba, casi opaca, con una línea fina inferior. A la izq
 
 | Pantalla | Artboard móvil | Artboard escritorio | Criterios de la spec que cubre |
 |----------|----------------|---------------------|--------------------------------|
-| Barra sobre el hero, sin enlace activo; "Saltar al contenido" con foco | `A · Índice — Móvil 390 cerrado` | `A · Índice — Escritorio 1440` (franja 1) | CA-1.1, CA-1.3, CA-2.1, CA-4.1 |
+| Barra sobre el hero, sin enlace activo | `A · Índice — Móvil 390 cerrado` | `A · Índice — Escritorio 1440` (franja 1) | CA-1.1, CA-1.3, CA-4.1 |
 | Barra sobre una sección con enlace activo, hover y foco | `A · Índice — Móvil 390 menú abierto` | `A · Índice — Escritorio 1440` (franja 2) | CA-1.4, CA-2.2, CA-3.1, CA-3.3, CA-4.1 |
 | Menú móvil y cambio de enlace activo | — | `Movimiento — Menú y enlace activo` (fila del menú y fila de A) | CA-3.1, CA-5.4 |
 
@@ -39,8 +39,8 @@ Barra completa y fija arriba, casi opaca, con una línea fina inferior. A la izq
   `sticky`) por encima del contenido, alto `--nav-height`, fondo `--color-nav-bg` (sin
   `backdrop-filter`), borde inferior `--border-width` `--color-border`. Contenido alineado con
   el de las secciones: ancho máximo `--section-max-width` y margen lateral `--space-gutter`.
-- **Orden**: "Saltar al contenido" (fuera de la vista hasta recibir foco) → marca → botón
-  "Menú" (por debajo de 1024px) → `nav` con la lista de enlaces.
+- **Orden**: marca → botón "Menú" (por debajo de 1024px) → `nav` con la lista de enlaces. Sin
+  enlace "Saltar al contenido" (eliminado; ver registro).
 - **Marca** (enlace a `#top`): cuadrado de luz de `--nav-marker-size` en `--color-glow` con
   `--shadow-nav-marker`, y las iniciales con `--font-mono`, `--text-small-size`, peso
   `--text-h3-weight` y tracking `--text-mono-label-tracking`, en `--color-text`, separados
@@ -66,12 +66,6 @@ Barra completa y fija arriba, casi opaca, con una línea fina inferior. A la izq
 - **Sin JavaScript**: el botón no se muestra y la lista es visible (en línea desde 1024px; por
   debajo, bajo la barra), sin estilos que la oculten. Por debajo de 1024px la cabecera no es
   fija: queda al inicio de la página con la lista debajo (spec 010, CA-1.4).
-- **"Saltar al contenido"**: enlace a `#contenido` (el `main`), fuera de la vista hasta recibir
-  foco; con foco aparece arriba a la izquierda, por encima de la barra: etiqueta mono
-  (`--font-mono`, `--text-small-size`) con fondo `--color-surface`, borde
-  `--color-border-strong`, `--radius-sm`, alto `--control-height`, padding `--space-4`, punto de
-  luz (`--color-glow` + `--shadow-nav-marker`), flecha "↓" en `--color-text-muted`, texto
-  `--color-text`, y el foco del sistema.
 - **Anclas**: cada sección con ancla deja un margen superior de desplazamiento
   (`scroll-margin-top`) igual a `--nav-height`, para que la barra no tape su `h2`.
 - **Zona de lectura** (sección activa): la sección que cruza una línea horizontal situada a un
@@ -81,8 +75,8 @@ Barra completa y fija arriba, casi opaca, con una línea fina inferior. A la izq
 
 ## Componentes
 
-- **Barra de navegación** (nuevo): cabecera, marca, botón "Menú", lista de enlaces y enlace
-  "Saltar al contenido", con la anatomía anterior.
+- **Barra de navegación** (nuevo): cabecera, marca, botón "Menú" y lista de enlaces, con la
+  anatomía anterior.
 - **Enlace de navegación** (nuevo en el sistema): marcador, número mono y texto; estados reposo,
   hover, activo y foco.
 - **Botón "Menú"**: variante mono del botón secundario del sistema, con icono inline de trazo.
@@ -129,7 +123,7 @@ Barra completa y fija arriba, casi opaca, con una línea fina inferior. A la izq
 
 ### M-3 — Desplazamiento a la sección
 
-- **Disparador**: pulsar un enlace de la barra, la marca o "Saltar al contenido".
+- **Disparador**: pulsar un enlace de la barra o la marca.
 - **Propiedades**: desplazamiento del documento (`scroll-behavior: smooth`).
 - **Implementación**: CSS en el documento.
 - **Reduced motion**: `scroll-behavior: auto` (salto inmediato).
@@ -153,15 +147,15 @@ foco), y **barra de navegación** con menú desplegable por debajo de 1024px.
 ## Accesibilidad
 
 - **Contraste** (sobre `--color-nav-bg` ≈ `--color-bg`): texto `--color-text-secondary` 13.6:1,
-  número `--color-text-muted` 6.9:1, activo `--color-glow` 11.1:1, hover `--color-link` 9.1:1;
-  "Saltar al contenido" `--color-text` sobre `--color-surface` 16.2:1.
+  número `--color-text-muted` 6.9:1, activo `--color-glow` 11.1:1, hover `--color-link` 9.1:1.
 - **Estructura**: `header` → `nav aria-label="Principal"` → lista `ul`/`li`/`a`; el activo con
   `aria-current="true"`.
 - **Marca**: texto visible "LMGV" y nombre completo como nombre accesible.
 - **Menú**: `button` real con `aria-expanded` y `aria-controls`; Escape cierra y devuelve el
   foco; objetivo táctil ≥ 44px (`--control-height`).
-- **Teclado**: orden "Saltar al contenido" → marca → "Menú" → enlaces → contenido; foco visible
-  del sistema en todos.
+- **Teclado**: orden marca → "Menú" → enlaces → contenido; foco visible del sistema en todos.
+  Los landmarks (`header`, `nav`, `main`) y los encabezados permiten saltar la barra con lector
+  de pantalla (WCAG 2.4.1).
 - **Decorativos ocultos**: marcadores e iconos del botón.
 - **Sin JavaScript y reduced motion**: todo visible y utilizable, sin animación.
 
@@ -184,3 +178,4 @@ foco), y **barra de navegación** con menú desplegable por debajo de 1024px.
 | 2026-09-18 | Implícita | Punto de corte del menú | 1024px: los seis enlaces numerados no caben en línea entre 768px y 1023px; refinado en la spec 010 | designs/000-design-system |
 | 2026-09-18 | Refinamiento | Fondo del panel del menú | Opaco (`--color-bg`) en lugar de `--color-nav-bg`: en la revisión de T04 el nombre del hero se transparentaba bajo las filas | usuario |
 | 2026-09-18 | Implícita | Zona de lectura | Línea a un tercio de la altura de la ventana; ningún activo sobre el hero | spec 010 CA-4.1 |
+| 2026-09-18 | Refinamiento | Enlace "Saltar al contenido" | Eliminado: tras la barra solo hay tres enlaces enfocables (GitHub, LinkedIn y correo) y los landmarks y encabezados ya permiten saltar la navegación; `main` conserva `id="contenido"`. El artboard `A · Índice — Escritorio 1440` ya no lo muestra | usuario |

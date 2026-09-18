@@ -14,16 +14,15 @@ depends_on: [001, 002, 003, 004, 005, 006, 007, 008, 009]
 Añadir a la home una barra de navegación fija en la parte superior, con las iniciales del autor
 (que llevan al inicio) y enlaces a las seis secciones de contenido en su orden: "Sobre mí",
 "Tecnologías", "Proyectos", "Experiencia", "Formación" e "Idiomas". En móvil los enlaces se
-agrupan en un menú desplegable, y la barra indica en qué sección está el visitante. Incluye un
-enlace "Saltar al contenido" para quien navega con teclado. El objetivo es que un reclutador
-llegue a cualquier sección sin recorrer toda la página y sepa siempre dónde está.
+agrupan en un menú desplegable, y la barra indica en qué sección está el visitante. El objetivo
+es que un reclutador llegue a cualquier sección sin recorrer toda la página y sepa siempre dónde está.
 
 ## Historias de usuario
 
 - **HU-1**: Como reclutador, quiero ir directamente a una sección desde una barra siempre
   visible, para no recorrer toda la página.
-- **HU-2**: Como visitante que usa teclado o lector de pantalla, quiero saltar la navegación y
-  recorrerla con un orden y un foco claros.
+- **HU-2**: Como visitante que usa teclado o lector de pantalla, quiero recorrer la navegación
+  con un orden y un foco claros.
 - **HU-3**: Como visitante en móvil, quiero abrir y cerrar la lista de secciones sin que ocupe
   la pantalla.
 - **HU-4**: Como visitante, quiero ver en qué sección estoy mientras hago scroll.
@@ -71,18 +70,16 @@ llegue a cualquier sección sin recorrer toda la página y sepa siempre dónde e
 
 ### HU-2
 
-- **CA-2.1**
-  - **Dado** la home
-  - **Cuando** un visitante pulsa Tab por primera vez
-  - **Entonces** el primer elemento enfocable es un enlace "Saltar al contenido" que lleva a
-    `main` (con `id="contenido"`); el enlace no se ve hasta recibir el foco y se ve mientras lo
-    tiene
+- **CA-2.1** — *Eliminado (2026-09-18)*: la página no lleva enlace "Saltar al contenido". Tras
+  la barra solo hay tres enlaces enfocables (GitHub, LinkedIn y correo), y los landmarks
+  (`header`, `nav`, `main`) y los encabezados ya permiten saltar la navegación (WCAG 2.4.1).
+  `main` conserva `id="contenido"`.
 - **CA-2.2**
   - **Dado** un visitante que navega con teclado
   - **Cuando** recorre la cabecera con Tab
-  - **Entonces** el orden es: "Saltar al contenido", marca, botón del menú (solo cuando existe)
-    y los seis enlaces, antes del contenido; y cada uno muestra un indicador de foco visible
-    con los tokens de foco del sistema de diseño
+  - **Entonces** el orden es: marca, botón del menú (solo cuando existe) y los seis enlaces,
+    antes del contenido; y cada uno muestra un indicador de foco visible con los tokens de foco
+    del sistema de diseño
 
 ### HU-3
 
@@ -154,8 +151,7 @@ llegue a cualquier sección sin recorrer toda la página y sepa siempre dónde e
 - Marca: iniciales "LMGV", calculadas a partir del campo `name` de la colección `profile`
   ("Luis Mario Gutiérrez Valdovinos"), que se mantiene completo como nombre accesible; enlaza a
   `#top`.
-- Textos de interfaz: "Saltar al contenido", "Menú" y la etiqueta accesible "Principal" de la
-  navegación.
+- Textos de interfaz: "Menú" y la etiqueta accesible "Principal" de la navegación.
 
 ## Diseño
 
@@ -195,3 +191,4 @@ suave hasta cada sección. El aspecto, la zona de lectura y los tiempos se defin
 | 2026-09-18 | Diseño | Punto de corte del menú | 1024px (punto de corte ancho del sistema): los seis enlaces numerados de la dirección A no caben en línea entre 768px y 1023px | designs/010-navigation, designs/000-design-system |
 | 2026-09-18 | Diseño | Composición de la barra | A · Índice: barra completa fija, marca "LMGV" en mono con punto de luz, enlaces mono numerados 01–06 con punto de luz en el activo, menú desplegable por debajo de 1024px, "Saltar al contenido" como etiqueta mono; zona de lectura a un tercio de la ventana; tokens nuevos `--nav-height`, `--color-nav-bg`, `--nav-row-height`, `--nav-marker-size` y `--shadow-nav-marker` a incorporar al sistema | /design-spec |
 | 2026-09-18 | Brecha | Móvil sin JavaScript: la lista visible bajo una barra fija taparía unos 340px durante todo el scroll | Por debajo de 1024px y sin JavaScript la cabecera no es fija (queda al inicio de la página con la lista debajo); con JavaScript es fija desde el primer pintado | usuario, /implement T04 |
+| 2026-09-18 | Refinamiento | Utilidad del enlace "Saltar al contenido" | Se elimina (CA-2.1 eliminado; CA-2.2 empieza en la marca): tras la barra solo hay tres enlaces enfocables y los landmarks y encabezados ya permiten saltar la navegación; `main` conserva `id="contenido"` | usuario |

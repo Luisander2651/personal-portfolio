@@ -192,7 +192,8 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - CA-1.3 → `tests/lib/navigation.test.ts` + `tests/components/site-nav.test.ts`
   - CA-1.4 → `tests/styles/base.test.ts` + `tests/components/site-nav-styles.test.ts` + comprobación manual
   - CA-1.5 → `tests/styles/base.test.ts`
-  - CA-2.1, CA-2.2 → `tests/components/site-nav.test.ts` + `tests/components/site-nav-styles.test.ts`
+  - CA-2.1 → eliminado de la spec; `tests/components/site-nav.test.ts` comprueba que no hay enlace para saltar
+  - CA-2.2 → `tests/components/site-nav.test.ts` + `tests/components/site-nav-styles.test.ts`
   - CA-3.1 → `tests/components/site-nav-script.test.ts` + `tests/components/site-nav-styles.test.ts` + comprobación manual
   - CA-3.2, CA-3.3 → `tests/components/site-nav-styles.test.ts` + comprobación manual
   - CA-4.1 → `tests/lib/navigation.test.ts` + `tests/components/site-nav-script.test.ts` + comprobación manual
@@ -204,7 +205,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
   - `dist/index.html`: un único `header` antes de `main` con el `nav` "Principal" y los seis
-    enlaces; `main#contenido`; marca "LMGV" con el nombre completo; un único `h1`; JavaScript de
+    enlaces, sin enlace "Saltar al contenido"; `main#contenido`; marca "LMGV" con el nombre completo; un único `h1`; JavaScript de
     la home ≤ 3 kB con gzip (hero + spotlight + revelado + navegación).
   - Teclado: orden de tabulación y foco visible; contraste AA según tokens.
   - Revisión visual a 390px y 1440px contra A · Índice; menú, sección activa y desplazamiento
@@ -228,3 +229,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | T05 debe poner `data-nav-ready` antes del primer pintado | Si la marca llega tarde, en móvil la barra pasa de estar en el flujo a fija tras cargar y provoca un salto de maquetación |
 | 2026-09-18 | Implementación (T05) | Dos scripts en lugar de uno: uno en línea justo después del `header` pone `data-nav-ready` y muestra el botón antes del primer pintado; el módulo empaquetado lleva el menú y la sección activa | El módulo de Astro es diferido y llegaría tarde: la barra saltaría de estar en el flujo a fija tras cargar en móvil |
 | 2026-09-18 | Implementación (T05) | Corrección de T04: el `display: none` del botón desde 1024px pasa a `.site-nav-toggle:not([hidden])` y su test lo exige | Con el script activo, la regla que muestra el botón era más específica y el botón "Menú" aparecía en escritorio |
+| 2026-09-18 | Replanificación | Se quita el enlace "Saltar al contenido" (marcado, estilos y tests) de `SiteNav`; T03 y T04 lo incluían. La verificación final (T06) comprueba que no existe | Refinamiento de la spec 010 pedido por el usuario (CA-2.1 eliminado) |

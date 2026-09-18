@@ -39,17 +39,17 @@ describe('SiteNav', () => {
     expect(nav).toMatch(/<ul\b[\s\S]*<li\b/);
   });
 
-  it('puts the focusable elements in order: skip link, brand, menu button, six links', () => {
+  it('puts the focusable elements in order: brand, menu button, six links', () => {
     const focusable = [...html.matchAll(/<(a|button)\b([^>]*)>/g)].map(([, tag, attrs = '']) =>
       tag === 'button' ? 'button' : attribute(attrs, 'href'),
     );
 
-    expect(focusable).toEqual(['#contenido', '#top', 'button', ...NAV_LINKS.map(({ anchor }) => `#${anchor}`)]);
+    expect(focusable).toEqual(['#top', 'button', ...NAV_LINKS.map(({ anchor }) => `#${anchor}`)]);
   });
 
-  it('labels the skip link "Saltar al contenido"', () => {
-    const [skip] = linksOf(html);
-    expect(accessibleTextOf(skip?.inner ?? '')).toBe('Saltar al contenido');
+  it('has no skip link (removed from the spec: landmarks and headings already bypass the bar)', () => {
+    expect(html).not.toContain('#contenido');
+    expect(html).not.toContain('Saltar al contenido');
   });
 
   it('shows the initials of the name in the brand and names it with the full name', () => {
@@ -79,7 +79,7 @@ describe('SiteNav', () => {
 describe('home page', () => {
   const main = indexSource.match(/<main[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
 
-  it('renders SiteNav with the profile name before main, and main as the skip target', () => {
+  it('renders SiteNav with the profile name before main, and main with its content id', () => {
     expect(indexSource).toMatch(/<SiteNav\s+name=\{\s*name\s*\}\s*\/>\s*<main\b/);
     expect(indexSource).toMatch(/<main\s+id="contenido"\s*>/);
   });

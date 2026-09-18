@@ -68,7 +68,6 @@ describe('SiteNav styles', () => {
     '--color-glow',
     '--color-tag-bg',
     '--color-border-strong',
-    '--color-surface',
   ])('uses the %s token', (token) => {
     expect(styles).toContain(`var(${token})`);
   });
@@ -128,9 +127,8 @@ describe('SiteNav styles', () => {
     expect(bodyOf(/^\.site-nav-links a$/, (rule) => inside(rule, NARROW))).toMatch(/min-height:\s*var\(--nav-row-height\)/);
   });
 
-  it('keeps the skip link out of view until it has focus', () => {
-    expect(bodyOf(/^\.site-nav-skip$/, base)).toMatch(/transform:\s*translateY\(/);
-    expect(bodyOf(/^\.site-nav-skip:focus$/, base)).toMatch(/transform:\s*none/);
+  it('has no skip link styles', () => {
+    expect(styles).not.toContain('.site-nav-skip');
   });
 
   it('hides the full name only visually', () => {

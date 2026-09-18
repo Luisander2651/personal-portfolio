@@ -426,8 +426,6 @@ Referencia: artboard `B · about.md — Escritorio 1440` y `— Móvil 390` del 
 - **Desde 1024px** (breakpoint ancho): enlaces en línea. **Por debajo**: botón "Menú" (variante
   mono del botón secundario, alto `--control-height`) que despliega un panel de filas de
   `--nav-row-height`; sin JavaScript la lista siempre se ve.
-- **"Saltar al contenido"**: fuera de la vista hasta recibir foco; con foco, etiqueta mono sobre
-  `--color-surface` con el punto de luz.
 - Las secciones con ancla dejan `scroll-margin-top: var(--nav-height)`.
 - Detalle y movimiento: `designs/010-navigation/design.md`.
 
@@ -619,3 +617,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | Sección de tokens "Experiencia" (`--experience-meta-width`) y patrón "Fila de experiencia" (bloque entre líneas, sin superficie propia, que adopta el tratamiento de card solo con el spotlight) | Composición A · Registro de la sección de experiencia, incorporada en la tarea T01 del plan 007 | designs/007-experience |
 | 2026-09-15 | El patrón "Fila de experiencia" pasa a tener dos variantes: card del sistema desde 768px (separación `--space-4`) y bloque entre líneas por debajo de 768px | En la revisión manual de T04 el usuario pidió que en escritorio la fila se vea siempre como card; el estado encendido del spotlight ya no es lo que la convierte en card | usuario, designs/007-experience |
 | 2026-09-18 | Sección de tokens "Navegación" (`--nav-height`, `--color-nav-bg`, `--nav-row-height`, `--nav-marker-size`, `--shadow-nav-marker`) y patrones "Barra de navegación" y "Enlace de navegación" | Dirección A · Índice de la navegación, incorporada en la tarea T01 del plan 010 | designs/010-navigation |
+| 2026-09-18 | Se quita "Saltar al contenido" del patrón "Barra de navegación" | Refinamiento de la spec 010: poco útil con solo tres enlaces enfocables tras la barra; los landmarks y encabezados ya permiten saltarla | usuario, specs/010-navigation |
