@@ -52,3 +52,267 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     </nav>
   </div>
 </header>
+
+<style>
+  /* Direction A · "Índice" (designs/010-navigation/design.md). Tokens only, mobile first.
+     `html[data-nav-ready]` is set by the navigation script: without it nothing is collapsed and,
+     below 1024px, the bar stays at the top of the page instead of being fixed. */
+  .site-nav {
+    position: relative;
+    z-index: 10;
+    background-color: var(--color-nav-bg);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  :global(html[data-nav-ready]) .site-nav {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+  }
+
+  .site-nav-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--space-4);
+    min-height: var(--nav-height);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-gutter);
+  }
+
+  /* Skip link: out of view until it has focus. */
+  .site-nav-skip {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-gutter);
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    padding-inline: var(--space-4);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: var(--text-small-size);
+    text-decoration: none;
+    transform: translateY(calc(-2 * var(--nav-height)));
+  }
+
+  .site-nav-skip:focus {
+    transform: none;
+  }
+
+  .site-nav-skip-arrow {
+    color: var(--color-text-muted);
+  }
+
+  /* Light marker: skip link, brand and the current link. */
+  .site-nav-marker {
+    flex: none;
+    width: var(--nav-marker-size);
+    height: var(--nav-marker-size);
+    border-radius: var(--radius-full);
+    background-color: var(--color-glow);
+    box-shadow: var(--shadow-nav-marker);
+  }
+
+  .site-nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: var(--text-small-size);
+    font-weight: var(--text-h3-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    text-decoration: none;
+  }
+
+  .site-nav-brand:hover {
+    color: var(--color-text);
+  }
+
+  .site-nav-brand .site-nav-marker {
+    border-radius: var(--radius-sm);
+  }
+
+  /* The full name is the accessible name of the brand, hidden only visually. */
+  .site-nav-name {
+    position: absolute;
+    width: var(--border-width);
+    height: var(--border-width);
+    margin: calc(-1 * var(--border-width));
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .site-nav-toggle:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    padding-inline: var(--control-padding-x);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-tag-bg);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--text-small-size);
+    cursor: pointer;
+  }
+
+  .site-nav-toggle[aria-expanded='true'] {
+    border-color: var(--color-glow);
+    color: var(--color-text);
+  }
+
+  .site-nav-toggle-icon {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--icon-stroke);
+    stroke-linecap: round;
+  }
+
+  .site-nav-toggle-close,
+  .site-nav-toggle[aria-expanded='true'] .site-nav-toggle-open {
+    display: none;
+  }
+
+  .site-nav-toggle[aria-expanded='true'] .site-nav-toggle-close {
+    display: inline;
+  }
+
+  .site-nav-links ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav-links a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--text-small-size);
+    text-decoration: none;
+  }
+
+  .site-nav-links .site-nav-marker {
+    opacity: 0;
+  }
+
+  .site-nav-number {
+    color: var(--color-text-muted);
+  }
+
+  .site-nav-links a:hover .site-nav-number {
+    color: var(--color-link);
+  }
+
+  .site-nav-links a:hover .site-nav-label,
+  .site-nav-links a[aria-current='true'] .site-nav-label {
+    color: var(--color-text);
+  }
+
+  .site-nav-links a[aria-current='true'] .site-nav-marker {
+    opacity: 1;
+  }
+
+  .site-nav-links a[aria-current='true'] .site-nav-number {
+    color: var(--color-glow);
+  }
+
+  .site-nav-skip:focus-visible,
+  .site-nav-brand:focus-visible,
+  .site-nav-toggle:focus-visible,
+  .site-nav-links a:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* Below 1024px: rows under the bar; collapsed behind "Menú" only with the script ready. */
+  @media (width < 1024px) {
+    .site-nav-links {
+      flex-basis: 100%;
+    }
+
+    .site-nav-links li {
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .site-nav-links a {
+      min-height: var(--nav-row-height);
+      font-size: var(--text-body-size);
+    }
+
+    :global(html[data-nav-ready]) .site-nav-links {
+      position: absolute;
+      top: 100%;
+      inset-inline: 0;
+      padding-inline: var(--space-gutter);
+      border-bottom: var(--border-width) solid var(--color-border);
+      /* Opaque so the hero does not show through the rows. */
+      background-color: var(--color-bg);
+    }
+
+    :global(html[data-nav-ready]) .site-nav-toggle[aria-expanded='false'] ~ .site-nav-links {
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(calc(-1 * var(--space-2)));
+      pointer-events: none;
+    }
+  }
+
+  /* From 1024px: links in a row, no menu button. */
+  @media (min-width: 1024px) {
+    .site-nav {
+      position: fixed;
+      top: 0;
+      inset-inline: 0;
+    }
+
+    .site-nav-toggle {
+      display: none;
+    }
+
+    .site-nav-links ul {
+      flex-direction: row;
+      gap: var(--space-1);
+    }
+  }
+
+  /* M-1 menu and M-2 current link (designs/010-navigation/design.md). */
+  @media (prefers-reduced-motion: no-preference) {
+    .site-nav-links {
+      transition:
+        opacity var(--duration-fast) var(--ease-out),
+        transform var(--duration-fast) var(--ease-out),
+        visibility var(--duration-fast);
+    }
+
+    .site-nav-links .site-nav-marker {
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .site-nav-number,
+    .site-nav-label {
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+  }
+</style>

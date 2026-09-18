@@ -59,11 +59,13 @@ Barra completa y fija arriba, casi opaca, con una línea fina inferior. A la izq
 - **Por debajo de 1024px**: la barra muestra la marca y el botón **"Menú"** (alto
   `--control-height`, borde `--color-border-strong`, fondo `--color-tag-bg`, `--font-mono`,
   icono de dos líneas que pasa a una X cuando está abierto; abierto, borde con
-  `--color-glow`). La lista es un panel bajo la barra, a todo el ancho, fondo
-  `--color-nav-bg`, borde inferior `--color-border`: filas de `--nav-row-height` separadas por
-  `--border-width` `--color-border`, con el mismo marcador, número y texto (`--text-body-size`).
+  `--color-glow`). La lista es un panel bajo la barra, a todo el ancho, fondo opaco
+  `--color-bg` (el hero no se transparenta bajo las filas), borde inferior `--color-border`:
+  filas de `--nav-row-height` separadas por `--border-width` `--color-border`, con el mismo
+  marcador, número y texto (`--text-body-size`).
 - **Sin JavaScript**: el botón no se muestra y la lista es visible (en línea desde 1024px; por
-  debajo, bajo la barra), sin estilos que la oculten.
+  debajo, bajo la barra), sin estilos que la oculten. Por debajo de 1024px la cabecera no es
+  fija: queda al inicio de la página con la lista debajo (spec 010, CA-1.4).
 - **"Saltar al contenido"**: enlace a `#contenido` (el `main`), fuera de la vista hasta recibir
   foco; con foco aparece arriba a la izquierda, por encima de la barra: etiqueta mono
   (`--font-mono`, `--text-small-size`) con fondo `--color-surface`, borde
@@ -180,4 +182,5 @@ foco), y **barra de navegación** con menú desplegable por debajo de 1024px.
 | 2026-09-18 | Diseño | Dirección de la barra | A · Índice, sin combinar | usuario |
 | 2026-09-18 | Brecha | "Saltar al contenido" | Se mantiene la función, con el estilo de A (etiqueta mono con punto de luz) en lugar del botón primario | usuario |
 | 2026-09-18 | Implícita | Punto de corte del menú | 1024px: los seis enlaces numerados no caben en línea entre 768px y 1023px; refinado en la spec 010 | designs/000-design-system |
+| 2026-09-18 | Refinamiento | Fondo del panel del menú | Opaco (`--color-bg`) en lugar de `--color-nav-bg`: en la revisión de T04 el nombre del hero se transparentaba bajo las filas | usuario |
 | 2026-09-18 | Implícita | Zona de lectura | Línea a un tercio de la altura de la ventana; ningún activo sobre el hero | spec 010 CA-4.1 |

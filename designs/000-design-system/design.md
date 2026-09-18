@@ -287,7 +287,7 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 | Token | Modo | Móvil | Escritorio | Uso |
 |-------|------|-------|------------|-----|
 | `--nav-height` | 768 | `60px` | `64px` | Alto de la barra de navegación y `scroll-margin-top` de las secciones con ancla |
-| `--color-nav-bg` | fijo | `rgba(5, 7, 13, 0.92)` | — | Fondo de la barra de navegación y del panel del menú |
+| `--color-nav-bg` | fijo | `rgba(5, 7, 13, 0.92)` | — | Fondo de la barra de navegación (el panel del menú usa `--color-bg`, opaco) |
 | `--nav-row-height` | fijo | `56px` | — | Filas del menú de navegación por debajo de 1024px |
 | `--nav-marker-size` | fijo | `6px` | — | Punto de luz del enlace activo y de la marca |
 | `--shadow-nav-marker` | fijo | `0 0 10px rgba(34, 211, 238, 0.8)` | — | Halo del punto de luz de la navegación |

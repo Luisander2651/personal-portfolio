@@ -123,7 +123,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T04 — Estilos de la barra
+### [x] T04 — Estilos de la barra
 
 - **Criterios**: CA-1.4, CA-2.1, CA-2.2, CA-3.1, CA-3.2, CA-3.3, CA-5.2, CA-5.4
 - **Diseño**: `A · Índice — Escritorio 1440`, `— Móvil 390 cerrado`, `— Móvil 390 menú abierto` ·
@@ -223,3 +223,6 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Menú y sección activa en un único script (T05) | Comparten el componente y el presupuesto de JavaScript; menos sobrecarga que dos scripts |
 | 2026-09-18 | Implementación (T02) | `pickActiveSection` activa la última sección cuando su final ya está en la ventana | "Idiomas" es más baja que dos tercios de la ventana y nunca cruzaría la línea de lectura; el plan pide la última sección al final de la página |
 | 2026-09-18 | Implementación (T03) | Se ajustó el patrón `<main>` a `<main[^>]*>` en 8 tests de secciones (about, tech-stack, projects, experience, education, languages, section-reveal, card-spotlight), con aprobación del usuario | `main` pasa a tener `id="contenido"` (CA-2.1) y esos tests buscaban la etiqueta literal |
+| 2026-09-18 | Implementación (T04) | Por debajo de 1024px y sin JavaScript la cabecera no es fija (excepción anotada en CA-1.4 de la spec); con la marca `html[data-nav-ready]` es fija y el panel se pliega | La lista visible bajo una barra fija taparía unos 340px en móvil sin JavaScript; decisión del usuario |
+| 2026-09-18 | Implementación (T04) | Panel del menú con fondo opaco `--color-bg` (diseño 010 y sistema actualizados) | En la revisión visual el hero se transparentaba bajo las filas con `--color-nav-bg`; decisión del usuario |
+| 2026-09-18 | Planificación | T05 debe poner `data-nav-ready` antes del primer pintado | Si la marca llega tarde, en móvil la barra pasa de estar en el flujo a fija tras cargar y provoca un salto de maquetación |

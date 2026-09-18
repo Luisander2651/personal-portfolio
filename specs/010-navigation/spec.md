@@ -61,7 +61,8 @@ llegue a cualquier sección sin recorrer toda la página y sepa siempre dónde e
   - **Cuando** la página se desplaza
   - **Entonces** la barra permanece visible en la parte superior en todo momento, y al llegar a
     una sección por su ancla la barra no tapa el `h2` de esa sección (verificación: estilos por
-    test y revisión manual)
+    test y revisión manual); excepción: por debajo de 1024px y sin JavaScript la cabecera queda
+    al inicio de la página, no fija, con la lista de enlaces debajo (CA-3.2)
 - **CA-1.5**
   - **Dado** un visitante que pulsa un enlace de la navegación
   - **Cuando** la página va a la sección
@@ -193,3 +194,4 @@ suave hasta cada sección. El aspecto, la zona de lectura y los tiempos se defin
 | 2026-09-18 | Diseño | Marca de la barra | Iniciales "LMGV" calculadas de `profile.name` (primera letra de cada palabra, en mayúscula), con el nombre completo como nombre accesible; sustituye al nombre visible completo, que no cabía junto al botón "Menú" | usuario, designs/010-navigation |
 | 2026-09-18 | Diseño | Punto de corte del menú | 1024px (punto de corte ancho del sistema): los seis enlaces numerados de la dirección A no caben en línea entre 768px y 1023px | designs/010-navigation, designs/000-design-system |
 | 2026-09-18 | Diseño | Composición de la barra | A · Índice: barra completa fija, marca "LMGV" en mono con punto de luz, enlaces mono numerados 01–06 con punto de luz en el activo, menú desplegable por debajo de 1024px, "Saltar al contenido" como etiqueta mono; zona de lectura a un tercio de la ventana; tokens nuevos `--nav-height`, `--color-nav-bg`, `--nav-row-height`, `--nav-marker-size` y `--shadow-nav-marker` a incorporar al sistema | /design-spec |
+| 2026-09-18 | Brecha | Móvil sin JavaScript: la lista visible bajo una barra fija taparía unos 340px durante todo el scroll | Por debajo de 1024px y sin JavaScript la cabecera no es fija (queda al inicio de la página con la lista debajo); con JavaScript es fija desde el primer pintado | usuario, /implement T04 |
