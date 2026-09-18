@@ -60,7 +60,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Iconos de contacto compartidos
+### [x] T02 — Iconos de contacto compartidos
 
 - **Criterios**: CA-1.2
 - **Diseño**: `designs/011-footer/design.md` → Componentes (iconos de línea del hero)
@@ -157,3 +157,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Iconos de correo, GitHub y LinkedIn extraídos del hero a `ContactIcon` (T02) | El footer los reutiliza; evita duplicar los trazos SVG en dos componentes |
 | 2026-09-18 | Planificación | Estructura, estilos y marca de revelado del footer en una sola tarea (T03) | Es un único bloque con la misma revisión visual; el revelado reutiliza el script común |
 | 2026-09-18 | Planificación | El año llega como prop desde `index.astro` (fecha de la build) | Permite testear el componente con cualquier año |
+| 2026-09-18 | Implementación (T02) | En el hero, la regla `.hero-link svg` pasa a `.hero-link :global(.contact-icon)`; el tamaño lo dan los tokens (`--icon-size-md`) en lugar de los atributos `width`/`height` del SVG | Los estilos de Astro tienen alcance por componente y el SVG ahora vive en `ContactIcon`; medido en el navegador: iconos de 22×22 y trazo 1,75 como antes |
