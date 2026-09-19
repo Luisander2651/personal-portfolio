@@ -112,7 +112,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - JavaScript ejecutable de la home ≤ 3 kB con gzip (el JSON-LD no cuenta).
 
-### [ ] T04 — Imagen Open Graph e iconos
+### [x] T04 — Imagen Open Graph e iconos
 
 - **Criterios**: CA-2.2, CA-3.1, CA-4.3
 - **Diseño**: `A · Tarjeta — Imagen OG 1200×630` y `B · Índice — Icono y vista previa`
@@ -173,3 +173,5 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | Metadatos en un componente `SeoHead` dentro de `BaseLayout` (T03) | Un único lugar para el `head`; la 404 (spec 013) podrá reutilizarlo |
 | 2026-09-18 | Planificación | Imágenes generadas una vez con Chrome headless y `opentype.js` vía `bunx`, fuera del repositorio (T04) | Sin dependencias del proyecto (constitución §1); solo se versionan los archivos resultantes |
 | 2026-09-18 | Implementación (T03) | `BaseLayout` recibe una prop opcional `seo` (perfil y `site`) y solo entonces incluye `SeoHead`; `theme-color` usa el literal `#05070D`, comparado por test con `--color-bg` | Un `<meta>` no puede leer variables CSS; sin `seo` el layout no cambia (la 404 decidirá en la spec 013) |
+| 2026-09-18 | Implementación (T04) | Generación fuera del repositorio: "LM" a trazos con `opentype.js` sobre Geist Mono 600 (TTF de Google Fonts, la misma fuente del sitio); PNG con Chrome headless a tamaño exacto y esquinas transparentes; datos de la imagen OG leídos de `profile.md`. Resultado: `og-image.png` 139 kB, `favicon.svg` 495 B | Sin dependencias del proyecto (constitución §1) |
+| 2026-09-18 | Implementación (T04) | El test lee los archivos con imports de Vite (`?inline` para los PNG, `?raw` para el SVG) en lugar de `node:fs` | El proyecto no incluye tipos de Node y `astro check` rechazaba `node:fs`, `Buffer` y `process` |
