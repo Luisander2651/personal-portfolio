@@ -88,7 +88,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `dist/sitemap.xml` y `dist/robots.txt` generados con la URL real.
 
-### [ ] T03 — Metadatos en el `head`
+### [x] T03 — Metadatos en el `head`
 
 - **Criterios**: CA-1.1, CA-1.4, CA-2.1, CA-3.1, CA-3.2, CA-4.1
 - **Diseño**: `designs/012-seo-metadata/design.md` → Icono del sitio (`theme-color`)
@@ -172,3 +172,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Planificación | `sitemap.xml` y `robots.txt` como endpoints estáticos de Astro (T02) | Generados en la build a partir de `site`, sin dependencias |
 | 2026-09-18 | Planificación | Metadatos en un componente `SeoHead` dentro de `BaseLayout` (T03) | Un único lugar para el `head`; la 404 (spec 013) podrá reutilizarlo |
 | 2026-09-18 | Planificación | Imágenes generadas una vez con Chrome headless y `opentype.js` vía `bunx`, fuera del repositorio (T04) | Sin dependencias del proyecto (constitución §1); solo se versionan los archivos resultantes |
+| 2026-09-18 | Implementación (T03) | `BaseLayout` recibe una prop opcional `seo` (perfil y `site`) y solo entonces incluye `SeoHead`; `theme-color` usa el literal `#05070D`, comparado por test con `--color-bg` | Un `<meta>` no puede leer variables CSS; sin `seo` el layout no cambia (la 404 decidirá en la spec 013) |

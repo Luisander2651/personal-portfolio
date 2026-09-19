@@ -22,6 +22,10 @@ if (!profile) {
 }
 
 const { title, description } = getPageMeta(profile.data);
+const site = Astro.site;
+if (!site) {
+  throw new Error('Missing `site` in astro.config.mjs');
+}
 const {
   name,
   role,
@@ -43,7 +47,11 @@ const education = await getCollection('education');
 const buildYear = new Date().getFullYear();
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  seo={{ profile: { name, role, location, email, github, linkedin }, site }}
+>
   <SiteNav name={name} />
   <main id="contenido">
     <HomeHero

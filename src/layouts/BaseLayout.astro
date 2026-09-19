@@ -2,13 +2,17 @@
 import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import '../styles/base.css';
+import SeoHead from '../components/SeoHead.astro';
+import type { PersonProfile } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
+  /** Search engine and sharing metadata (specs/012-seo-metadata); omitted, the head has none. */
+  seo?: { profile: PersonProfile; site: URL | string };
 }
 
-const { title, description } = Astro.props;
+const { title, description, seo } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,6 +22,7 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {seo && <SeoHead title={title} description={description} profile={seo.profile} site={seo.site} />}
     <Font cssVariable="--font-geist" preload={[{ weight: 400 }]} />
     <Font cssVariable="--font-geist-mono" />
   </head>
