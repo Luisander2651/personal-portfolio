@@ -73,7 +73,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — `sitemap.xml` y `robots.txt` en la build
+### [x] T02 — `sitemap.xml` y `robots.txt` en la build
 
 - **Criterios**: CA-1.2, CA-1.3
 - **Diseño**: —
