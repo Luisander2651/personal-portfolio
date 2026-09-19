@@ -1,7 +1,7 @@
 ---
 id: 012
 title: SEO y metadatos
-status: active
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 depends_on: [001, 002, 003, 004, 010, 011]
@@ -160,3 +160,4 @@ fotografía.
 | 2026-09-18 | Implícita | Contenido de la imagen | Sin fotografía | anti-cliches.md |
 | 2026-09-18 | Implícita | JavaScript | Sin JavaScript nuevo; el JSON-LD no cuenta en el presupuesto de la home | constitution.md §3 |
 | 2026-09-18 | Diseño | Imagen OG e icono | Imagen OG A · Tarjeta (tarjeta del hero con ubicación, nombre, rol y stack sobre la cuadrícula) e icono B · Índice ("LM" mono con punto de luz, en trazos en el SVG); sin tokens nuevos | /design-spec |
+| 2026-09-18 | Cierre | Spec completada: las tareas T01 a T05 de `plans/012-seo-metadata/plan.md` verificadas (tests, `dist/`, imagen OG e iconos contra el diseño, Rich Results Test, LinkedIn Post Inspector, URL de producción y Lighthouse 98) | Estado `done` | /implement |

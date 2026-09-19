@@ -3,7 +3,7 @@ id: 012
 title: SEO y metadatos
 spec: specs/012-seo-metadata/spec.md
 design: designs/012-seo-metadata/design.md
-status: approved
+status: done
 created: 2026-09-18
 updated: 2026-09-18
 ---
@@ -137,7 +137,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - Comprobación manual: `og-image.png` contra `A · Tarjeta — Imagen OG 1200×630` y los iconos
     contra `B · Índice — Icono y vista previa` (incluido el favicon en una pestaña real).
 
-### [ ] T05 — Verificación final
+### [x] T05 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las piezas de `designs/012-seo-metadata/design.md`
@@ -175,3 +175,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-18 | Implementación (T03) | `BaseLayout` recibe una prop opcional `seo` (perfil y `site`) y solo entonces incluye `SeoHead`; `theme-color` usa el literal `#05070D`, comparado por test con `--color-bg` | Un `<meta>` no puede leer variables CSS; sin `seo` el layout no cambia (la 404 decidirá en la spec 013) |
 | 2026-09-18 | Implementación (T04) | Generación fuera del repositorio: "LM" a trazos con `opentype.js` sobre Geist Mono 600 (TTF de Google Fonts, la misma fuente del sitio); PNG con Chrome headless a tamaño exacto y esquinas transparentes; datos de la imagen OG leídos de `profile.md`. Resultado: `og-image.png` 139 kB, `favicon.svg` 495 B | Sin dependencias del proyecto (constitución §1) |
 | 2026-09-18 | Implementación (T04) | El test lee los archivos con imports de Vite (`?inline` para los PNG, `?raw` para el SVG) en lugar de `node:fs` | El proyecto no incluye tipos de Node y `astro check` rechazaba `node:fs`, `Buffer` y `process` |
+| 2026-09-18 | Verificación (T05) | 880 tests y build en verde; cada CA con su test; `dist/index.html` con una canónica, las diez etiquetas OG, un JSON-LD `Person` válido, `theme-color` `#05070D` y los tres iconos, sin cambios en `<title>` ni descripción, un único `h1` y JS ejecutable 2,49 kB con gzip; `dist/sitemap.xml` y `dist/robots.txt` con la URL real. En producción (confirmado por el usuario): Rich Results Test rastrea e indexa la home sin `noindex`, LinkedIn Post Inspector muestra la tarjeta, `robots.txt` y `sitemap.xml` responden y Lighthouse 98 | Todas las CA de la spec cubiertas |
