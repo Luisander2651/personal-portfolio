@@ -41,7 +41,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — URL del sitio y lógica de SEO
+### [x] T01 — URL del sitio y lógica de SEO
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.3, CA-1.4, CA-2.1
 - **Diseño**: —
