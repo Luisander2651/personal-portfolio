@@ -1,7 +1,7 @@
 ---
 id: 013
 title: Página 404
-status: active
+status: done
 created: 2026-09-19
 updated: 2026-09-19
 depends_on: [001, 002, 003, 010, 011, 012]
@@ -136,3 +136,4 @@ como único momento de movimiento al descifrarse, y la salida a la home evidente
 | 2026-09-19 | Implícita | Iconos y `theme-color` | Pasan de `SeoHead` a `BaseLayout` para estar en todas las páginas; la home no cambia | specs/012-seo-metadata |
 | 2026-09-19 | Implícita | Lighthouse | SEO no se exige en la 404 por el `noindex` intencionado | constitution.md §7 |
 | 2026-09-19 | Diseño | Composición de la 404 | A · Señal: "404" mono enorme y centrado con halo cian, título, línea y botón secundario "Volver al inicio"; cabecera solo con la marca y el footer de contacto; tokens nuevos `--not-found-code-size` y `--shadow-glow-text` | /design-spec |
+| 2026-09-20 | Cierre | Spec completada: las tareas T01 a T05 de `plans/013-not-found-page/plan.md` verificadas (tests, `dist/`, revisión visual a 390px y 1440px, descifrado, reduced motion, sin JS, estado 404 en producción y Lighthouse 97) | Estado `done` | /implement |

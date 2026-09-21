@@ -3,7 +3,7 @@ id: 013
 title: Página 404
 spec: specs/013-not-found-page/spec.md
 design: designs/013-not-found-page/design.md
-status: approved
+status: done
 created: 2026-09-19
 updated: 2026-09-19
 ---
@@ -142,7 +142,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - Comprobación manual: descifrado contra `Movimiento — Descifrado del 404`; con reduced
     motion y sin JavaScript, "404" directamente.
 
-### [ ] T05 — Verificación final
+### [x] T05 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: todas las pantallas de `designs/013-not-found-page/design.md`
@@ -178,3 +178,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-19 | Planificación | El descifrado reutiliza `scrambleText` y `parseCssDuration` de `src/lib/hero-motion.ts` (T04) | Misma lógica ya probada del hero (patrón P-4) |
 | 2026-09-19 | Planificación | La página se prueba por sus componentes y su código; el HTML final en la verificación (T05) | Las páginas con colecciones no se renderizan en el contenedor de tests, como la home |
 | 2026-09-20 | Implementación (T02) | La marca pasa a `SiteBrand` con sus estilos (clases `site-brand*`); `tests/components/site-nav-styles.test.ts` deja de comprobar el nombre oculto y esa comprobación se hace ahora sobre `SiteBrand` | Los estilos de Astro no alcanzan al HTML de otro componente; aprobado por el usuario |
+| 2026-09-20 | Verificación (T05) | 913 tests y build en verde; cada CA con su test; `dist/404.html` con el título, un único `h1`, `noindex`, los tres iconos y `theme-color`, sin canónica, Open Graph ni JSON-LD, cabecera con solo la marca, footer, "404" y mensaje; JS 345 B con gzip; fuera de `dist/sitemap.xml`; la home mantiene sus metadatos. En producción (confirmado por el usuario): una URL inexistente responde 404 con esta página y Lighthouse 97 | Todas las CA de la spec cubiertas |
