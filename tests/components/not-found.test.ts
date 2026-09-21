@@ -86,8 +86,13 @@ describe('NotFoundScreen', () => {
     expect(links[0]?.[2]).toMatch(/<svg\b[^>]*aria-hidden="true"/);
   });
 
-  it('needs no JavaScript for its content', () => {
-    expect(html).not.toMatch(/<script/i);
+  it('has all its content in the HTML, without JavaScript', () => {
+    const withoutScripts = html.replace(/<script[\s\S]*?<\/script>/g, '');
+
+    expect(withoutScripts).toContain('404');
+    expect(withoutScripts).toContain('Página no encontrada');
+    expect(withoutScripts).toContain('La ruta que buscas no existe o se ha movido.');
+    expect(withoutScripts).toMatch(/<a\s[^>]*href="\/"/);
   });
 });
 

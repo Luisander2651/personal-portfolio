@@ -122,7 +122,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
     1440px contra `A · Señal — Móvil 390` y `— Escritorio 1440`; hover y foco del botón; la
     barra de la home sin cambios visuales tras extraer `SiteBrand`.
 
-### [ ] T04 — Descifrado del "404"
+### [x] T04 — Descifrado del "404"
 
 - **Criterios**: CA-3.1, CA-3.2
 - **Diseño**: `Movimiento — Descifrado del 404` · `M-1`

@@ -21,6 +21,29 @@ const CODE = '404';
   </a>
 </div>
 
+<script>
+  /* M-1 · decode of the code (designs/013-not-found-page/design.md, P-4). Only the decorative
+     text changes: the paragraph keeps `aria-label="404"`, so assistive technology reads "404". */
+  import { parseCssDuration, scrambleText } from '../lib/hero-motion';
+
+  const GLYPHS = '<>/{}[]=+*_#$01';
+  const text = document.querySelector<HTMLElement>('.not-found-code-text');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (text && !reducedMotion) {
+    const code = text.textContent ?? '';
+    const scrambleTime = parseCssDuration(getComputedStyle(document.documentElement).getPropertyValue('--duration-scramble'));
+    const randomGlyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)] ?? '';
+    const start = performance.now();
+    const frame = (now: number) => {
+      const progress = scrambleTime > 0 ? (now - start) / scrambleTime : 1;
+      text.textContent = scrambleText(code, progress, randomGlyph);
+      if (progress < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }
+</script>
+
 <style>
   /* Direction A · "Señal" (designs/013-not-found-page/design.md). Tokens only, mobile first. */
   .not-found {
