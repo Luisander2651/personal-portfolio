@@ -1,0 +1,22 @@
+---
+/*
+ * 404 screen, direction A · "Señal" (designs/013-not-found-page/design.md): the code, the
+ * heading, one line and the link back to the home. The code is decoded on load by the script
+ * added in T04; without JavaScript it reads "404" already.
+ */
+const CODE = '404';
+---
+
+<div class="not-found">
+  <p class="not-found-code" aria-label={CODE}><span class="not-found-code-text" aria-hidden="true">{CODE}</span></p>
+  <div class="not-found-message">
+    <h1>Página no encontrada</h1>
+    <p class="not-found-line">La ruta que buscas no existe o se ha movido.</p>
+  </div>
+  <a class="not-found-link" href="/">
+    <svg class="not-found-arrow" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M13 8H3M7 4L3 8l4 4"></path>
+    </svg>
+    Volver al inicio
+  </a>
+</div>

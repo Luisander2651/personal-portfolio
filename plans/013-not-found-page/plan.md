@@ -68,7 +68,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `dist/index.html` mantiene sus metadatos (canónica, OG, JSON-LD, iconos, `theme-color`).
 
-### [ ] T02 — Estructura de la 404 (sin JavaScript)
+### [x] T02 — Estructura de la 404 (sin JavaScript)
 
 - **Criterios**: CA-1.1, CA-1.2, CA-1.3, CA-2.1
 - **Diseño**: `A · Señal — Escritorio 1440` y `— Móvil 390` (estructura)
@@ -177,3 +177,4 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-19 | Planificación | La marca se extrae de `SiteNav` a `SiteBrand` y se reutiliza en la cabecera de la 404 (T02) | Evita duplicar el marcado y los estilos de la marca |
 | 2026-09-19 | Planificación | El descifrado reutiliza `scrambleText` y `parseCssDuration` de `src/lib/hero-motion.ts` (T04) | Misma lógica ya probada del hero (patrón P-4) |
 | 2026-09-19 | Planificación | La página se prueba por sus componentes y su código; el HTML final en la verificación (T05) | Las páginas con colecciones no se renderizan en el contenedor de tests, como la home |
+| 2026-09-20 | Implementación (T02) | La marca pasa a `SiteBrand` con sus estilos (clases `site-brand*`); `tests/components/site-nav-styles.test.ts` deja de comprobar el nombre oculto y esa comprobación se hace ahora sobre `SiteBrand` | Los estilos de Astro no alcanzan al HTML de otro componente; aprobado por el usuario |

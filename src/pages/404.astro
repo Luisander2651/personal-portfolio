@@ -1,0 +1,26 @@
+---
+import { getEntry } from 'astro:content';
+import BrandHeader from '../components/BrandHeader.astro';
+import NotFoundScreen from '../components/NotFoundScreen.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getNotFoundMeta } from '../lib/page-meta';
+
+const profile = await getEntry('profile', 'profile');
+if (!profile) {
+  throw new Error('Missing profile entry: src/content/profile/profile.md');
+}
+
+const { title, description } = getNotFoundMeta(profile.data);
+const { name, role, email, github, linkedin } = profile.data;
+/** Year of the build, for the footer copyright (specs/011-footer, CA-1.3). */
+const buildYear = new Date().getFullYear();
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <BrandHeader name={name} />
+  <main id="contenido">
+    <NotFoundScreen />
+  </main>
+  <SiteFooter name={name} role={role} email={email} github={github} linkedin={linkedin} year={buildYear} />
+</BaseLayout>

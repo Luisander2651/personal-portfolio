@@ -1,0 +1,19 @@
+---
+/*
+ * Header of the 404 page (designs/013-not-found-page/design.md): only the brand, linking to the
+ * home. The section links of the navigation are anchors of the home, so they are left out.
+ */
+import SiteBrand from './SiteBrand.astro';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<header class="brand-header">
+  <div class="brand-header-inner">
+    <SiteBrand name={name} href="/" />
+  </div>
+</header>

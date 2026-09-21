@@ -4,7 +4,8 @@
  * initials of the profile name, "Menú" button (hidden until the navigation script runs)
  * and the numbered section links. Without JavaScript the list is always visible.
  */
-import { initialsOf, NAV_LINKS } from '../lib/navigation';
+import { NAV_LINKS } from '../lib/navigation';
+import SiteBrand from './SiteBrand.astro';
 
 interface Props {
   name: string;
@@ -17,11 +18,7 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
 
 <header class="site-nav">
   <div class="site-nav-inner">
-    <a class="site-nav-brand" href="#top"
-      ><span class="site-nav-marker" aria-hidden="true"></span><span class="site-nav-initials" aria-hidden="true"
-        >{initialsOf(name)}</span
-      ><span class="site-nav-name">{name}</span></a
-    >
+    <SiteBrand name={name} href="#top" />
 
     <button class="site-nav-toggle" type="button" hidden aria-expanded="false" aria-controls={listId}>
       <svg class="site-nav-toggle-icon" viewBox="0 0 16 16" aria-hidden="true">
@@ -137,38 +134,9 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     box-shadow: var(--shadow-nav-marker);
   }
 
-  .site-nav-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    min-height: var(--control-height);
-    border-radius: var(--radius-sm);
-    color: var(--color-text);
-    font-family: var(--font-mono);
-    font-size: var(--text-small-size);
-    font-weight: var(--text-h3-weight);
-    letter-spacing: var(--text-mono-label-tracking);
-    text-decoration: none;
-  }
 
-  .site-nav-brand:hover {
-    color: var(--color-text);
-  }
 
-  .site-nav-brand .site-nav-marker {
-    border-radius: var(--radius-sm);
-  }
 
-  /* The full name is the accessible name of the brand, hidden only visually. */
-  .site-nav-name {
-    position: absolute;
-    width: var(--border-width);
-    height: var(--border-width);
-    margin: calc(-1 * var(--border-width));
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
 
   .site-nav-toggle:not([hidden]) {
     display: inline-flex;
@@ -254,7 +222,6 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     color: var(--color-glow);
   }
 
-  .site-nav-brand:focus-visible,
   .site-nav-toggle:focus-visible,
   .site-nav-links a:focus-visible {
     outline: var(--focus-ring);

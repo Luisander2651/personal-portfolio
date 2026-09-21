@@ -1,0 +1,66 @@
+---
+/*
+ * Brand of the site (designs/010-navigation/design.md): light marker plus the initials of the
+ * profile name, with the full name as the accessible name. Used by the navigation bar (to the
+ * top of the home) and by the 404 header (to the home).
+ */
+import { initialsOf } from '../lib/navigation';
+
+interface Props {
+  name: string;
+  href: string;
+}
+
+const { name, href } = Astro.props;
+---
+
+<a class="site-brand" href={href}
+  ><span class="site-brand-marker" aria-hidden="true"></span><span class="site-brand-initials" aria-hidden="true"
+    >{initialsOf(name)}</span
+  ><span class="site-brand-name">{name}</span></a
+>
+
+<style>
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: var(--text-small-size);
+    font-weight: var(--text-h3-weight);
+    letter-spacing: var(--text-mono-label-tracking);
+    text-decoration: none;
+  }
+
+  .site-brand:hover {
+    color: var(--color-text);
+  }
+
+  .site-brand-marker {
+    flex: none;
+    width: var(--nav-marker-size);
+    height: var(--nav-marker-size);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-glow);
+    box-shadow: var(--shadow-nav-marker);
+  }
+
+  /* The full name is the accessible name of the brand, hidden only visually. */
+  .site-brand-name {
+    position: absolute;
+    width: var(--border-width);
+    height: var(--border-width);
+    margin: calc(-1 * var(--border-width));
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .site-brand:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+</style>

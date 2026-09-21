@@ -131,12 +131,6 @@ describe('SiteNav styles', () => {
     expect(styles).not.toContain('.site-nav-skip');
   });
 
-  it('hides the full name only visually', () => {
-    const name = bodyOf(/^\.site-nav-name$/, base);
-    expect(name).toMatch(/position:\s*absolute/);
-    expect(name).toMatch(/overflow:\s*hidden/);
-    expect(name).not.toMatch(/display:\s*none|visibility:\s*hidden/);
-  });
 
   it('marks the current link with the light marker and the glow number', () => {
     const current = rules.filter(({ selector }) => /\[aria-current='true'\]/.test(selector));
