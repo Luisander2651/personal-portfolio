@@ -95,7 +95,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
   - `bun run test` y `bun run build` en verde.
   - `dist/404.html` generado; `dist/sitemap.xml` no la incluye.
 
-### [ ] T03 — Estilos A · Señal
+### [x] T03 — Estilos A · Señal
 
 - **Criterios**: CA-3.3
 - **Diseño**: `A · Señal — Escritorio 1440` y `— Móvil 390` · `M-2`

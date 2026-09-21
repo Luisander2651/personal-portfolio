@@ -17,3 +17,20 @@ const { name } = Astro.props;
     <SiteBrand name={name} href="/" />
   </div>
 </header>
+
+<style>
+  /* Direction A · "Señal" (designs/013-not-found-page/design.md). Tokens only; not fixed. */
+  .brand-header {
+    background-color: var(--color-nav-bg);
+    border-bottom: var(--border-width) solid var(--color-border);
+    padding-inline: var(--space-gutter);
+  }
+
+  .brand-header-inner {
+    display: flex;
+    align-items: center;
+    min-height: var(--nav-height);
+    max-width: var(--section-max-width);
+    margin-inline: auto;
+  }
+</style>

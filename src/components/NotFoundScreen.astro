@@ -20,3 +20,100 @@ const CODE = '404';
     Volver al inicio
   </a>
 </div>
+
+<style>
+  /* Direction A · "Señal" (designs/013-not-found-page/design.md). Tokens only, mobile first. */
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    min-height: calc(var(--hero-min-height) - var(--nav-height));
+    padding-block: var(--space-section);
+    padding-inline: var(--space-gutter);
+    text-align: center;
+  }
+
+  .not-found-code {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: var(--not-found-code-size);
+    line-height: 1;
+    font-weight: var(--text-display-weight);
+    letter-spacing: var(--text-display-tracking);
+    text-shadow: var(--shadow-glow-text);
+  }
+
+  .not-found-message {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: var(--about-text-max-width);
+  }
+
+  .not-found-message h1 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .not-found-line {
+    margin: 0;
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+  }
+
+  .not-found-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    padding-inline: var(--control-padding-x);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-secondary-bg);
+    color: var(--color-text);
+    font-size: var(--control-font-size);
+    font-weight: var(--control-font-weight);
+    text-decoration: none;
+  }
+
+  .not-found-arrow {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--icon-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    color: var(--color-text-muted);
+  }
+
+  .not-found-link:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-glow-secondary);
+    color: var(--color-text);
+  }
+
+  .not-found-link:hover .not-found-arrow,
+  .not-found-link:focus-visible .not-found-arrow {
+    color: var(--color-glow);
+  }
+
+  .not-found-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* M-2: the link changes smoothly only without reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .not-found-link,
+    .not-found-arrow {
+      transition:
+        border-color var(--duration-fast) var(--ease-out),
+        box-shadow var(--duration-fast) var(--ease-out),
+        color var(--duration-fast) var(--ease-out);
+    }
+  }
+</style>
