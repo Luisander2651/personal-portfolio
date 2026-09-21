@@ -40,7 +40,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Tokens, título y `head` común
+### [x] T01 — Tokens, título y `head` común
 
 - **Criterios**: CA-1.1, CA-2.1, CA-2.2
 - **Diseño**: `designs/013-not-found-page/design.md` → Cambios a incorporar al sistema

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPageMeta } from '../../src/lib/page-meta';
+import { getNotFoundMeta, getPageMeta } from '../../src/lib/page-meta';
 
 const profile = {
   name: 'Test Person',
@@ -14,5 +14,14 @@ describe('getPageMeta', () => {
 
   it('uses the profile summary as description', () => {
     expect(getPageMeta(profile).description).toBe('Test summary of the profile.');
+  });
+});
+
+describe('getNotFoundMeta', () => {
+  it('titles the 404 page "Página no encontrada — Name" and explains it in the description', () => {
+    expect(getNotFoundMeta(profile)).toEqual({
+      title: 'Página no encontrada — Test Person',
+      description: 'La ruta que buscas no existe o se ha movido.',
+    });
   });
 });

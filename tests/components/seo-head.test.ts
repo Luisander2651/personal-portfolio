@@ -3,7 +3,6 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import SeoHead from '../../src/components/SeoHead.astro';
 import BaseLayout from '../../src/layouts/BaseLayout.astro';
 import indexSource from '../../src/pages/index.astro?raw';
-import tokensCss from '../../src/styles/tokens.css?raw';
 
 const SITE = 'https://example.com';
 const profile = {
@@ -69,21 +68,9 @@ describe('SeoHead', () => {
     });
   });
 
-  it('links the three site icons', () => {
-    const links = html.match(/<link\b[^>]*>/g) ?? [];
-    const find = (rel: string, href: string) => links.find((link) => attribute(link, 'rel') === rel && attribute(link, 'href') === href) ?? '';
-
-    expect(attribute(find('icon', '/favicon.svg'), 'type')).toBe('image/svg+xml');
-    expect(attribute(find('icon', '/favicon-32.png'), 'sizes')).toBe('32x32');
-    expect(attribute(find('icon', '/favicon-32.png'), 'type')).toBe('image/png');
-    expect(find('apple-touch-icon', '/apple-touch-icon.png')).not.toBe('');
-  });
-
-  it('sets theme-color to the page background token', () => {
-    const colorBg = tokensCss.match(/--color-bg:\s*([^;]+);/)?.[1]?.trim();
-    const meta = html.match(/<meta\b[^>]*name="theme-color"[^>]*>/)?.[0] ?? '';
-    expect(colorBg).toBeTruthy();
-    expect(attribute(meta, 'content')?.toLowerCase()).toBe(colorBg?.toLowerCase());
+  it('leaves the site icons and theme-color to BaseLayout', () => {
+    expect(html).not.toMatch(/rel="(icon|apple-touch-icon)"/);
+    expect(html).not.toContain('theme-color');
   });
 });
 

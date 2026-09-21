@@ -4,7 +4,7 @@ title: Sistema de diseño
 status: approved
 canvas: https://claude.ai/code/artifact/7951e0c7-1841-4152-9d8e-8752078f7990
 created: 2026-09-13
-updated: 2026-09-18
+updated: 2026-09-19
 ---
 
 # Sistema de diseño
@@ -205,6 +205,7 @@ carga las fuentes desde Google Fonts solo para previsualizar.
 | `--shadow-glow-secondary` | fijo | `0 0 24px -6px rgba(59, 130, 246, 0.55)` | — | Botón secundario en hover |
 | `--shadow-glow-soft` | fijo | `0 0 48px -12px rgba(34, 211, 238, 0.35)` | — | Card en hover |
 | `--shadow-glow-hero` | fijo | `0 0 70px -18px rgba(34, 211, 238, 0.45)` | — | Tarjeta del hero |
+| `--shadow-glow-text` | fijo | `0 0 60px rgba(34, 211, 238, 0.45), 0 0 18px rgba(34, 211, 238, 0.25)` | — | Halo del texto protagonista (el "404") |
 | `--focus-ring` | fijo | `2px solid var(--color-glow)` | — | `outline` de foco visible (contraste 11.1:1) |
 | `--focus-ring-offset` | fijo | `3px` | — | `outline-offset` del foco visible |
 
@@ -291,6 +292,12 @@ de `--border-width` en `--color-grid-line` cada `--grid-size`, y `--color-bg`.
 | `--nav-row-height` | fijo | `56px` | — | Filas del menú de navegación por debajo de 1024px |
 | `--nav-marker-size` | fijo | `6px` | — | Punto de luz del enlace activo y de la marca |
 | `--shadow-nav-marker` | fijo | `0 0 10px rgba(34, 211, 238, 0.8)` | — | Halo del punto de luz de la navegación |
+
+### Página 404
+
+| Token | Modo | Móvil | Escritorio | Uso |
+|-------|------|-------|------------|-----|
+| `--not-found-code-size` | fluido | `112px` | `208px` | Tamaño del "404" de la página no encontrada |
 
 ## Componentes base
 
@@ -618,3 +625,4 @@ Estilos globales que aplican a todas las páginas:
 | 2026-09-15 | El patrón "Fila de experiencia" pasa a tener dos variantes: card del sistema desde 768px (separación `--space-4`) y bloque entre líneas por debajo de 768px | En la revisión manual de T04 el usuario pidió que en escritorio la fila se vea siempre como card; el estado encendido del spotlight ya no es lo que la convierte en card | usuario, designs/007-experience |
 | 2026-09-18 | Sección de tokens "Navegación" (`--nav-height`, `--color-nav-bg`, `--nav-row-height`, `--nav-marker-size`, `--shadow-nav-marker`) y patrones "Barra de navegación" y "Enlace de navegación" | Dirección A · Índice de la navegación, incorporada en la tarea T01 del plan 010 | designs/010-navigation |
 | 2026-09-18 | Se quita "Saltar al contenido" del patrón "Barra de navegación" | Refinamiento de la spec 010: poco útil con solo tres enlaces enfocables tras la barra; los landmarks y encabezados ya permiten saltarla | usuario, specs/010-navigation |
+| 2026-09-19 | Tokens `--shadow-glow-text` (halo de texto protagonista) y sección "Página 404" (`--not-found-code-size`) | Dirección A · Señal de la página 404, incorporada en la tarea T01 del plan 013 | designs/013-not-found-page |

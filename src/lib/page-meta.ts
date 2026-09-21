@@ -9,3 +9,11 @@ export function getPageMeta({ name, role, summary }: ProfileMetaSource): PageMet
     description: summary,
   };
 }
+
+/** Title and description of the 404 page (specs/013-not-found-page). */
+export function getNotFoundMeta({ name }: Pick<ProfileMetaSource, 'name'>): PageMeta {
+  return {
+    title: `Página no encontrada — ${name}`,
+    description: 'La ruta que buscas no existe o se ha movido.',
+  };
+}

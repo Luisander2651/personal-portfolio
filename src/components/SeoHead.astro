@@ -1,7 +1,7 @@
 ---
 /*
  * Search engine and sharing metadata of the page head (specs/012-seo-metadata): canonical URL,
- * Open Graph tags, schema.org Person (JSON-LD), theme color and site icons.
+ * Open Graph tags and schema.org Person (JSON-LD). Site icons and theme color live in BaseLayout.
  */
 import { canonicalUrl, openGraphTags, personJsonLd, type PersonProfile } from '../lib/seo';
 
@@ -12,9 +12,6 @@ interface Props {
   site: URL | string;
 }
 
-/** Same value as `--color-bg` (a meta tag cannot read CSS variables; a test keeps them equal). */
-const THEME_COLOR = '#05070D';
-
 const { title, description, profile, site } = Astro.props;
 const tags = openGraphTags({ title, description, siteName: profile.name, site });
 const person = JSON.stringify(personJsonLd(profile, site));
@@ -22,8 +19,4 @@ const person = JSON.stringify(personJsonLd(profile, site));
 
 <link rel="canonical" href={canonicalUrl(site)} />
 {tags.map(({ property, content }) => <meta property={property} content={content} />)}
-<meta name="theme-color" content={THEME_COLOR} />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <script type="application/ld+json" set:html={person} />

@@ -10,9 +10,14 @@ interface Props {
   description: string;
   /** Search engine and sharing metadata (specs/012-seo-metadata); omitted, the head has none. */
   seo?: { profile: PersonProfile; site: URL | string };
+  /** Asks search engines not to index the page (the 404, specs/013-not-found-page). */
+  noindex?: boolean;
 }
 
-const { title, description, seo } = Astro.props;
+/** Same value as `--color-bg` (a meta tag cannot read CSS variables; a test keeps them equal). */
+const THEME_COLOR = '#05070D';
+
+const { title, description, seo, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,6 +27,11 @@ const { title, description, seo } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content={THEME_COLOR} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {seo && <SeoHead title={title} description={description} profile={seo.profile} site={seo.site} />}
     <Font cssVariable="--font-geist" preload={[{ weight: 400 }]} />
     <Font cssVariable="--font-geist-mono" />
