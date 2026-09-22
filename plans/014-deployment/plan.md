@@ -39,7 +39,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 
 ## Tareas
 
-### [ ] T01 — Workflow de integración continua
+### [x] T01 — Workflow de integración continua
 
 - **Criterios**: CA-1.1, CA-1.2, CA-2.4
 - **Diseño**: —
