@@ -58,7 +58,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T02 — Cabeceras del hosting
+### [x] T02 — Cabeceras del hosting
 
 - **Criterios**: CA-2.1, CA-2.2, CA-2.3, CA-2.4
 - **Diseño**: —
