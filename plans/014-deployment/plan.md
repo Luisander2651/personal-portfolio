@@ -78,7 +78,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T03 — Documento de despliegue
+### [x] T03 — Documento de despliegue
 
 - **Criterios**: CA-1.3
 - **Diseño**: —
