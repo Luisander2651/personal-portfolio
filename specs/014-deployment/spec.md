@@ -1,7 +1,7 @@
 ---
 id: 014
 title: Despliegue
-status: active
+status: done
 created: 2026-09-22
 updated: 2026-09-22
 depends_on: [001, 012, 013]
@@ -131,3 +131,4 @@ No aplica: spec sin interfaz.
 | 2026-09-22 | Implícita | Gestor de paquetes en la CI | Bun con `--frozen-lockfile`; prohibido npm, yarn o pnpm | constitution.md §1 |
 | 2026-09-22 | Implícita | Comandos de la CI | `bun run test` y `bun run build`, la misma puerta que exige cada tarea | constitution.md §5 |
 | 2026-09-22 | Implícita | Sin interfaz | La spec no tiene pantallas: su sección Diseño dice "No aplica" | docs/workflow.md, specs/001-foundation |
+| 2026-09-22 | Cierre | Spec completada: las tareas T01 a T04 de `plans/014-deployment/plan.md` verificadas (tests, build, home con sus seis secciones, `robots.txt`, `sitemap.xml`, 404, cabeceras de `vercel.json` activas en producción, Lighthouse móvil ≥ 90 y CI en verde); roadmap cerrado con las catorce filas en ✅ done | Estado `done` | /implement |

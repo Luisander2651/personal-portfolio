@@ -75,7 +75,7 @@ están fijados: al terminar una spec, la siguiente es la primera `pendiente` de 
 | 011 | `footer` | ✅ done | Footer · correo, GitHub y LinkedIn de `profile`; sustituye a una sección de contacto (sin formularios) |
 | 012 | `seo-metadata` | ✅ done | Favicon, imagen Open Graph, sitemap y `robots.txt` |
 | 013 | `not-found-page` | ✅ done | Página 404 con el estilo del sitio y enlace a la home |
-| 014 | `deployment` | pendiente | Conectar el repositorio a un hosting estático y verificar el sitio publicado; el hosting se elige en `/spec` |
+| 014 | `deployment` | ✅ done | Conectar el repositorio a un hosting estático y verificar el sitio publicado; el hosting se elige en `/spec` |
 
 ### Reglas del roadmap
 

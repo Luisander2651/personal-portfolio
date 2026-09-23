@@ -3,7 +3,7 @@ id: 014
 title: Despliegue
 spec: specs/014-deployment/spec.md
 design: —
-status: approved
+status: done
 created: 2026-09-22
 updated: 2026-09-22
 ---
@@ -99,7 +99,7 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 - **Terminado cuando**:
   - `bun run test` y `bun run build` en verde.
 
-### [ ] T04 — Verificación final
+### [x] T04 — Verificación final
 
 - **Criterios**: todos
 - **Diseño**: —
@@ -126,4 +126,5 @@ Leyenda: `[ ]` pendiente · `[x]` hecha · `[-]` obsoleta · una tarea `[ ]` con
 | 2026-09-22 | Creación | Plan inicial de 4 tareas | — |
 | 2026-09-22 | Planificación | El `vercel.json` se analiza como JSON; el workflow se comprueba con aserciones sobre su texto (disparadores, pasos y comandos), sin analizador de YAML | El proyecto no tiene analizador de YAML y añadir uno exigiría justificar una dependencia nueva (constitución §1) |
 | 2026-09-22 | Planificación | Tests del repositorio en `tests/project/` | Separa las comprobaciones de configuración de las de `src/` |
+| 2026-09-22 | Verificación | Todas las tareas verificadas: tests y build en verde, cabeceras y estado 404 comprobados en producción, Lighthouse móvil ≥ 90 y CI en verde | Plan completado |
 | 2026-09-22 | Planificación | El cierre del roadmap (14 filas en ✅) se hace en la verificación final (T04) | Es la última spec del roadmap |
